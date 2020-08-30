@@ -1,4 +1,9 @@
 .landing_navbar {
   display:flex;
   justify-content: center;
+  align-items: center;
+}
+
+.landing_logo {
+  height: 16px;
 }
