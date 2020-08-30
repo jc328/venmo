@@ -1,27 +1,21 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
-
-import UserList from './components/UsersList';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage.js'
+import SignIn from './components/SignIn.js'
 
 
 function App() {
 
   return (
     <BrowserRouter>
-        <LandingPage />
         <Switch>
-            <Route path="/">
-                <h1>My Home Page</h1>
-            </Route>
-            <Route path="/users">
-                <UserList />
-            </Route>
+            <Route path="/signin" exact component={SignIn} />
+            <Route path="/" exact component={LandingPage} />
         </Switch>
         <nav>
             <ul>
-                <li><NavLink to="/" activeclass="active">Home</NavLink></li>
-                <li><NavLink to="/users" activeclass="active">Users</NavLink></li>
+                {/* <li><NavLink to="/" activeclass="active">Home</NavLink></li>
+                <li><NavLink to="/users" activeclass="active">Users</NavLink></li> */}
             </ul>
         </nav>
     </BrowserRouter>

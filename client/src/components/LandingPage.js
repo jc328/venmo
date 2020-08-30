@@ -1,7 +1,7 @@
 import React from 'react';
 import LandingHeader from './LandingHeader'
 import '../styles/landingPage.css'
-import { Button } from '@material-ui/core';
+import { Button, Divider } from '@material-ui/core';
 import theme from '../styles/theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
 
@@ -20,6 +20,7 @@ function LandingPage() {
               <Button variant="contained" color="primary" style={{width: '100%'}}>Sign Up Now</Button>
             </div>
           </div>
+          <Divider />
           </ThemeProvider>
         </>
     );

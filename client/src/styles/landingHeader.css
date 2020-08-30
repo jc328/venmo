@@ -4,6 +4,7 @@
   align-items: center;
   margin-top: 15px;
   margin-bottom: 20px;
+
 }
 
 .landing_logo {
@@ -15,5 +16,4 @@
   width: 47%;
   display: flex;
   justify-content: space-between;
-
 }
