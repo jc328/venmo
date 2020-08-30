@@ -1,0 +1,28 @@
+.landing_body {
+  display: flex;
+  height: 500px;
+  /* border: 1px solid; */
+  justify-content: center;
+  /* align-items: center; */
+  margin-top: 20px;
+}
+
+.landing_iphone {
+  height:90%;
+  /* position: absolute; */
+}
+
+.landing_body_text {
+  width: 30%;
+  margin-top: 50px;
+  font-size: 18px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  /* align-items: center;
+  justify-items: center; */
+}
+
+.landing_body_images {
+  width:60%;
+  justify-content: center;
+  display: flex;
+}

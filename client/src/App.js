@@ -2,14 +2,14 @@ import React from 'react';
 import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
 
 import UserList from './components/UsersList';
-import LandingHeader from './components/LandingHeader'
+import LandingPage from './components/LandingPage.js'
 
 
 function App() {
 
   return (
     <BrowserRouter>
-        <LandingHeader />
+        <LandingPage />
         <Switch>
             <Route path="/">
                 <h1>My Home Page</h1>
