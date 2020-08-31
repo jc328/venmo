@@ -8,8 +8,26 @@
 }
 
 .landing_iphone {
-  height:90%;
-  /* position: absolute; */
+  height:80%;
+  position: absolute;
+  left: 425px;
+  /* position: relative; */
+}
+
+.landing_iphone_video {
+  position: absolute;
+  height: 80%;
+  left: 422px;
+  top: 145px;
+}
+
+.landing_combined_iphone {
+
+}
+
+.landing_nexus {
+  height:80%;
+  position: absolute;
 }
 
 .landing_body_text {
