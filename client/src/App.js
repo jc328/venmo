@@ -1,27 +1,27 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route, NavLink } from 'react-router-dom';
-
-import UserList from './components/UsersList';
-import LandingHeader from './components/LandingHeader'
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import LandingPage from './components/LandingPage.js'
+import SignIn from './components/SignIn.js'
+import SignUp from './components/SignUp.js'
+import HowZenmoWorks from './components/HowZenmoWorks.js'
+import SignUpNotice from './components/SignUpNotice.js'
 
 
 function App() {
 
   return (
     <BrowserRouter>
-        <LandingHeader />
         <Switch>
-            <Route path="/">
-                <h1>My Home Page</h1>
-            </Route>
-            <Route path="/users">
-                <UserList />
-            </Route>
+            <Route path="/signup" exact component={SignUpNotice} />
+            <Route path="/signup/email" exact component={SignUp} />
+            <Route path="/signin" exact component={SignIn} />
+            <Route path="/" exact component={LandingPage} />
+            <Route path="/about/product" exact component={HowZenmoWorks} />
         </Switch>
         <nav>
             <ul>
-                <li><NavLink to="/" activeclass="active">Home</NavLink></li>
-                <li><NavLink to="/users" activeclass="active">Users</NavLink></li>
+                {/* <li><NavLink to="/" activeclass="active">Home</NavLink></li>
+                <li><NavLink to="/users" activeclass="active">Users</NavLink></li> */}
             </ul>
         </nav>
     </BrowserRouter>

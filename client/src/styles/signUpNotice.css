@@ -1,0 +1,12 @@
+
+.signup_outer_container {
+  display: flex;
+}
+
+.signup_box {
+  width: 30%;
+}
+
+.signup_next_button {
+  width: 250px;
+}

@@ -6,6 +6,13 @@ const theme = createMuiTheme({
       textTransform: 'none',
     }
   }
+  // overrides: {
+  //   MuiButton: {
+  //     raisedPrimary: {
+  //       color: 'black',
+  //     },
+  //   },
+  // }
 });
 
 export default theme;

@@ -1,4 +1,19 @@
 .landing_navbar {
   display:flex;
   justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 20px;
+
+}
+
+.landing_logo {
+  height: 17px;
+  margin-right: 140px;
+}
+
+.landing_buttons {
+  width: 47%;
+  display: flex;
+  justify-content: space-between;
 }
