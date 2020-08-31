@@ -26,7 +26,6 @@ def inject_csrf_token(response):
         httponly=True)
     return response
 
-
 @app.route('/', defaults={'path': ''})
 @app.route('/<path>')
 def react_root(path):
