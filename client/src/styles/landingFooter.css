@@ -15,13 +15,11 @@
 }
 
 .footer_disclaimer {
-  /* display: flex;
-  justify-content: center; */
   width: 90%;
   margin-left: 60px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  font-size: 10px;
-  color: #7E7E7E;
+  font-size: 11px;
+  color: #7F7F7F;
+  margin-top: 25px;
 }
 
 .footer_logos {

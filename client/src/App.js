@@ -3,6 +3,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage.js'
 import SignIn from './components/SignIn.js'
 import SignUp from './components/SignUp.js'
+import HowZenmoWorks from './components/HowZenmoWorks.js'
+import SignUpNotice from './components/SignUpNotice.js'
 
 
 function App() {
@@ -10,9 +12,11 @@ function App() {
   return (
     <BrowserRouter>
         <Switch>
-            <Route path="/signup" exact component={SignUp} />
+            <Route path="/signup" exact component={SignUpNotice} />
+            <Route path="/signup/email" exact component={SignUp} />
             <Route path="/signin" exact component={SignIn} />
             <Route path="/" exact component={LandingPage} />
+            <Route path="/about/product" exact component={HowZenmoWorks} />
         </Switch>
         <nav>
             <ul>
