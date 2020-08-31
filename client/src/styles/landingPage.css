@@ -1,9 +1,6 @@
 .landing_body {
   display: flex;
   height: 500px;
-  /* border: 1px solid; */
-  /* justify-content: center; */
-  /* align-items: center; */
   margin-top: 20px;
 }
 
@@ -11,8 +8,6 @@
   height:487px;
   width: 245px;
   position: absolute;
-  /* left: 425px; */
-  /* position: relative; */
 }
 
 .landing_iphone_video {
@@ -23,14 +18,15 @@
 .landing_nexus {
   height:487px;
   position: absolute;
-  /* left: 200px; */
 }
 
-.landing_body_text {
+.landing_body_text_box {
   width: 30%;
-  margin-top: 50px;
-  font-size: 18px;
-  font-family: -apple-system, "Helvetica Neue";
+  margin-top: 70px;
+  text-align: center;
+  font-size: 35px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 325;
 }
 
 .landing_body_images {
@@ -38,5 +34,4 @@
   width:55%;
   justify-content: center;
   display: flex;
-  /* border: 1px solid; */
 }

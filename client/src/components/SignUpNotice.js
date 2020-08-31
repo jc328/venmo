@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LandingHeader from './LandingHeader';
 import LandingFooter from './LandingFooter';
 import '../styles/signUpNotice.css';
@@ -17,13 +17,13 @@ function SignUpNotice() {
         <div className="signup_box">
           <div className="signup_title">The fun and easy way to send, spend, and receive money</div>
         </div>
+        <Link to='/signup/email' style={{textDecoration:'none'}}>
           <Button
-          variant="contained"
-          color="primary"
-          className="signup_next_button"
-          onClick={() => <Redirect to={'/signup/email'} />}
+            variant="contained"
+            color="primary"
+            className="signup_next_button"
           >Next</Button>
-
+        </Link>
       </div>
 
       <LandingFooter />
