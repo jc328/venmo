@@ -1,8 +1,7 @@
 .landing_footer_outer{
+  margin-top: 25px;
   display: flex;
-
   justify-content: center;
-
 }
 
 .footer_container {
@@ -12,7 +11,7 @@
 
 .landing_footer_container {
   justify-items: center;
-    width: 70%;
+    width: 80%;
 }
 
 .footer_disclaimer {
@@ -22,7 +21,7 @@
   margin-left: 60px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 10px;
-  color: grey;
+  color: #7E7E7E;
 }
 
 .footer_logos {
@@ -36,5 +35,22 @@
   width: 90px;
   height: 32px;
   justify-items: space-between;
+}
 
+.footer_title {
+  font-weight: 700;
+  color: #262626;
+  font-size: 15px;
+}
+
+.footer_links_container {
+  display:flex;
+  flex-direction: column;
+  justify-items: center;
+}
+
+.footer_links {
+  color: #7F7F7F;
+  text-decoration: none;
+  font-size: 13px;
 }

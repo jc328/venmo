@@ -1,7 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/landingFooter.css'
-import { Divider } from '@material-ui/core';
 import theme from '../styles/theme.js'
+import { Divider } from '@material-ui/core';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 function LandingFooter() {
@@ -14,20 +15,21 @@ function LandingFooter() {
           <div className="landing_footer_container">
 
             <div className="footer_container">
-              <div className="footer_text">
-                <p>Learn More</p>
-                <p>How it Works</p>
-                <p>Contact Us</p>
+              <div className="footer_links_container">
+                <p className="footer_title">Learn More</p>
+                <Link to="" className="footer_links">How it Works</Link>
+                <Link to="" className="footer_links">Contact Us</Link>
+                <Link to="" className="footer_links">Business</Link>
               </div>
-              <div className="footer_text">
-                <p>Company</p>
-                <p>Our Team</p>
-                <p>Jobs</p>
+              <div className="footer_links_container">
+                <p className="footer_title">Company</p>
+                <Link to="" className="footer_links">Our Team</Link>
+                <Link to="" className="footer_links">Jobs</Link>
               </div>
-              <div className="footer_text">
-                <p>Community</p>
-                <p>Blog</p>
-                <p>Help Center</p>
+              <div className="footer_links_container">
+                <p className="footer_title">Community</p>
+                <Link to="" className="footer_links">Blog</Link>
+                <Link to="" className="footer_links">Help Center</Link>
               </div>
               <div className="footer_logos">
                 <img className="footer_storelogo" src={process.env.PUBLIC_URL + 'apple-app-store.png'} alt="" />
