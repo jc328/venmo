@@ -6,6 +6,7 @@ import '../styles/landingPage.css';
 import { Button } from '@material-ui/core';
 import theme from '../styles/theme.js';
 import { ThemeProvider } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 function LandingPage() {
     return (
@@ -23,7 +24,9 @@ function LandingPage() {
 
             <div className="landing_body_text">
               <h1>Send money and make purchases at approved merchants</h1>
-              <Button variant="contained" color="primary" style={{width: '100%', marginTop: '20px'}}>Sign Up Now</Button>
+              <Link to="/signup" style={{textDecoration: 'none'}}>
+                <Button variant="contained" color="primary" style={{width: '100%', marginTop: '20px'}}>Sign Up Now</Button>
+                </Link>
             </div>
           </div>
           <LandingFooter />

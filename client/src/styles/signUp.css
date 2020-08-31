@@ -1,0 +1,22 @@
+.signup_title {
+  font-size: 30px;
+  margin-top: 25px;
+  background-color: white;
+  margin-bottom: 25px;
+}
+
+.signup_container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid;
+  width: 35%;
+  height: 250px;
+  background-color: #F7F7F7;
+}
+
+.signup_outer_container {
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+}

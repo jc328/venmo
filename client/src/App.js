@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage.js'
 import SignIn from './components/SignIn.js'
+import SignUp from './components/SignUp.js'
 
 
 function App() {
@@ -9,6 +10,7 @@ function App() {
   return (
     <BrowserRouter>
         <Switch>
+            <Route path="/signup" exact component={SignUp} />
             <Route path="/signin" exact component={SignIn} />
             <Route path="/" exact component={LandingPage} />
         </Switch>
