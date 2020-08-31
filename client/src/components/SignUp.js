@@ -12,7 +12,7 @@ function SignUp() {
       <ThemeProvider theme={theme}>
       <LandingHeader />
       <div className="signup_outer_container">
-        <div className="signup_title">Sign Up</div>
+        <div className="signup_title">Create your account</div>
         <div className="signup_container">
           <div className="signup_box"></div>
         </div>
