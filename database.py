@@ -47,9 +47,9 @@ with app.app_context():
   # print(findian2.friends, 'ian2 friends here')
 
 
-  # db.session.add(findian)
-  # findian.befriend(findian2)
-  # db.session.commit()
+  db.session.add(findian)
+  findian.befriend(findian2)
+  db.session.commit()
 
   # newtransaction = Transaction(amount= 20, payee_id= 1, payer_id= 2, message= "a debt repaid", completed= True)
   # db.session.add(newtransaction)
@@ -58,6 +58,6 @@ with app.app_context():
 
   # db.session.commit()
 
-  findiantrans = findian.credit_transactions
-  for transaction in findiantrans:
-    print(transaction.payer.username)
+  # findiantrans = findian.credit_transactions
+  # for transaction in findiantrans:
+  #   print(transaction.payer.username)

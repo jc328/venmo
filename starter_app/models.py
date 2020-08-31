@@ -38,11 +38,7 @@ class User(db.Model):
   debit_transactions = db.relationship("Transaction", foreign_keys="Transaction.payer_id", backref="payer", cascade="all, delete-orphan", lazy="dynamic")
   comments = db.relationship("Comment", back_populates="user", cascade="all, delete-orphan")
   likes = db.relationship("Like", back_populates="user", cascade="all, delete-orphan")
-  # friends = db.relationship('User',
-  #                         secondary=friendship,
-  #                         primaryjoin=id==friendship.c.user_first_id,
-  #                         secondaryjoin=id==friendship.c.user_second_id,
-  #                         cascade="all")
+
   friends = db.relationship('User',
                           secondary=Friendship.__table__,
                           primaryjoin=id==Friendship.user_first_id,
@@ -79,8 +75,7 @@ class Transaction(db.Model):
   created_at = db.Column(db.DateTime, default=datetime.datetime.now)
   updated_at = db.Column(db.DateTime, onupdate=datetime.datetime.now)
 
-  # payee = db.relationship("User", foreign_keys= "Transaction.payee_id", back_populates="credit_transactions", cascade="all, delete-orphan")
-  # payer = db.relationship("User", foreign_keys="Transaction.payer_id", back_populates="debit_transactions", cascade="all, delete-orphan")
+  #Users table uses backref to payer/payee. So you can query Transaction.payer.username to see the name of the person paying.
   comments = db.relationship("Comment", back_populates="transaction", cascade="all, delete-orphan")
   likes = db.relationship("Like", back_populates="transaction", cascade="all, delete-orphan")
 
