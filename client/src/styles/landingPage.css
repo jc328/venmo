@@ -2,28 +2,28 @@
   display: flex;
   height: 500px;
   /* border: 1px solid; */
-  justify-content: center;
+  /* justify-content: center; */
   /* align-items: center; */
   margin-top: 20px;
 }
 
 .landing_iphone {
-  height:80%;
+  height:487px;
+  width: 245px;
   position: absolute;
-  left: 425px;
+  /* left: 425px; */
   /* position: relative; */
 }
 
 .landing_iphone_video {
   position: absolute;
-  height: 80%;
-  left: 422px;
-  top: 145px;
+  top: 59px;
 }
 
 .landing_nexus {
-  height:80%;
+  height:487px;
   position: absolute;
+  /* left: 200px; */
 }
 
 .landing_body_text {
@@ -31,12 +31,12 @@
   margin-top: 50px;
   font-size: 18px;
   font-family: -apple-system, "Helvetica Neue";
-  /* align-items: center;
-  justify-items: center; */
 }
 
 .landing_body_images {
-  width:60%;
+  position: relative;
+  width:55%;
   justify-content: center;
   display: flex;
+  /* border: 1px solid; */
 }
