@@ -1,3 +1,40 @@
-.landing_footer_container{
-  margin-top: 70px;
+.landing_footer_outer{
+  display: flex;
+
+  justify-content: center;
+
+}
+
+.footer_container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.landing_footer_container {
+  justify-items: center;
+    width: 70%;
+}
+
+.footer_disclaimer {
+  /* display: flex;
+  justify-content: center; */
+  width: 90%;
+  margin-left: 60px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 10px;
+  color: grey;
+}
+
+.footer_logos {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+  /* width: 100px; */
+}
+
+.footer_storelogo {
+  width: 90px;
+  height: 32px;
+  justify-items: space-between;
+
 }
