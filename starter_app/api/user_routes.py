@@ -1,5 +1,6 @@
-from flask import Blueprint, jsonify, render_template
+from flask import Blueprint, jsonify, render_template, request
 from starter_app.models import User
+from ..models import User, db
 
 user_routes = Blueprint("user", __name__, "")
 
@@ -8,6 +9,8 @@ def index():
   response = User.query.all()
   return { "users": [user.to_dict() for user in response]}
 
-@user_routes.route('/signup')
+@user_routes.route('/signup', methods=['POST'])
 def signup():
-  return 'Hello'
+  data = request.get_json()
+  # print(data)
+  return jsonify(data)
