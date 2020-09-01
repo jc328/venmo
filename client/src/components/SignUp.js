@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import LandingHeader from './LandingHeader';
 import LandingFooter from './LandingFooter';
 import '../styles/signUp.css';
 import theme from '../styles/theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, Checkbox } from '@material-ui/core';
 import FacebookIcon from '@material-ui/icons/Facebook';
 
 
@@ -57,9 +58,18 @@ function SignUp() {
               label="Password">
             </TextField>
           </div>
-
-
-          <div className="signup_box"></div>
+          <div className="signup_disclosures">
+            <Checkbox
+              color="primary"
+            />
+            <p>I have read and agree to Venmo's User Agreement and Privacy Policy.</p>
+          </div>
+          <Link to="/" className="signin_signup_link">
+            <Button variant="contained" color="primary">
+              Sign Up
+            </Button>
+          </Link>
+          <p className="signup_submit_disclaimer">By submitting, you confirm that you are authorized to use the number entered and agree to receive SMS texts to verify you own the number. Carrier fees may apply.</p>
         </div>
 
       </div>
