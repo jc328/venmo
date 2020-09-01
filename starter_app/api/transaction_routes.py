@@ -6,39 +6,42 @@ transaction_routes = Blueprint("transactions", __name__, url_prefix="/transactio
 #Route to get all public transactions
 @transaction_routes.route("/public")
 def get_all_transactions():
-    transactions = Transaction.query.filter(Transaction.completed==True).order_by(Transaction.updated_at)
+    transactions = Transaction.query.filter(Transaction.completed==True).order_by(Transaction.updated_at).all()
     data = [transaction.to_dict() for transaction in transactions]
     return {"data": data}
 
 #Route to get all user's transactions
 @transaction_routes.route("/<int:userid>")
 def get_user_transactions(userid):
-    transactions = Transaction.query.filter(((Transaction.payee_id==userid) or (Transaction.payer_id==userid)) and Transaction.completed==True)\
-        .order_by(Transaction.updated_at)
+    transactions = Transaction.query.filter(or_(Transaction.payee_id==userid, Transaction.payer_id==userid), Transaction.completed==True)\
+        .order_by(Transaction.updated_at).all()
     data = [transaction.to_dict() for transaction in transactions]
     return {"data": data}
 
 
 #Route to get all user's friends transactions
-#get array of user's friends ids, then query transactions by most recent where payer or
-# payee id is included in friend id list, limit 10
 @transaction_routes.route("/<userid>/friends")
 def get_friend_transactions(userid):
+    user = User.query.get(userid)
+    friends_list = [friend.id for friend in user.friends]
+    transactions = Transaction.query.filter(Transaction.completed==True).order_by(Transaction.updated_at).all()
+    friend_transactions = [transaction for transaction in transactions if ((transaction.payer_id in friends_list)) or ((transaction.payee_id in friends_list))]
+    data = [transaction.to_dict() for transaction in friend_transactions]
 
 
 #Route to get users unfulfilled debit transactions
 @transaction_routes.route("/<int:userid>/debit")
 def get_pending_debits(userid):
-    transactions = Transaction.query.filter(Transaction.payer_id==userid and Transaction.completed==False)\
-        .order_by(Transaction.updated_at)
+    transactions = Transaction.query.filter(Transaction.payer_id==userid, Transaction.completed==False)\
+        .order_by(Transaction.updated_at).all()
     data = [transaction.to_dict() for transaction in transactions]
     return {"data": data}
 
 #Route to get users unfulfilled credit transactions
 @transaction_routes.route("/<int:userid>/credit")
 def get_pending_credits(userid):
-    transactions = Transaction.query.filter(Transaction.payee_id==userid and Transaction.completed==False)\
-        .order_by(Transaction.updated_at)
+    transactions = Transaction.query.filter(Transaction.payee_id==userid, Transaction.completed==False)\
+        .order_by(Transaction.updated_at).all()
     data = [transaction.to_dict() for transaction in transactions]
     return {"data": data}
 

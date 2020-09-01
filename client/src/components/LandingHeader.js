@@ -11,7 +11,8 @@ function LandingHeader() {
         <>
           <ThemeProvider theme={theme}>
             <div className="landing_navbar">
-              <Link to="/"><img className="landing_logo" src={process.env.PUBLIC_URL + 'zenmo_logo_blue.svg'} alt="" /></Link>
+              <Link to="/"><img className="landing_logo" src={process.env.PUBLIC_URL + '/zenmo_logo_blue.svg'} alt="" /></Link>
+
               <div className="landing_buttons">
 
                 <Link to="/about/product" style={{textDecoration: 'none'}}>
@@ -23,7 +24,7 @@ function LandingHeader() {
                 <Button size="small" color="primary" disabled>Security</Button>
                 <Button size="small" color="primary" disabled>Contact Us</Button>
 
-                <Link to="/signin" style={{textDecoration: 'none'}}><Button size="small" color="primary" >Sign In</Button></Link>
+                <Link to="/signin" style={{textDecoration: 'none'}}><Button size="small" color="primary">Sign In</Button></Link>
               </div>
             </div>
               <Divider />
