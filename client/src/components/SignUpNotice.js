@@ -12,7 +12,6 @@ import CreditCardIcon from '@material-ui/icons/CreditCard';
 
 
 function SignUpNotice() {
-    const history = useHistory();
 
     return (
       <>
