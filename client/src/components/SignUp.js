@@ -22,7 +22,6 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     dispatch(signUp(firstName, lastName, email, password));
-    console.log("submitted")
   }
 
     return (
@@ -46,7 +45,7 @@ function SignUp() {
               </div>
               <div className="signup_lastname">
                 <TextField
-                  required
+                  // required
                   size="small"
                   value={lastName}
                   onChange={e => setLastName(e.target.value)}
@@ -56,7 +55,7 @@ function SignUp() {
             </div>
             <div className="signup_text_container">
               <TextField
-                required
+                // required
                 className="signup_fields"
                 size="small"
                 value={email}
@@ -66,7 +65,7 @@ function SignUp() {
             </div>
             <div className="signup_text_container">
               <TextField
-                required
+                // required
                 className="signup_fields"
                 size="small"
                 label="Phone">
@@ -74,7 +73,7 @@ function SignUp() {
             </div>
             <div className="signup_text_container">
               <TextField
-                required
+                // required
                 className="signup_fields"
                 size="small"
                 value={password}
@@ -84,6 +83,7 @@ function SignUp() {
             </div>
             <div className="signup_disclosures">
               <Checkbox
+                required
                 color="primary"
               />
               <p>I have read and agree to Venmo's User Agreement and Privacy Policy.</p>
