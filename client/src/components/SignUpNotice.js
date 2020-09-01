@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import LandingHeader from './LandingHeader';
 import LandingFooter from './LandingFooter';
 import '../styles/signUpNotice.css';
@@ -8,7 +8,10 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { Button } from '@material-ui/core';
 
 
+
 function SignUpNotice() {
+    const history = useHistory();
+
     return (
       <>
       <ThemeProvider theme={theme}>
@@ -21,7 +24,7 @@ function SignUpNotice() {
           variant="contained"
           color="primary"
           className="signup_next_button"
-          onClick={() => <Redirect to={'/signup/email'} />}
+          onClick={() => history.push('/signup/email')}
           >Next</Button>
 
       </div>

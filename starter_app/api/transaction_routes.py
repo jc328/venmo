@@ -1,0 +1,107 @@
+from flask import Blueprint, jsonify, request
+from starter_app.models import db, User, Transaction, Comment, Like
+
+transaction_routes = Blueprint("transactions", __name__, url_prefix="/transaction")
+
+#Route to get all public transactions
+@transaction_routes.route("/public")
+def get_all_transactions():
+    transactions = Transaction.query.filter(Transaction.completed==True).order_by(Transaction.updated_at)
+    data = [transaction.to_dict() for transaction in transactions]
+    return {"data": data}
+
+#Route to get all user's transactions
+@transaction_routes.route("/<int:userid>")
+def get_user_transactions(userid):
+    transactions = Transaction.query.filter(((Transaction.payee_id==userid) or (Transaction.payer_id==userid)) and Transaction.completed==True)\
+        .order_by(Transaction.updated_at)
+    data = [transaction.to_dict() for transaction in transactions]
+    return {"data": data}
+
+
+#Route to get all user's friends transactions
+#get array of user's friends ids, then query transactions by most recent where payer or
+# payee id is included in friend id list, limit 10
+@transaction_routes.route("/<userid>/friends")
+def get_friend_transactions(userid):
+
+
+#Route to get users unfulfilled debit transactions
+@transaction_routes.route("/<int:userid>/debit")
+def get_pending_debits(userid):
+    transactions = Transaction.query.filter(Transaction.payer_id==userid and Transaction.completed==False)\
+        .order_by(Transaction.updated_at)
+    data = [transaction.to_dict() for transaction in transactions]
+    return {"data": data}
+
+#Route to get users unfulfilled credit transactions
+@transaction_routes.route("/<int:userid>/credit")
+def get_pending_credits(userid):
+    transactions = Transaction.query.filter(Transaction.payee_id==userid and Transaction.completed==False)\
+        .order_by(Transaction.updated_at)
+    data = [transaction.to_dict() for transaction in transactions]
+    return {"data": data}
+
+#Route to post transaction (pay a user)
+''' request json should look like this:
+{
+    "amount": 100.00,
+    "payee_id": (user id of person recieving payment),
+    "payer_id": (user id of person making payment),
+    "message": "Optional message",
+    "completed: true
+}
+'''
+@transaction_routes.route("/pay", methods = ["POST"])
+def create_payment_transaction():
+    data = request.json
+    transaction = Transaction(**data)
+    payer = User.query.get(data.payer_id)
+    payee = User.query.get(data.payee_id)
+    db.session.add(transaction)
+    db.session.add(payer)
+    payer.balance -= data.amount
+    db.session.add(payee)
+    payee.balance += data.amount
+    db.session.commit()
+    return transaction.to_dict()
+
+
+#Route to post transaction (request payment from a user)
+''' request json should look like this: **make sure completed is false
+{
+    "amount": 100.00,
+    "payee_id": (user id of person recieving payment),
+    "payer_id": (user id of person making payment),
+    "message": "Optional message",
+    "completed: false
+}
+'''
+@transaction_routes.route("/request", methods = ["POST"])
+def create_request_transaction():
+    data = request.json
+    transaction = Transaction(**data)
+    db.session.add(transaction)
+    db.session.commit()
+    return transaction.to_dict()
+
+
+#Route to update transaction (confirm payment)
+''' request json should look like this, I think we only need the transaction id:
+{
+    "transaction_id": id of transaction
+}
+'''
+@transaction_routes.route("/confirm", methods = ["POST"])
+def confirm_payment():
+    data = request.json
+    transaction = Transaction.query.get(data.transaction_id)
+    payer = User.query.get(transaction.payer_id)#may need to be transaction.payer
+    payee = User.query.get(transaction.payee_id)
+    db.session.add(transaction)
+    db.session.add(payer)
+    payer.balance -= transaction.amount
+    db.session.add(payee)
+    payee.balance += transaction.amount
+    db.session.commit()
+    return transaction.to_dict()
