@@ -3,14 +3,6 @@ import datetime
 
 db = SQLAlchemy()
 
-# friendship = db.Table(
-#     'friendships', db.metadata,
-#     db.Column('id', db.Integer, primary_key = True),
-#     db.Column('user_first_id', db.Integer, db.ForeignKey('users.id'), index=True),
-#     db.Column('user_second_id', db.Integer, db.ForeignKey('users.id')),
-#     db.Column('status', db.Integer, default = 0),
-#     db.UniqueConstraint('user_first_id', 'user_second_id', name='unique_friendships'))
-
 class Friendship(db.Model):
     __tablename__= "friendships"
     id= db.Column(db.Integer, primary_key = True)
@@ -78,6 +70,18 @@ class Transaction(db.Model):
   #Users table uses backref to payer/payee. So you can query Transaction.payer.username to see the name of the person paying.
   comments = db.relationship("Comment", back_populates="transaction", cascade="all, delete-orphan")
   likes = db.relationship("Like", back_populates="transaction", cascade="all, delete-orphan")
+
+  def to_dict(self):
+    return {
+      "id": self.id,
+      "amount": self.amount,
+      "payee": self.payee.id, #id as placeholder for now, may want to change to username or something else later
+      "payer": self.payer.id,
+      "message": self.message,
+      "completed": self.completed,
+      "created_at": self.created_at,
+      "updated_at": self.updated_at
+    }
 
 class Comment(db.Model):
   __tablename__='comments'
