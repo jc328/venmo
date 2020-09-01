@@ -1,6 +1,5 @@
 .signup_title {
   font-size: 26px;
-  margin-top: 25px;
   background-color: white;
   margin-bottom: 25px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -10,10 +9,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid;
   border-radius: 7px;
   width: 35%;
-  height: 250px;
+  height: 350px;
   background-color: #F7F7F7;
 }
 
@@ -21,4 +19,19 @@
   display:flex;
   flex-direction: column;
   align-items: center;
+}
+
+.signup_names {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  margin-top: 15px;
+}
+
+.signup_text_container {
+  margin-top: 20px;
+}
+
+.signup_fields {
+  width: 355px;
 }

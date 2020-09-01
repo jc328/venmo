@@ -18,3 +18,10 @@
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 325;
 }
+
+.signup_flaver_text {
+  width: 23%;
+  margin: 15px 0;
+  font-weight: 325;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}

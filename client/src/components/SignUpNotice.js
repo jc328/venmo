@@ -5,8 +5,10 @@ import LandingFooter from './LandingFooter';
 import '../styles/signUpNotice.css';
 import theme from '../styles/theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
-import { Button } from '@material-ui/core';
-
+import { Button, Divider } from '@material-ui/core';
+import CompareArrowsIcon from '@material-ui/icons/CompareArrows';
+import LocalAtmIcon from '@material-ui/icons/LocalAtm';
+import CreditCardIcon from '@material-ui/icons/CreditCard';
 
 function SignUpNotice() {
     return (
@@ -17,7 +19,14 @@ function SignUpNotice() {
         <div className="signup_box">
           <div className="signup_title">The fun and easy way to send, spend, and receive money</div>
         </div>
-        <Link to='/signup/email' style={{textDecoration:'none'}}>
+        <CompareArrowsIcon />
+        <div className="signup_flaver_text">Make payments using your debit card, credit card, bank account, and more</div>
+        <LocalAtmIcon color="primary" style={{ fontSize: 30 }}/>
+        <div className="signup_flaver_text">Track all your payments in one place, and split or share with Venmo friends</div>
+        <CreditCardIcon size="large" color="primary" style={{ fontSize: 30 }}/>
+        <div className="signup_flaver_text">Apply for a Venmo card and take Venmo shopping everywhere Mastercard® is accepted in the U.S.  A quick look at our fees</div>
+        <Divider />
+        <Link to='/signup/email' style={{textDecoration:'none', marginTop:50}}>
           <Button
             variant="contained"
             color="primary"
