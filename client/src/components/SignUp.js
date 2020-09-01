@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import LandingHeader from './LandingHeader';
 import LandingFooter from './LandingFooter';
 import '../styles/signUp.css';
@@ -10,19 +10,19 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import { useDispatch } from 'react-redux'
 import { signUp } from '../store/user';
 
-
-
 function SignUp() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
 
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(signUp(name, email, password));
+    dispatch(signUp(firstName, lastName, email, password));
+    console.log("submitted")
   }
 
     return (
@@ -32,13 +32,15 @@ function SignUp() {
       <div className="signup_outer_container">
         <div className="signup_title">Create your account</div>
           <Button startIcon={<FacebookIcon />} variant="contained" color="primary" style={{marginBottom: 25}}>Sign Up with Facebook</Button>
-        <form onSubmit={handleSubmit}>
-          <div className="signup_container">
+        <div className="signup_container">
+          <form onSubmit={handleSubmit}>
             <div className="signup_names">
               <div className="signup_firstname">
                 <TextField
                   required
                   size="small"
+                  value={firstName}
+                  onChange={e => setFirstName(e.target.value)}
                   label="First Name">
                 </TextField>
               </div>
@@ -46,6 +48,8 @@ function SignUp() {
                 <TextField
                   required
                   size="small"
+                  value={lastName}
+                  onChange={e => setLastName(e.target.value)}
                   label="Last Name">
                 </TextField>
               </div>
@@ -55,6 +59,8 @@ function SignUp() {
                 required
                 className="signup_fields"
                 size="small"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
                 label="Email">
               </TextField>
             </div>
@@ -71,6 +77,8 @@ function SignUp() {
                 required
                 className="signup_fields"
                 size="small"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
                 label="Password">
               </TextField>
             </div>
@@ -80,14 +88,16 @@ function SignUp() {
               />
               <p>I have read and agree to Venmo's User Agreement and Privacy Policy.</p>
             </div>
-            <Link to="/" className="signin_signup_link">
+            {/* <Link to="/" className="signin_signup_link"> */}
+            <div className="signin_signup_link">
               <Button type="submit" variant="contained" color="primary">
                 Sign Up
               </Button>
-            </Link>
+            </div>
+            {/* </Link> */}
           <p className="signup_submit_disclaimer">By submitting, you confirm that you are authorized to use the number entered and agree to receive SMS texts to verify you own the number. Carrier fees may apply.</p>
+          </form>
         </div>
-        </form>
 
       </div>
       <LandingFooter />

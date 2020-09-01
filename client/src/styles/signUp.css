@@ -29,23 +29,29 @@
 }
 
 .signup_text_container {
+  display: flex;
+  width: 100%;
   margin-top: 20px;
+  justify-content: center;
 }
 
 .signup_fields {
-  width: 355px;
+  width: 90%;
 }
 
 .signup_disclosures {
   margin-top: 20px;
   display: flex;
-  align-items: center;
+  justify-content: center;
   width:355px;
   font-size: 12px;
+  margin-left: 10px;
 }
 
 .signin_signup_link {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
 }
 
 .signup_submit_disclaimer {
