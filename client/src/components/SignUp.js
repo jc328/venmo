@@ -8,7 +8,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { TextField, Button, Checkbox } from '@material-ui/core';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import { useDispatch } from 'react-redux'
-import { signUp } from '../store/user';
+import { signUp } from '../actions/user'
 
 function SignUp() {
 

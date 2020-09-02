@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+}
+
+.landing_logo {
+  fill: white;
+}
+
+.dash_container {
+  display: flex;
+  background-color: #3C95D2;
+  height: 35px;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+.dash_logo_search {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dash_account_buttons {
+
+}
