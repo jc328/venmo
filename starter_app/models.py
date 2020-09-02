@@ -1,5 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 import datetime
+from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
@@ -54,6 +55,23 @@ class User(db.Model):
           self.friends.remove(friend)
           friend.friends.remove(self)
 
+  @property
+  def password(self):
+      return self.hashed_password
+
+  @password.setter
+  def password(self, password):
+      self.hashed_password = generate_password_hash(password)
+
+  def check_password(self, password):
+      return check_password_hash(self.password, password)
+
+  def accept(self, friend):
+    if friend in self.friends:
+      user1_friendship = Friendship.query.filter(Friendship.user_first_id == friend.id, Friendship.user_second_id == self.id).one()
+      user2_friendship = Friendship.query.filter(Friendship.user_first_id == self.id, Friendship.user_second_id == friend.id).one()
+      user1_friendship.status = 1
+      user2_friendship.status = 1
 
 class Transaction(db.Model):
   __tablename__='transactions'
