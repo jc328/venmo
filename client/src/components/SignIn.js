@@ -6,12 +6,14 @@ import '../styles/signIn.css';
 import { TextField, Button } from '@material-ui/core';
 import theme from '../styles/theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
+import GoogleAuth from './GoogleAuth.js'
 
 function SignIn() {
     return (
         <>
           <ThemeProvider theme={theme}>
           <LandingHeader />
+          <GoogleAuth />
           <div className="signin_outer_container">
             <div className="signin_title">Sign in to Zenmo</div>
             <div className="signin_container">

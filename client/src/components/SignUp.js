@@ -88,13 +88,11 @@ function SignUp() {
               />
               <p>I have read and agree to Venmo's User Agreement and Privacy Policy.</p>
             </div>
-            {/* <Link to="/" className="signin_signup_link"> */}
             <div className="signin_signup_link">
               <Button type="submit" variant="contained" color="primary">
                 Sign Up
               </Button>
             </div>
-            {/* </Link> */}
           <p className="signup_submit_disclaimer">By submitting, you confirm that you are authorized to use the number entered and agree to receive SMS texts to verify you own the number. Carrier fees may apply.</p>
           </form>
         </div>
