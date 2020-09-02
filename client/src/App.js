@@ -11,17 +11,17 @@ import DashBoard from './components/DashBoard.js'
 
 function App() {
 
-  const [loaded, setLoaded] = useState(false);
-  const dispatch = useDispatch();
+  // const [loaded, setLoaded] = useState(false);
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    setLoaded(true);
-    dispatch(loadToken());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   setLoaded(true);
+  //   dispatch(loadToken());
+  // }, [dispatch]);
 
-  if (!loaded) {
-    return null;
-  }
+  // if (!loaded) {
+  //   return null;
+  // }
 
   return (
     <BrowserRouter>

@@ -9,6 +9,7 @@ const transactionsLoad = list => ({
 
 export const getTransactions = () => async (dispatch, getState) => {
   // const { authentication: { token } } = getState();
+  console.log("*** getTransactions ***");
   const response = await fetch(`${baseUrl}/transaction/public`, {
     // headers: {
     //   Authorization: `Bearer ${token}`,

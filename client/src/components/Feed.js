@@ -18,11 +18,11 @@ const Feed = () => {
 
   return (
     <div className="feed-transaction-posts">
-      {transactions.map((transaction) => {
+      {transactions.data.map((transaction) => {
         return (
           <div key={transaction.id} className="feed-transaction-post">
-              <div className="feed-profile-photo" style={{ backgroundImage: `url('${transaction.User.picUrl}')` }} />
-              <div className="feed-profile-name">{transaction.User.first_name}</div>
+              <div className="feed-profile-photo" style={{ backgroundImage: `url('${transaction.picUrl}')` }} />
+              <div className="feed-profile-name">{transaction.first_name}</div>
             <div className="feed-image-info">
               <div className="feed-caption">
                 <span className="feed-caption-text">{transaction.message}</span>

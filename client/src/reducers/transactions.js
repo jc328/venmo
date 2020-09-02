@@ -2,7 +2,7 @@ import {
   TRANSACTIONSLOAD
 } from '../actions/transactions';
 
-export const transactionsReducer = (state = { types: [] }, action) => {
+const transactionsReducer = (state = { types: [] }, action) => {
   switch (action.type) {
     case TRANSACTIONSLOAD: {
       return {
@@ -14,3 +14,5 @@ export const transactionsReducer = (state = { types: [] }, action) => {
     default: return state;
   }
 }
+
+export default transactionsReducer;
