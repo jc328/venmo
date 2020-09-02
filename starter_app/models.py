@@ -42,7 +42,11 @@ class User(db.Model):
     return {
       "id": self.id,
       "username": self.username,
-      "email": self.email
+      "first_name": self.first_name,
+      "last_name": self.last_name,
+      "email": self.email,
+      "picUrl": self.picUrl,
+      "balance": float(self.balance),
     }
 
   def befriend(self, friend):
@@ -92,7 +96,7 @@ class Transaction(db.Model):
   def to_dict(self):
     return {
       "id": self.id,
-      "amount": self.amount,
+      "amount": float(self.amount),
       "payee": self.payee.id, #id as placeholder for now, may want to change to username or something else later
       "payer": self.payer.id,
       "message": self.message,

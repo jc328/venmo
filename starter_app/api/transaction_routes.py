@@ -54,22 +54,24 @@ def get_pending_credits(userid):
     "payee_id": (user id of person recieving payment),
     "payer_id": (user id of person making payment),
     "message": "Optional message",
-    "completed: true
+    "completed": true
 }
 '''
 @transaction_routes.route("/pay", methods = ["POST"])
 def create_payment_transaction():
     data = request.json
+    print(data)
     transaction = Transaction(**data)
-    payer = User.query.get(data.payer_id)
-    payee = User.query.get(data.payee_id)
+    payer = User.query.get(data["payer_id"])
+    payee = User.query.get(data["payee_id"])
     db.session.add(transaction)
     db.session.add(payer)
-    payer.balance -= data.amount
+    payer.balance = float(payer.balance) - data["amount"]
     db.session.add(payee)
-    payee.balance += data.amount
+    payee.balance = float(payee.balance) + data["amount"]
     db.session.commit()
-    return transaction.to_dict()
+    # return {"hi": "return"}, 200
+    return transaction.to_dict(), 200
 
 
 #Route to post transaction (request payment from a user)
@@ -100,13 +102,14 @@ def create_request_transaction():
 @transaction_routes.route("/confirm", methods = ["POST"])
 def confirm_payment():
     data = request.json
-    transaction = Transaction.query.get(data.transaction_id)
-    payer = User.query.get(transaction.payer_id)#may need to be transaction.payer
+    transaction = Transaction.query.get(data["transaction_id"])
+    payer = User.query.get(transaction.payer_id)
     payee = User.query.get(transaction.payee_id)
     db.session.add(transaction)
     db.session.add(payer)
-    payer.balance -= transaction.amount
+    payer.balance = payer.balance - transaction.amount
     db.session.add(payee)
-    payee.balance += transaction.amount
+    payee.balance = payee.balance + transaction.amount
+    transaction.completed = True
     db.session.commit()
     return transaction.to_dict()

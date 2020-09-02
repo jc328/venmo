@@ -49,9 +49,10 @@ def login():
 
     user= User.query.filter(User.username==username).one()
 
-    if (user.hashed_password == user.check_password_hash(password)):
+    # if (user.hashed_password == user.check_password_hash(password)):
+    if (user.hashed_password == password):
     # Identity can be any data that is json serializable
-      access_token = create_access_token(identity=username)
+      access_token = create_access_token(identity=user.to_dict())
       return jsonify(access_token=access_token), 200
     else:
       return jsonify({"msg": "Bad username or password"}), 400
@@ -61,11 +62,11 @@ def login():
 
 # Protect a view with jwt_required, which requires a valid access token
 # in the request to access.
-# @app.route('/protected', methods=['GET'])
-# @jwt_required
-# def protected():
-#     # Access the identity of the current user with get_jwt_identity
-#     current_user = get_jwt_identity()
-#     return jsonify(logged_in_as=current_user), 200
+@user_routes.route('/protected', methods=['GET'])
+@jwt_required
+def protected():
+    # Access the identity of the current user with get_jwt_identity
+    current_user = get_jwt_identity()
+    return jsonify(logged_in_as=current_user), 200
 
 #if we want we can also put other pieces of info into the jwt in addition to the username.
