@@ -36,25 +36,34 @@ def signup():
 
 @user_routes.route('/login', methods=['POST'])
 def login():
-    if not request.is_json:
-      return jsonify({"msg": "Missing JSON in request"}), 400
+    data = request.get_json()
+    print(data)
+    return {'token': 'testing token'}
 
-    username = request.json.get('username', None)
-    password = request.json.get('password', None)
 
-    if not username:
-      return jsonify({"msg": "Missing username parameter"}), 400
-    if not password:
-      return jsonify({"msg": "Missing password parameter"}), 400
+# @user_routes.route('/login', methods=['POST'])
+# def login():
+#     if not request.is_json:
+#       return jsonify({"msg": "Missing JSON in request"}), 400
 
-    user= User.query.filter(User.username==username).one()
+#     username = request.json.get('username', None)
+#     password = request.json.get('password', None)
 
-    if (user.hashed_password == user.check_password_hash(password)):
-    # Identity can be any data that is json serializable
-      access_token = create_access_token(identity=username)
-      return jsonify(access_token=access_token), 200
-    else:
-      return jsonify({"msg": "Bad username or password"}), 400
+#     if not username:
+#       return jsonify({"msg": "Missing username parameter"}), 400
+#     if not password:
+#       return jsonify({"msg": "Missing password parameter"}), 400
+
+#     user= User.query.filter(User.username==username).one()
+
+#     if (user.hashed_password == user.check_password_hash(password)):
+#     # Identity can be any data that is json serializable
+#       access_token = create_access_token(identity=username)
+#       return jsonify(access_token=access_token), 200
+#     else:
+#       return jsonify({"msg": "Bad username or password"}), 400
+
+
 
 #from flask_jwt_extended docs https://flask-jwt-extended.readthedocs.io/en/stable/basic_usage/
 #if we want to protect a view or api request and make sure jwt is required, do something like the following:
