@@ -66,7 +66,6 @@ class User(db.Model):
   def check_password(self, password):
       return check_password_hash(self.password, password)
 
-
   def accept(self, friend):
     if friend in self.friends:
       user1_friendship = Friendship.query.filter(Friendship.user_first_id == friend.id, Friendship.user_second_id == self.id).one()
