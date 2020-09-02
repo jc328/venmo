@@ -11,7 +11,7 @@
   align-items: center;
   border-radius: 7px;
   width: 35%;
-  height: 350px;
+  height: 450px;
   background-color: #F7F7F7;
 }
 
@@ -29,9 +29,32 @@
 }
 
 .signup_text_container {
+  display: flex;
+  width: 100%;
   margin-top: 20px;
+  justify-content: center;
 }
 
 .signup_fields {
-  width: 355px;
+  width: 90%;
+}
+
+.signup_disclosures {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  width:355px;
+  font-size: 12px;
+  margin-left: 10px;
+}
+
+.signin_signup_link {
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+}
+
+.signup_submit_disclaimer {
+  font-size: 10px;
+  text-align: center;
 }

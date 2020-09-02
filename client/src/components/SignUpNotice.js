@@ -10,7 +10,9 @@ import CompareArrowsIcon from '@material-ui/icons/CompareArrows';
 import LocalAtmIcon from '@material-ui/icons/LocalAtm';
 import CreditCardIcon from '@material-ui/icons/CreditCard';
 
+
 function SignUpNotice() {
+
     return (
       <>
       <ThemeProvider theme={theme}>

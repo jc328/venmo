@@ -11,7 +11,7 @@ function LandingHeader() {
         <>
           <ThemeProvider theme={theme}>
             <div className="landing_navbar">
-              <Link to="/"><img className="landing_logo" src={process.env.PUBLIC_URL + 'zenmo_logo_blue.svg'} alt="" /></Link>
+              <Link to="/"><img className="landing_logo" src={process.env.PUBLIC_URL + '/zenmo_logo_blue.svg'} alt="" /></Link>
 
               <div className="landing_buttons">
 
