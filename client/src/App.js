@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage.js'
 import SignIn from './components/SignIn.js'
@@ -9,6 +10,18 @@ import DashBoard from './components/DashBoard.js'
 
 
 function App() {
+
+  const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setLoaded(true);
+    dispatch(loadToken());
+  }, [dispatch]);
+
+  if (!loaded) {
+    return null;
+  }
 
   return (
     <BrowserRouter>
