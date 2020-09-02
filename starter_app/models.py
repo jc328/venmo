@@ -61,7 +61,13 @@ class User(db.Model):
       if friend in self.friends:
           self.friends.remove(friend)
           friend.friends.remove(self)
-
+          
+  def accept(self, friend):
+    if friend in self.friends:
+      user1_friendship = Friendship.query.filter(Friendship.user_first_id == friend.id, Friendship.user_second_id == self.id).one()
+      user2_friendship = Friendship.query.filter(Friendship.user_first_id == self.id, Friendship.user_second_id == friend.id).one()
+      user1_friendship.status = 1
+      user2_friendship.status = 1
 
 class Transaction(db.Model):
   __tablename__='transactions'
