@@ -18,44 +18,45 @@ def signup():
   data = request.get_json()
   hash = generate_password_hash(data['password'])
 
-  newData = User(
-    username=random.random(),
+  user = User(
+    username= f'{data["firstName"]}-{data["lastName"]}',
     first_name=data['firstName'],
     last_name=data['lastName'],
     email = data['email'],
     hashed_password = hash,
     balance = 500)
 
-  db.session.add(newData)
+  db.session.add(user)
   db.session.commit()
-  return ""
-  # try:
-  #   return redirect(url_for('/signin'))
-  # except Exception:
-  #   return jsonify(message="User with that email or username already exists"), 409
+  access_token = create_access_token(identity=user.email)
+  return {"token": access_token, "user": user.to_dict()}, 200
+
+
 
 @user_routes.route('/login', methods=['POST'])
 def login():
     if not request.is_json:
       return jsonify({"msg": "Missing JSON in request"}), 400
 
-    username = request.json.get('username', None)
+    email = request.json.get('email', None)
     password = request.json.get('password', None)
 
-    if not username:
-      return jsonify({"msg": "Missing username parameter"}), 400
+    if not email:
+      return jsonify({"msg": "Missing email parameter"}), 400
     if not password:
       return jsonify({"msg": "Missing password parameter"}), 400
 
-    user= User.query.filter(User.username==username).one()
+    user= User.query.filter(User.email==email).one()
 
-    # if (user.hashed_password == user.check_password_hash(password)):
-    if (user.hashed_password == password):
+    if (user.check_password(password)):
+    # if (user.hashed_password == password):
     # Identity can be any data that is json serializable
-      access_token = create_access_token(identity=user.to_dict())
-      return jsonify(access_token=access_token), 200
+      access_token = create_access_token(identity=email)
+      return {"token": access_token, "user": user.to_dict()}
     else:
-      return jsonify({"msg": "Bad username or password"}), 400
+      return jsonify({"msg": "Bad email or password"}), 400
+
+
 
 #from flask_jwt_extended docs https://flask-jwt-extended.readthedocs.io/en/stable/basic_usage/
 #if we want to protect a view or api request and make sure jwt is required, do something like the following:

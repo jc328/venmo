@@ -70,7 +70,6 @@ def create_payment_transaction():
     db.session.add(payee)
     payee.balance = float(payee.balance) + data["amount"]
     db.session.commit()
-    # return {"hi": "return"}, 200
     return transaction.to_dict(), 200
 
 
