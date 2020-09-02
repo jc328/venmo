@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+// import { Button, Divider } from '@material-ui/core';
 
 function GoogleAuth() {
   const [signIn, setSignIn] = useState('null');
@@ -15,7 +16,7 @@ function GoogleAuth() {
     });
   }, [])
 
-  const test = () => {
+  const status = () => {
     if (signIn === 'null') {
       return <div>Still Waiting</div>
     } else if (signIn) {
@@ -28,7 +29,8 @@ function GoogleAuth() {
 
   return (
         <>
-          <div>Google Auth: {test()}</div>
+          {/* <Button variant="contained" onClick={() => auth.signIn()}>Google Sign In</Button> */}
+          <div>Google Auth Status: {status()}</div>
         </>
     );
 }

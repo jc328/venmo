@@ -30,8 +30,8 @@ function App() {
             <Route path="/signup/email" exact component={SignUp} />
             <Route path="/signin" exact component={SignIn} />
             <Route path="/" exact component={LandingPage} />
-            <Route path="/dashboard" exact component={DashBoard} />
             <Route path="/about/product" exact component={HowZenmoWorks} />
+            <Route path="/dashboard" exact component={DashBoard} />
         </Switch>
         <nav>
             <ul>
