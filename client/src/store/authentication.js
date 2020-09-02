@@ -18,7 +18,7 @@ export const signIn = (email, password) => async dispatch => {
     if (!response.ok) {
       throw response;
     } else {
-      const { token } = await response.json();
+      const { token, user } = await response.json();
       localStorage.setItem(ZENMO_TOKEN, token);
       dispatch(setToken(token));
     }

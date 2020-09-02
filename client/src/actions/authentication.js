@@ -1,6 +1,7 @@
 import { baseUrl } from '../config';
 
 const TOKEN_KEY = 'zenmo/authentication/token';
+const CURRENT_USER = 'zenmo/authentication/user';
 export const SET_TOKEN = 'SET_TOKEN';
 export const REMOVE_TOKEN = 'REMOVE_TOKEN';
 
@@ -28,8 +29,9 @@ export const login = (email, password) => async dispatch => {
   });
 
   if (response.ok) {
-    const { token } = await response.json();
+    const { token, user } = await response.json();
     window.localStorage.setItem(TOKEN_KEY, token);
+    window.localStorage.setItem(CURRENT_USER, JSON.stringify(user));
     dispatch(setToken(token));
   }
 };
