@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, render_template, request
 from starter_app.models import User
 from ..models import User, db
-from flask_jwt_extended import jwt_optional, create_access_token, get_jwt_identity
+from flask_jwt_extended import jwt_optional, create_access_token, get_jwt_identity, jwt_required
 
 user_routes = Blueprint("user", __name__, "")
 

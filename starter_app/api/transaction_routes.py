@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from starter_app.models import db, User, Transaction, Comment, Like
+from sqlalchemy import and_, or_
 
 transaction_routes = Blueprint("transactions", __name__, url_prefix="/transaction")
 
@@ -27,6 +28,7 @@ def get_friend_transactions(userid):
     transactions = Transaction.query.filter(Transaction.completed==True).order_by(Transaction.updated_at).all()
     friend_transactions = [transaction for transaction in transactions if ((transaction.payer_id in friends_list)) or ((transaction.payee_id in friends_list))]
     data = [transaction.to_dict() for transaction in friend_transactions]
+    return {"data": data}
 
 
 #Route to get users unfulfilled debit transactions
