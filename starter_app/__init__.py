@@ -18,7 +18,7 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes)
 app.register_blueprint(transaction_routes)
 db.init_app(app)
-migrate = Migrate(app,db)
+migrate = Migrate(app, db)
 
 ## Application Security
 jwt = JWTManager(app)

@@ -1,8 +1,8 @@
-"""create tables with fixes
+"""test db
 
-Revision ID: d36638734bcf
+Revision ID: f427a74c4cfe
 Revises: 
-Create Date: 2020-08-31 11:03:13.457904
+Create Date: 2020-09-01 09:46:56.005150
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'd36638734bcf'
+revision = 'f427a74c4cfe'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -40,8 +40,7 @@ def upgrade():
     sa.Column('status', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['user_first_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['user_second_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('user_first_id', 'user_second_id', name='unique_friendships')
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_friendships_user_first_id'), 'friendships', ['user_first_id'], unique=False)
     op.create_table('transactions',
