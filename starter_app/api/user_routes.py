@@ -1,6 +1,7 @@
-from flask import Blueprint, jsonify, render_template, request
+from flask import Blueprint, jsonify, render_template, request, redirect, url_for
 from starter_app.models import User
 from ..models import User, db
+from werkzeug.security import generate_password_hash
 from flask_jwt_extended import jwt_optional, create_access_token, get_jwt_identity, jwt_required
 
 user_routes = Blueprint("user", __name__, "")
@@ -12,9 +13,25 @@ def index():
 
 @user_routes.route('/signup', methods=['POST'])
 def signup():
+
   data = request.get_json()
-  # print(data)
-  return jsonify(data)
+  hash = generate_password_hash(data['password'])
+
+  newData = User(
+    username=random.random(),
+    first_name=data['firstName'],
+    last_name=data['lastName'],
+    email = data['email'],
+    hashed_password = hash,
+    balance = 500)
+
+  db.session.add(newData)
+
+  try:
+    db.session.commit()
+    return redirect(url_for('/signin'))
+  except Exception:
+    return jsonify(message="User with that email or username already exists"), 409
 
 @user_routes.route('/login', methods=['POST'])
 def login():
