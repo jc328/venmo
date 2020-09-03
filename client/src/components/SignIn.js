@@ -8,12 +8,8 @@ import { Alert } from '@material-ui/lab';
 import theme from '../styles/theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
 import GoogleAuth from './GoogleAuth.js'
-<<<<<<< HEAD
 import { useDispatch, useSelector } from 'react-redux'
 // import { signIn } from '../store/authentication.js';
-=======
-import { useDispatch } from 'react-redux'
->>>>>>> e4664fea1173b02645ccdcc5d5bf0a349d8f6044
 import * as AuthActions from '../actions/authentication';
 
 
@@ -46,12 +42,8 @@ function SignIn() {
         <>
           <ThemeProvider theme={theme}>
           <LandingHeader />
-<<<<<<< HEAD
           <GoogleAuth />
           {valErrors? <Alert severity="error">{valErrors.msg}</Alert> : null}
-=======
-          <div><GoogleAuth /></div>
->>>>>>> e4664fea1173b02645ccdcc5d5bf0a349d8f6044
           <form onSubmit={handleSubmit}>
           <div className="signin_outer_container">
             <div className="signin_title">Sign in to Zenmo</div>

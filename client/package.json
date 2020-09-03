@@ -18,14 +18,10 @@
     "react-scripts": "3.4.3",
     "react-search-bar-semantic-ui": "^1.1.1",
     "redux": "^4.0.5",
-<<<<<<< HEAD
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
-=======
     "redux-thunk": "^2.3.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^1.2.1"
->>>>>>> e4664fea1173b02645ccdcc5d5bf0a349d8f6044
   },
   "scripts": {
     "start": "react-scripts start",

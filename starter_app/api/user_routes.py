@@ -29,7 +29,6 @@ def sign_up():
 
     user.set_password(data['password'])
 
-<<<<<<< HEAD
     db.session.add(user)
     db.session.commit()
     email = user.email
@@ -37,13 +36,6 @@ def sign_up():
     return {"token": access_token, "user": user.to_dict()}, 200
   except AssertionError as exception_message:
     return jsonify(msg='Error: {}. '.format(exception_message)), 400
-=======
-@user_routes.route('/login', methods=['POST', 'DELETE'])
-def login():
-    data = request.get_json()
-    print(data)
-    return {'token': 'testing token'}
->>>>>>> e4664fea1173b02645ccdcc5d5bf0a349d8f6044
 
 
 
