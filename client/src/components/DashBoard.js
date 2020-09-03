@@ -6,9 +6,9 @@ import DashHeader from './DashHeader'
 function DashBoard() {
     return (
         <>
-            <Feed/>
             <DashHeader />
             <h3>Dashboard Content</h3>
+            <Feed/>
         </>
     );
 }
