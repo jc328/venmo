@@ -1,20 +1,30 @@
 import {
   SET_TOKEN,
-  REMOVE_TOKEN,
+  SET_USER,
+  REMOVE_AUTH,
+  VAL_ERRORS,
 } from '../actions/authentication';
 
 const authReducer = (state = {}, action) => {
+  let nextState = {...state}
   switch (action.type) {
-    case SET_TOKEN: {
-      return {
-        ...state,
-        token: action.token,
-      };
+
+    case SET_USER: {
+      nextState= {...nextState, user: action.user}
+      return nextState;
     }
 
-    case REMOVE_TOKEN: {
-      const nextState = { ...state };
-      delete nextState.token;
+    case SET_TOKEN: {
+      nextState= {...nextState, token: action.token}
+      return nextState;
+    }
+
+    case REMOVE_AUTH: {
+      nextState = {};
+      return nextState;
+    }
+    case VAL_ERRORS: {
+      nextState = {...nextState, valErrors: action.valErrors}
       return nextState;
     }
 

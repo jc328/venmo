@@ -6,9 +6,11 @@ import '../styles/signUp.css';
 import theme from '../styles/theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
 import { TextField, Button, Checkbox } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import FacebookIcon from '@material-ui/icons/Facebook';
-import { useDispatch } from 'react-redux'
-import { signUp } from '../actions/user'
+import { useDispatch, useSelector } from 'react-redux'
+import { removeAuth, signUp } from '../actions/authentication';
+import {useHistory} from 'react-router-dom'
 
 function SignUp() {
 
@@ -16,12 +18,17 @@ function SignUp() {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-
   const dispatch = useDispatch();
+  const history = useHistory();
+  const valErrors = useSelector(state=> state.authentication.valErrors)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(signUp(firstName, lastName, email, password));
+    await dispatch(removeAuth())
+    const storeReady = await dispatch(signUp(firstName, lastName, email, password));
+    if (storeReady) {
+      history.push('/dashboard')
+    }
   }
 
     return (
@@ -31,6 +38,7 @@ function SignUp() {
       <div className="signup_outer_container">
         <div className="signup_title">Create your account</div>
           <Button startIcon={<FacebookIcon />} variant="contained" color="primary" style={{marginBottom: 25}}>Sign Up with Facebook</Button>
+          {valErrors? <Alert severity="error">{valErrors.msg}</Alert> : null}
         <div className="signup_container">
           <form onSubmit={handleSubmit}>
             <div className="signup_names">
@@ -45,7 +53,7 @@ function SignUp() {
               </div>
               <div className="signup_lastname">
                 <TextField
-                  // required
+                  required
                   size="small"
                   value={lastName}
                   onChange={e => setLastName(e.target.value)}
@@ -55,7 +63,7 @@ function SignUp() {
             </div>
             <div className="signup_text_container">
               <TextField
-                // required
+                required
                 className="signup_fields"
                 size="small"
                 value={email}
@@ -73,14 +81,16 @@ function SignUp() {
             </div>
             <div className="signup_text_container">
               <TextField
-                // required
+                required
                 className="signup_fields"
                 size="small"
+                type="password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
                 label="Password">
               </TextField>
             </div>
+            {password.length<8 && password.length > 0? <p className="signup_submit_disclaimer">Password must be at least 8 characters, have one number and one capital</p> : null}
             <div className="signup_disclosures">
               <Checkbox
                 required

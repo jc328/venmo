@@ -7,9 +7,13 @@ import SignUp from './components/SignUp.js'
 import HowZenmoWorks from './components/HowZenmoWorks.js'
 import SignUpNotice from './components/SignUpNotice.js'
 import DashBoard from './components/DashBoard.js'
+import {  useSelector } from 'react-redux';
+
+import { PrivateRoute } from './utilities/authUtils'
 
 
 function App() {
+  const needSignIn = useSelector(state => !state.authentication.token);
 
   // const [loaded, setLoaded] = useState(false);
   // const dispatch = useDispatch();
@@ -31,7 +35,7 @@ function App() {
             <Route path="/signin" exact component={SignIn} />
             <Route path="/" exact component={LandingPage} />
             <Route path="/about/product" exact component={HowZenmoWorks} />
-            <Route path="/dashboard" exact component={DashBoard} />
+            <PrivateRoute path="/dashboard" needSignIn={needSignIn} exact component={DashBoard} />
         </Switch>
         <nav>
             <ul>
