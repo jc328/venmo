@@ -1,8 +1,8 @@
 import {
   SET_TOKEN,
-  REMOVE_TOKEN,
   SET_USER,
-  REMOVE_USER,
+  REMOVE_AUTH,
+  VAL_ERRORS,
 } from '../actions/authentication';
 
 const authReducer = (state = {}, action) => {
@@ -19,17 +19,15 @@ const authReducer = (state = {}, action) => {
       return nextState;
     }
 
-    case REMOVE_TOKEN: {
-      const nextState = { ...state };
-      delete nextState.token;
+    case REMOVE_AUTH: {
+      nextState = {};
+      return nextState;
+    }
+    case VAL_ERRORS: {
+      nextState = {...nextState, valErrors: action.valErrors}
       return nextState;
     }
 
-    case REMOVE_USER: {
-      const nextState = { ...state };
-      delete nextState.user;
-      return nextState;
-    }
     default: return state;
   }
 }

@@ -1,6 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import validates
 import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+import re
 
 db = SQLAlchemy()
 
@@ -59,12 +61,27 @@ class User(db.Model):
           self.friends.remove(friend)
           friend.friends.remove(self)
 
+  @validates('email')
+  def validate_email(self, key, email):
+    if User.query.filter(User.email==email).first():
+      raise AssertionError('Email already in use')
+
+    if not re.match("[^@]+@[^@]+\.[^@]+", email):
+      raise AssertionError('Provided email is not an email address')
+
+    return email
+
+
+
   @property
   def password(self):
       return self.hashed_password
 
-  @password.setter
-  def password(self, password):
+  def set_password(self, password):
+      if not re.match('\d.*[A-Z]|[A-Z].*\d', password):
+          raise AssertionError('Password must contain 1 capital letter and 1 number')
+      if len(password) < 8 or len(password) > 50:
+          raise AssertionError('Password must be between 8 and 50 characters')
       self.hashed_password = generate_password_hash(password)
 
   def check_password(self, password):
@@ -102,7 +119,8 @@ class Transaction(db.Model):
       "message": self.message,
       "completed": self.completed,
       "created_at": self.created_at,
-      "updated_at": self.updated_at
+      "updated_at": self.updated_at,
+      "likes_len": len(self.likes),
     }
 
 class Comment(db.Model):

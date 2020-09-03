@@ -3,11 +3,12 @@ import { Link, useHistory } from 'react-router-dom';
 import LandingHeader from './LandingHeader';
 import LandingFooter from './LandingFooter';
 import '../styles/signIn.css';
-import { TextField, Button } from '@material-ui/core';
+import { TextField, Button, } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import theme from '../styles/theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
 import GoogleAuth from './GoogleAuth.js'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 // import { signIn } from '../store/authentication.js';
 import * as AuthActions from '../actions/authentication';
 
@@ -17,10 +18,21 @@ function SignIn() {
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const history = useHistory();
+  const valErrors = useSelector(state=> state.authentication.valErrors)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await dispatch(AuthActions.removeAuth());
     const storeReady = await dispatch(AuthActions.signIn(email, password));
+    if (storeReady) {
+      history.push('/dashboard')
+    }
+  }
+
+  const demoSignIn = async (e) => {
+    e.preventDefault();
+    await dispatch(AuthActions.removeAuth());
+    const storeReady = await dispatch(AuthActions.signIn('demo@zenmo.com', 'P4ssword'));
     if (storeReady) {
       history.push('/dashboard')
     }
@@ -31,6 +43,7 @@ function SignIn() {
           <ThemeProvider theme={theme}>
           <LandingHeader />
           <GoogleAuth />
+          {valErrors? <Alert severity="error">{valErrors.msg}</Alert> : null}
           <form onSubmit={handleSubmit}>
           <div className="signin_outer_container">
             <div className="signin_title">Sign in to Zenmo</div>
@@ -47,6 +60,7 @@ function SignIn() {
                 <TextField
                   className="signin_password"
                   size="small"
+                  type="password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   label="Password">
@@ -54,7 +68,7 @@ function SignIn() {
               </div>
               <div className="signin_demo_submit">
                 <div>
-                <Button variant="contained" color="primary">Demo</Button>
+                <Button variant="contained" color="primary" onClick={demoSignIn}>Demo</Button>
                 </div>
                 <div>
                 <Button type="submit" variant="contained" color="primary">Sign In</Button>

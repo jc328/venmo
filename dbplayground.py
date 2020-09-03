@@ -3,7 +3,7 @@ from alembic import op
 load_dotenv()
 
 from starter_app import app, db
-from starter_app.models import User, Friendship, Transaction
+from starter_app.models import User, Friendship, Transaction, Like, Comment
 
 # with app.app_context():
 #   db.drop_all()
@@ -32,9 +32,17 @@ from starter_app.models import User, Friendship, Transaction
 # #   # db.session.add(users)
 #   db.session.commit()
 with app.app_context():
-  findian = User.query.get(1)
-  findian2 = User.query.get(2)
-  findian3 = User.query.get(3)
+  # findian = User.query.get(1)
+  # findian2 = User.query.get(2)
+  # findian3 = User.query.get(3)
+
+  gettransaction2 = Transaction.query.get(2)
+  print(gettransaction2.to_dict())
+  # names = [(like.user.first_name) for like in gettransaction2.likes]
+  # print(names)
+  # for like in getlikes2.likes:
+  #   print(like.user.first_name)
+
 
 #   findianfreq = Friendship.query.filter(Friendship.user_second_id==findian.id, Friendship.status==0).all()
 #   print(findianfreq, "frequests here")
@@ -48,9 +56,9 @@ with app.app_context():
   #   print(friend.status)
 
 
-  print(findian.friends, 'friends here')
-  print([friend.id for friend in findian.friends])
-  print(2 in [friend.id for friend in findian.friends])
+  # print(findian.friends, 'friends here')
+  # print([friend.id for friend in findian.friends])
+  # print(2 in [friend.id for friend in findian.friends])
   # for friend in findian.friends:
   #   print(friend.id)
 

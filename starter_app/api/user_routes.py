@@ -17,45 +17,54 @@ def index():
 def sign_up():
 
   data = request.get_json()
-  hash = generate_password_hash(data['password'])
+  # hash = generate_password_hash(data['password'])
 
-  user = User(
-    username= f'{data["firstName"]}-{data["lastName"]}',
-    first_name=data['firstName'],
-    last_name=data['lastName'],
-    email = data['email'],
-    hashed_password = hash,
-    balance = 500)
+  try:
+    user = User(
+      username= f'{data["firstName"]}-{data["lastName"]}',
+      first_name=data['firstName'],
+      last_name=data['lastName'],
+      email = data['email'],
+      balance = 500)
 
-  db.session.add(user)
-  db.session.commit()
-  access_token = create_access_token(identity=user.email)
-  return {"token": access_token, "user": user.to_dict()}, 200
+    user.set_password(data['password'])
+
+    db.session.add(user)
+    db.session.commit()
+    email = user.email
+    access_token = create_access_token(identity=email)
+    return {"token": access_token, "user": user.to_dict()}, 200
+  except AssertionError as exception_message:
+    return jsonify(msg='Error: {}. '.format(exception_message)), 400
+
+
 
 
 
 @user_routes.route('/signin', methods=['POST'])
 def sign_in():
-    print(request.cookies.get("csrf_token"), "CSURF COOKIE HERE!!!!!!!!!!!!!!!!")
-    if not request.is_json:
-      return jsonify({"msg": "Missing JSON in request"}), 400
+    try:
+      if not request.is_json:
+        return jsonify({"msg": "Missing JSON in request"}), 400
 
-    email = request.json.get('email', None)
-    password = request.json.get('password', None)
+      email = request.json.get('email', None)
+      password = request.json.get('password', None)
 
-    if not email:
-      return jsonify({"msg": "Missing email parameter"}), 400
-    if not password:
-      return jsonify({"msg": "Missing password parameter"}), 400
+      if not email:
+        return jsonify({"msg": "Missing email parameter"}), 400
+      if not password:
+        return jsonify({"msg": "Missing password parameter"}), 400
 
-    user= User.query.filter(User.email==email).one()
+      user= User.query.filter(User.email==email).one()
 
-    if (user.check_password(password)):
-    # if (user.hashed_password == password):
-    # Identity can be any data that is json serializable
-      access_token = create_access_token(identity=email)
-      return {"token": access_token, "user": user.to_dict()}
-    else:
+      if (user.check_password(password)):
+      # if (user.hashed_password == password):
+      # Identity can be any data that is json serializable
+        access_token = create_access_token(identity=email)
+        return {"token": access_token, "user": user.to_dict()}, 200
+      else:
+        return jsonify({"msg": "Bad email or password"}), 400
+    except:
       return jsonify({"msg": "Bad email or password"}), 400
 
 

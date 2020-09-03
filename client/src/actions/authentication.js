@@ -5,16 +5,9 @@ const TOKEN_KEY = 'zenmo/authentication/token';
 const CURRENT_USER = 'CURRENT_USER';
 export const SET_TOKEN = 'SET_TOKEN';
 export const SET_USER = 'SET_USER';
-export const REMOVE_TOKEN = 'REMOVE_TOKEN';
-export const REMOVE_USER = 'REMOVE_USER';
+export const REMOVE_AUTH = 'REMOVE_AUTH';
+export const VAL_ERRORS = 'VAL_ERRORS';
 
-export const removeToken = () => ({
-  type: REMOVE_TOKEN,
-});
-
-export const removeUser = () => ({
-  type: REMOVE_USER,
-});
 
 export const setToken = token => ({
   type: SET_TOKEN,
@@ -25,6 +18,15 @@ export const setUser = user => ({
   type: SET_USER,
   user,
 });
+
+export const removeAuth = () => ({
+  type: REMOVE_AUTH,
+});
+
+export const setValErrors = (valErrors) => ({
+  type: VAL_ERRORS,
+  valErrors
+})
 
 export const loadToken = () => async dispatch => {
   const token = window.localStorage.getItem(TOKEN_KEY);
@@ -48,7 +50,9 @@ export const signUp = (firstName, lastName, email, password) => async dispatch =
       body: JSON.stringify({ firstName, lastName, email, password }),
     });
     if (!response.ok) {
-      throw response;
+      const valErrors = await response.json();
+      await dispatch(setValErrors(valErrors))
+      return false;
     }
     else {
       const { token, user } = await response.json();
@@ -56,6 +60,7 @@ export const signUp = (firstName, lastName, email, password) => async dispatch =
       window.localStorage.setItem(CURRENT_USER, JSON.stringify(user));
       dispatch(setToken(token));
       dispatch(setUser(user))
+      return true
     }
 
   }
@@ -79,7 +84,9 @@ export const signIn = (email, password) => async dispatch => {
     dispatch(setUser(user));
     return true;
   } else {
-    return false
+    const valErrors = await response.json();
+    dispatch(setValErrors(valErrors));
+    return false;
   }
 };
 
@@ -93,7 +100,6 @@ export const logout = () => async (dispatch, getState) => {
   if (response.ok) {
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.removeItem(CURRENT_USER);
-    dispatch(removeToken());
-    dispatch(removeUser());
+    dispatch(removeAuth())
   }
 };
