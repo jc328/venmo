@@ -5,7 +5,7 @@ import {
   REMOVE_USER,
 } from '../actions/authentication';
 
-const authReducer = (state = {token: {}, user: {}}, action) => {
+const authReducer = (state = {}, action) => {
   let nextState = {...state}
   switch (action.type) {
 

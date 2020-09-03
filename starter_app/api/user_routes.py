@@ -14,7 +14,7 @@ def index():
   return { "users": [user.to_dict() for user in response]}
 
 @user_routes.route('/signup', methods=['POST'])
-def signup():
+def sign_up():
 
   data = request.get_json()
   hash = generate_password_hash(data['password'])
@@ -34,8 +34,8 @@ def signup():
 
 
 
-@user_routes.route('/login', methods=['POST'])
-def login():
+@user_routes.route('/signin', methods=['POST'])
+def sign_in():
     print(request.cookies.get("csrf_token"), "CSURF COOKIE HERE!!!!!!!!!!!!!!!!")
     if not request.is_json:
       return jsonify({"msg": "Missing JSON in request"}), 400

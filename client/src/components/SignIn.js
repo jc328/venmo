@@ -1,5 +1,5 @@
 import React, { useState }from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import LandingHeader from './LandingHeader';
 import LandingFooter from './LandingFooter';
 import '../styles/signIn.css';
@@ -16,10 +16,14 @@ function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(AuthActions.login(email, password));
+    const storeReady = await dispatch(AuthActions.signIn(email, password));
+    if (storeReady) {
+      history.push('/dashboard')
+    }
   }
 
     return (

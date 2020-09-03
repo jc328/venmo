@@ -64,8 +64,8 @@ export const signUp = (firstName, lastName, email, password) => async dispatch =
   }
 }
 
-export const login = (email, password) => async dispatch => {
-  const response = await fetch(`${baseUrl}/login`, {
+export const signIn = (email, password) => async dispatch => {
+  const response = await fetch(`${baseUrl}/signin`, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
@@ -77,6 +77,9 @@ export const login = (email, password) => async dispatch => {
     window.localStorage.setItem(CURRENT_USER, JSON.stringify(user));
     dispatch(setToken(token));
     dispatch(setUser(user));
+    return true;
+  } else {
+    return false
   }
 };
 
