@@ -5,14 +5,12 @@ const theme = createMuiTheme({
     button: {
       textTransform: 'none',
     }
+  },
+  palette: {
+    text: {
+      primary: 'rgb(61,149,206)'
+    }
   }
-  // overrides: {
-  //   MuiButton: {
-  //     raisedPrimary: {
-  //       color: 'black',
-  //     },
-  //   },
-  // }
 });
 
 export default theme;

@@ -6,7 +6,6 @@ function DashBoard() {
         <>
           <DashHeader />
           <h3>Dashboard Content</h3>
-
         </>
     );
 }

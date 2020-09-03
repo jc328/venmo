@@ -21,6 +21,8 @@
 }
 
 .landing_body_text_box {
+  display: flex;
+  flex-direction: column;
   width: 30%;
   margin-top: 70px;
   text-align: center;
@@ -35,3 +37,5 @@
   justify-content: center;
   display: flex;
 }
+
+

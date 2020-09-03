@@ -24,6 +24,7 @@ function LandingPage() {
 
             <div className="landing_body_text_box">
               <div>Send money and make purchases at approved merchants</div>
+
               <Link to="/signup" style={{textDecoration: 'none'}}>
                 <Button variant="contained" color="primary" style={{width: '100%', marginTop: '40px'}}>Sign Up Now</Button>
                 </Link>
