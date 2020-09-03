@@ -25,7 +25,7 @@ function SignIn() {
         <>
           <ThemeProvider theme={theme}>
           <LandingHeader />
-          <GoogleAuth />
+          <div><GoogleAuth /></div>
           <form onSubmit={handleSubmit}>
           <div className="signin_outer_container">
             <div className="signin_title">Sign in to Zenmo</div>

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 function GoogleAuth() {
   const [signIn, setSignIn] = useState('null');
+  const [auth, setAuth] = useState('');
 
   useEffect(() => {
     window.gapi.load('client:auth2', () => {
@@ -10,27 +11,51 @@ function GoogleAuth() {
         clientId: '1072199093070-t1qbjbvbtmmnaf76sp92nv80ga1puu0o.apps.googleusercontent.com',
         scope: 'email'
       }).then(() => {
-        const auth = window.gapi.auth2.getAuthInstance();
+        let auth = window.gapi.auth2.getAuthInstance();
+        setAuth(auth)
         setSignIn(auth.isSignedIn.get())
       })
     });
-  }, [])
+  }, [signIn])
+
+  const onSignIn = () => {
+    console.log('logging in')
+    auth.signIn().then(() => {
+      setSignIn(true)
+    })
+  };
+
+  const onSignOut = () => {
+    console.log('sign out')
+    auth.signOut()
+    setSignIn(false)
+  }
+
 
   const status = () => {
     if (signIn === 'null') {
-      return <div>Still Waiting</div>
+      return null;
     } else if (signIn) {
-      return <div>Signed In</div>
+      return (
+        <button onClick={onSignOut} className="ui red google button">
+          <i className="google icon" />
+          Sign Out
+        </button>
+      )
     } else {
-      return <div>NOT SIGNED IN!</div>
+      return (
+        <button onClick={onSignIn} className="ui blue google button">
+          <i className="google icon" />
+          Sign In with Google
+        </button>
+      );
     }
   }
 
 
   return (
         <>
-          {/* <Button variant="contained" onClick={() => auth.signIn()}>Google Sign In</Button> */}
-          <div>Google Auth Status: {status()}</div>
+          <div>{status()}</div>
         </>
     );
 }
