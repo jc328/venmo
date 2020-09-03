@@ -60,7 +60,6 @@ def get_pending_credits(userid):
 @transaction_routes.route("/pay", methods = ["POST"])
 def create_payment_transaction():
     data = request.json
-    print(data)
     transaction = Transaction(**data)
     payer = User.query.get(data["payer_id"])
     payee = User.query.get(data["payee_id"])

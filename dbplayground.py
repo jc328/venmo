@@ -47,7 +47,6 @@ with app.app_context():
 #   findianfreq = Friendship.query.filter(Friendship.user_second_id==findian.id, Friendship.status==0).all()
 #   print(findianfreq, "frequests here")
 
-  # findfriends = Friendship.query.all()
   # for friend in findianfreq:
   #   print(friend.status)
   #   db.session.add(friend)

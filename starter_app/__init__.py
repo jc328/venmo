@@ -9,6 +9,7 @@ from flask_jwt_extended import JWTManager
 from starter_app.models import db, User, Friendship, Transaction, Comment, Like
 from starter_app.api.user_routes import user_routes
 from starter_app.api.transaction_routes import transaction_routes
+from starter_app.api.friendship_routes import friendship_routes
 
 from starter_app.config import Config
 
@@ -17,6 +18,7 @@ app = Flask(__name__)
 app.config.from_object(Config)
 app.register_blueprint(user_routes)
 app.register_blueprint(transaction_routes)
+app.register_blueprint(friendship_routes)
 db.init_app(app)
 migrate = Migrate(app, db)
 

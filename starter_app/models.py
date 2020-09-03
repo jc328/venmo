@@ -51,10 +51,14 @@ class User(db.Model):
       "balance": float(self.balance),
     }
 
-  def befriend(self, friend):
-      if friend not in self.friends:
-          self.friends.append(friend)
-          friend.friends.append(self)
+  def censored_dict(self):
+    return {
+      "id": self.id,
+      "username": self.username,
+      "first_name": self.first_name,
+      "last_name": self.last_name,
+      "picUrl": self.picUrl,
+    }
 
   def unfriend(self, friend):
       if friend in self.friends:
