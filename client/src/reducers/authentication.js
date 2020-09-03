@@ -8,15 +8,14 @@ import {
 const authReducer = (state = {token: {}, user: {}}, action) => {
   let nextState = {...state}
   switch (action.type) {
-    case SET_TOKEN: {
-      return {
-        ...state,
-        token: action.token,
-      };
-    }
 
     case SET_USER: {
       nextState= {...nextState, user: action.user}
+      return nextState;
+    }
+
+    case SET_TOKEN: {
+      nextState= {...nextState, token: action.token}
       return nextState;
     }
 
