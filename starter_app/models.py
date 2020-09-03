@@ -31,6 +31,7 @@ class User(db.Model):
   debit_transactions = db.relationship("Transaction", foreign_keys="Transaction.payer_id", backref="payer", cascade="all, delete-orphan", lazy="dynamic")
   comments = db.relationship("Comment", back_populates="user", cascade="all, delete-orphan")
   likes = db.relationship("Like", back_populates="user", cascade="all, delete-orphan")
+  
 
   friends = db.relationship('User',
                           secondary=Friendship.__table__,
@@ -92,17 +93,31 @@ class Transaction(db.Model):
   #Users table uses backref to payer/payee. So you can query Transaction.payer.username to see the name of the person paying.
   comments = db.relationship("Comment", back_populates="transaction", cascade="all, delete-orphan")
   likes = db.relationship("Like", back_populates="transaction", cascade="all, delete-orphan")
+  
+  def likers(self):
+    likers_list = []
+    for like in self.likes:
+      user_values = {"name": like.user.first_name}
+      likers_list.append(user_values)
+    print(likers_list)
+    return likers_list
+  
 
   def to_dict(self):
     return {
       "id": self.id,
       "amount": float(self.amount),
       "payee": self.payee.id, #id as placeholder for now, may want to change to username or something else later
+      "payee_pic": self.payee.picUrl,
+      "payee_name": self.payee.first_name + " " + self.payee.last_name,
+      "payer_name": self.payer.first_name + " " + self.payer.last_name,
       "payer": self.payer.id,
       "message": self.message,
       "completed": self.completed,
-      "created_at": self.created_at,
-      "updated_at": self.updated_at
+      "created_at": '{:%B %e, %Y, %H:%M %p}'.format(self.created_at),
+      "updated_at": self.updated_at,
+      "like_count": len(self.likes),
+      "likers": self.likers(),
     }
 
 class Comment(db.Model):
