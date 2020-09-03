@@ -7,7 +7,6 @@ import SignUp from './components/SignUp.js'
 import HowZenmoWorks from './components/HowZenmoWorks.js'
 import SignUpNotice from './components/SignUpNotice.js'
 import DashBoard from './components/DashBoard.js'
-import {  useSelector } from 'react-redux';
 
 import { PrivateRoute } from './utilities/authUtils'
 
