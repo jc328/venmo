@@ -8,7 +8,6 @@ import theme from '../styles/theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
 import GoogleAuth from './GoogleAuth.js'
 import { useDispatch } from 'react-redux'
-// import { signIn } from '../store/authentication.js';
 import * as AuthActions from '../actions/authentication';
 
 

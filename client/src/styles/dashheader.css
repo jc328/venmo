@@ -9,18 +9,20 @@ body {
 .dash_container {
   display: flex;
   background-color: #3C95D2;
-  height: 35px;
+  height: 38px;
   align-items: center;
-  justify-content: center;
-  color: white;
+  justify-content: space-evenly;
 }
 
 .dash_logo_search {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* margin-left: 20px; */
 }
 
-.dash_account_buttons {
-
+.dash_logo {
+  width: 90px;
+  margin-right: 10px;
+  margin-top: 5px;
 }

@@ -34,7 +34,7 @@ def signup():
   # except Exception:
   #   return jsonify(message="User with that email or username already exists"), 409
 
-@user_routes.route('/login', methods=['POST'])
+@user_routes.route('/login', methods=['POST', 'DELETE'])
 def login():
     data = request.get_json()
     print(data)

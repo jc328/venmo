@@ -8,7 +8,7 @@ function Search() {
     return (
         <>
           <ThemeProvider theme={theme}>
-            <SearchBar placeholder="Search People" style={{height:25}}/>
+            <SearchBar placeholder="Search People" style={{height:28, width:200}}/>
           </ThemeProvider>
         </>
     );
