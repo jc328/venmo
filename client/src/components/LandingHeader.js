@@ -16,15 +16,15 @@ function LandingHeader() {
               <div className="landing_buttons">
 
                 <Link to="/about/product" style={{textDecoration: 'none'}}>
-                <Button size="small" color="text.primary">How Zenmo Works</Button>
+                <Button size="small" style={{fontColor:"white"}}>How Zenmo Works</Button>
                 </Link>
 
-                <Button size="small" color="text.primary" disabled>Business</Button>
-                <Button size="small" color="text.primary" disabled>Card</Button>
-                <Button size="small" color="text.primary" disabled>Security</Button>
-                <Button size="small" color="text.primary" disabled>Contact Us</Button>
+                <Button size="small" style={{fontColor:"white"}} disabled>Business</Button>
+                <Button size="small" style={{fontColor:"white"}} disabled>Card</Button>
+                <Button size="small" style={{fontColor:"white"}} disabled>Security</Button>
+                <Button size="small" style={{fontColor:"white"}} disabled>Contact Us</Button>
 
-                <Link to="/signin" style={{textDecoration: 'none'}}><Button size="small" color="text.primary">Sign In</Button></Link>
+                <Link to="/signin" style={{textDecoration: 'none'}}><Button size="small" style={{fontColor:"white"}}>Sign In</Button></Link>
               </div>
             </div>
               <Divider />
