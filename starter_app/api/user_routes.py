@@ -3,6 +3,7 @@ from starter_app.models import User
 from ..models import User, db
 from werkzeug.security import generate_password_hash
 from flask_jwt_extended import jwt_optional, create_access_token, get_jwt_identity, jwt_required
+from flask_wtf.csrf import CSRFProtect, generate_csrf, validate_csrf
 import random
 
 user_routes = Blueprint("user", __name__, "")
@@ -35,6 +36,7 @@ def signup():
 
 @user_routes.route('/login', methods=['POST'])
 def login():
+    print(request.cookies.get("csrf_token"), "CSURF COOKIE HERE!!!!!!!!!!!!!!!!")
     if not request.is_json:
       return jsonify({"msg": "Missing JSON in request"}), 400
 

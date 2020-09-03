@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage.js'
 import SignIn from './components/SignIn.js'
@@ -6,9 +6,17 @@ import SignUp from './components/SignUp.js'
 import HowZenmoWorks from './components/HowZenmoWorks.js'
 import SignUpNotice from './components/SignUpNotice.js'
 import DashBoard from './components/DashBoard.js'
+import { useDispatch } from 'react-redux';
+import { loadToken, loadUser } from './actions/authentication.js';
 
 
 function App() {
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(loadToken());
+    dispatch(loadUser());
+  })
 
   return (
     <BrowserRouter>
