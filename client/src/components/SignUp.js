@@ -103,7 +103,7 @@ function SignUp() {
                 Sign Up
               </Button>
             </div>
-          <p className="signup_submit_disclaimer">By submitting, you confirm that you are authorized to use the number entered and agree to receive SMS texts to verify you own the number. Carrier fees may apply.</p>
+          <div className="signup_submit_disclaimer">By submitting, you confirm that you are authorized to use the number entered and agree to receive SMS texts to verify you own the number. Carrier fees may apply.</div>
           </form>
         </div>
 

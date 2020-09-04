@@ -1,7 +1,6 @@
 .signin_title {
   font-size: 26px;
   margin-top: 25px;
-  background-color: white;
   margin-bottom: 25px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -52,6 +51,4 @@
   margin-top: 30px;
   justify-content: space-around;
   width: 100%;
-
-
 }
