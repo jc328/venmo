@@ -21,7 +21,7 @@ def get_user_transactions(userid):
 
 
 #Route to get all user's friends transactions
-@transaction_routes.route("/<userid>/friends")
+@transaction_routes.route("/<int:userid>/friends")
 def get_friend_transactions(userid):
     user = User.query.get(userid)
     friends_list = [friend.id for friend in user.friends]

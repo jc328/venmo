@@ -10,6 +10,8 @@ from starter_app.models import db, User, Friendship, Transaction, Comment, Like
 from starter_app.api.user_routes import user_routes
 from starter_app.api.transaction_routes import transaction_routes
 from starter_app.api.like_routes import like_routes
+from starter_app.api.comment_routes import comment_routes
+from starter_app.api.friendship_routes import friendship_routes
 
 from starter_app.config import Config
 
@@ -19,6 +21,7 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes)
 app.register_blueprint(transaction_routes)
 app.register_blueprint(like_routes)
+app.register_blueprint(comment_routes)
 db.init_app(app)
 migrate = Migrate(app, db)
 
