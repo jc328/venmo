@@ -13,21 +13,26 @@ def index():
   response = User.query.all()
   return { "users": [user.to_dict() for user in response]}
 
+@user_routes.route('/allusers')
+def allusers():
+  response = User.query.all()
+  return { "users": [user.to_dict() for user in response]}
+
 @user_routes.route('/signup', methods=['POST'])
 def sign_up():
-
   data = request.get_json()
-  # hash = generate_password_hash(data['password'])
+  hash = generate_password_hash(data['password'])
 
   try:
     user = User(
       username= f'{data["firstName"]}-{data["lastName"]}',
       first_name=data['firstName'],
       last_name=data['lastName'],
-      email = data['email'],
+      email=data['email'],
+      hashed_password=hash,
       balance = 500)
 
-    user.set_password(data['password'])
+    # user.set_password(data[hash])
 
     db.session.add(user)
     db.session.commit()
@@ -38,12 +43,10 @@ def sign_up():
     return jsonify(msg='Error: {}. '.format(exception_message)), 400
 
 
-
-
-
 @user_routes.route('/signin', methods=['POST'])
 def sign_in():
     try:
+
       if not request.is_json:
         return jsonify({"msg": "Missing JSON in request"}), 400
 
@@ -56,14 +59,14 @@ def sign_in():
         return jsonify({"msg": "Missing password parameter"}), 400
 
       user= User.query.filter(User.email==email).one()
-
       if (user.check_password(password)):
-      # if (user.hashed_password == password):
-      # Identity can be any data that is json serializable
-        access_token = create_access_token(identity=email)
-        return {"token": access_token, "user": user.to_dict()}, 200
-      else:
-        return jsonify({"msg": "Bad email or password"}), 400
+      # if(True):
+        if (user.hashed_password == password):
+        # Identity can be any data that is json serializable
+          access_token = create_access_token(identity=email)
+          return {"token": access_token, "user": user.to_dict()}, 200
+        else:
+          return jsonify({"msg": "Bad email or password"}), 400
     except:
       return jsonify({"msg": "Bad email or password"}), 400
 

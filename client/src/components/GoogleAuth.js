@@ -4,8 +4,8 @@ import React, { useEffect, useState } from 'react';
 function GoogleAuth() {
   const [signIn, setSignIn] = useState('null');
   const [auth, setAuth] = useState('');
-  const [email, setEmail]= useState('')
-  const [user, setUser]= useState('')
+  // const [email, setEmail]= useState('')
+  // const [user, setUser]= useState('')
 
   useEffect(() => {
     window.gapi.load('client:auth2', () => {
@@ -13,25 +13,22 @@ function GoogleAuth() {
         clientId: '1072199093070-t1qbjbvbtmmnaf76sp92nv80ga1puu0o.apps.googleusercontent.com',
         scope: 'email'
       }).then(() => {
-        let auth = window.gapi.auth2.getAuthInstance();
-        setAuth(auth)
+        let authorized = window.gapi.auth2.getAuthInstance();
+        setAuth(authorized)
         // setEmail(auth.currentUser.le.rt.$t)
         // setUser(auth.currentUser.le.rt.tV + " " + auth.currentUser.le.rt.uT)
-        setSignIn(auth.isSignedIn.get())
-        console.log(auth)
+        setSignIn(authorized.isSignedIn.get())
       })
     });
   }, [signIn])
 
   const onSignIn = () => {
-    console.log('logging in')
     auth.signIn().then(() => {
       setSignIn(true)
     })
   };
 
   const onSignOut = () => {
-    console.log('sign out')
     auth.signOut()
     setSignIn(false)
   }

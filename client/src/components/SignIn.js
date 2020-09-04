@@ -7,7 +7,7 @@ import { TextField, Button, } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import theme from '../styles/theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
-import GoogleAuth from './GoogleAuth.js'
+// import GoogleAuth from './GoogleAuth.js'
 import { useDispatch, useSelector } from 'react-redux'
 // import { signIn } from '../store/authentication.js';
 import * as AuthActions from '../actions/authentication';
@@ -26,7 +26,10 @@ function SignIn() {
     await dispatch(AuthActions.removeAuth());
     const storeReady = await dispatch(AuthActions.signIn(email, password));
     if (storeReady) {
-      history.push('/dashboard')
+      history.push({
+        pathname:'/dashboard',
+        state: {'email': email === "" ? "Demo" : email}
+      })
     }
   }
 
@@ -34,9 +37,11 @@ function SignIn() {
     e.preventDefault();
     await dispatch(AuthActions.removeAuth());
     const storeReady = await dispatch(AuthActions.signIn('demo@zenmo.com', 'P4ssword'));
-    history.push('/dashboard')
     if (storeReady) {
-      history.push('/dashboard')
+      history.push({
+        pathname:'/dashboard',
+        state: {'email': email === "" ? "Demo" : email}
+      })
     }
   }
 
@@ -72,7 +77,7 @@ function SignIn() {
                 <div>
                 <Button variant="contained" color="primary" onClick={demoSignIn}>Demo</Button>
                 </div>
-                <GoogleAuth />
+                {/* <GoogleAuth /> */}
                 <div>
                 <Button type="submit" variant="contained" color="primary">Sign In</Button>
                 </div>
