@@ -7,7 +7,6 @@ function DashBoard() {
     return (
         <>
             <DashHeader />
-            <h3>Dashboard Content</h3>
             <Feed/>
         </>
     );

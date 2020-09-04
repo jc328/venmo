@@ -47,7 +47,7 @@ function Search() {
               className="searchbar"
               options={data}
               autoComplete={true}
-              getOptionLabel={(option) => option.username}
+              getOptionLabel={(option) => option.first_name}
               renderInput={(params) => <TextField {...params} size="small" placeholder="Search People" className="searchbar_textfield" variant="outlined"
               />}
             />

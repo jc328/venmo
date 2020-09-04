@@ -14,9 +14,10 @@ import * as AuthActions from '../actions/authentication';
 
 
 function SignIn() {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
+
   const history = useHistory();
   const valErrors = useSelector(state=> state.authentication.valErrors)
 
@@ -33,6 +34,7 @@ function SignIn() {
     e.preventDefault();
     await dispatch(AuthActions.removeAuth());
     const storeReady = await dispatch(AuthActions.signIn('demo@zenmo.com', 'P4ssword'));
+    history.push('/dashboard')
     if (storeReady) {
       history.push('/dashboard')
     }
