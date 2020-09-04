@@ -2,15 +2,31 @@ import React from 'react';
 import Feed from './Feed';
 import DashHeader from './DashHeader'
 import {Link} from 'react-router-dom'
+import Profile from './Profile'
+import '../styles/dashboard.css';
+import { useSelector } from 'react-redux'
 
 
 function DashBoard() {
+    const balance = useSelector((state) => state.authentication.user.balance)
+    const username = useSelector((state) => state.authentication.user.username)
+    const picture = useSelector((state) => state.authentication.user.picUrl)
+    const firstName = useSelector((state) => state.authentication.user.first_name)
+    const lastName = useSelector((state) => state.authentication.user.last_name)
+
     return (
         <>
-            <DashHeader />
-            <h3>Dashboard Content</h3>
-            <Link to="/friends">Friends</Link>
-            <Feed/>
+            <DashHeader username={username} />
+            <div className="dashboard_container">
+                <div><Feed /></div>
+                <div><Profile
+                username={username}
+                balance={balance}
+                picture={picture}
+                firstName={firstName}
+                lastName={lastName}
+                /></div>
+            </div>
         </>
     );
 }

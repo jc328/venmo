@@ -1,8 +1,8 @@
-"""all tables with alembic file template
+"""empty message
 
-Revision ID: bab03cfbf511
+Revision ID: 20f9b4b451d6
 Revises: 
-Create Date: 2020-09-02 09:51:11.500212
+Create Date: 2020-09-03 09:31:29.422688
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'bab03cfbf511'
+revision = '20f9b4b451d6'
 down_revision = None
 branch_labels = None
 depends_on = None

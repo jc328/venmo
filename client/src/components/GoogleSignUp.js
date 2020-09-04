@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import { Button, Divider } from '@material-ui/core';
 
 function GoogleAuth() {
   const [signIn, setSignIn] = useState('null');
@@ -22,42 +21,12 @@ function GoogleAuth() {
     });
   }, [signIn])
 
-  const onSignIn = () => {
-    auth.signIn().then(() => {
-      setSignIn(true)
-    })
-  };
-
-  const onSignOut = () => {
-    auth.signOut()
-    setSignIn(false)
-  }
-
-
-  const status = () => {
-    if (signIn === 'null') {
-      return null;
-    } else if (signIn) {
-      return (
-        <button onClick={onSignOut} className="ui red google button">
-          <i className="google icon" />
-          Sign Out
-        </button>
-      )
-    } else {
-      return (
-        <button onClick={onSignIn} className="ui blue google button">
-          <i className="google icon" />
-          Sign In
-        </button>
-      );
-    }
-  }
-
-
   return (
         <>
-          <div>{status()}</div>
+          <button className="ui blue google button" style={{marginBottom: 25}}>
+          <i className="google icon" />
+          Sign up with Google
+          </button>
         </>
     );
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import SearchBar from './SearchBar.js'
@@ -22,15 +22,15 @@ const theme = createMuiTheme({
   }
 })
 
-function DashHeader() {
+function DashHeader(props) {
 
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleSubmit = async (e) => {
-    // e.preventDefault();
-    console.log('print')
+    e.preventDefault();
     dispatch(AuthActions.logout());
-    return <Redirect to="/signin" />
+    history.push('/')
   }
 
   return (
@@ -43,7 +43,7 @@ function DashHeader() {
             </div>
 
             <div className="dash_account_buttons">
-              <Button size="small">Username</Button>
+              <Button size="small">{props.username}</Button>
               <Button size="small">Statement</Button>
               <Button size="small">Settings</Button>
               <Button size="small">Help</Button>

@@ -46,7 +46,7 @@ const Feed = () => {
             </div>
             <div className="transaction__likes">
               <div className="transaction__like">
-                {transaction.likers.length != 0
+                {transaction.likers.length !== 0
                   ? <FontAwesomeIcon className="transaction__heart liked" icon={farHeart} />
                   : <FontAwesomeIcon className="transaction__heart" icon={farHeart} />}
               </div>
