@@ -4,14 +4,16 @@ load_dotenv()
 
 from starter_app import app, db
 from starter_app.models import User, Friendship, Transaction, Like, Comment
+from werkzeug.security import generate_password_hash, check_password_hash
 
-# with app.app_context():
+with app.app_context():
 #   db.drop_all()
 #   db.create_all()
 
 # #   # users =[el(User(username = el.username, email = el.email)) for el in array]
-
-#   ian = User(username = 'Ian', first_name = "ian", last_name = "bentley", email = 'ian@aa.io', hashed_password = "jdsaojcvaoewifjoaweif", picUrl= "", balance = 100)
+  password = 'P4ssword'
+  seedtest = User( email = "TravissDKnupp@armyspy.com", username = "hellosworld", first_name = "Travis", last_name = "Knupp", hashed_password= generate_password_hash(password), picUrl = "https://zenmo-bucket.s3-us-west-1.amazonaws.com/profile-photos/profile_photo_1.png", balance = 925.15 )
+  # ian = User(username = 'Ian', first_name = "ian", last_name = "bentley", email = 'ian@aa.io', hashed_password = "jdsaojcvaoewifjoaweif", picUrl= "", balance = 100)
 #   ian2 = User(username = 'Ian2', first_name = "ian", last_name = "bentley", email = 'ian2@aa.io', hashed_password = "jdsaojcvaoewifjoaweif", picUrl= "", balance = 100)
 #   ian3 = User(username = 'Ian3', first_name = "ian", last_name = "bentley", email = 'ian3@aa.io', hashed_password = "jdsaojcvaoewifjoaweif", picUrl= "", balance = 100)
 #   # # javier = User(username = 'Javier', email = 'javier@aa.io')
@@ -19,6 +21,8 @@ from starter_app.models import User, Friendship, Transaction, Like, Comment
 #   # # angela = User(username = 'Angela', email = 'angela@aa.io')
 #   # # soonmi = User(username = 'Soon-Mi', email = 'soonmi@aa.io')
 #   # # alissa = User(username = 'Alissa', email = 'alissa@aa.io')
+  db.session.add(seedtest)
+  db.session.commit()
 
 #   # # db.session.add(ian)
 #   # # db.session.add(javier)
@@ -31,13 +35,14 @@ from starter_app.models import User, Friendship, Transaction, Like, Comment
 
 # #   # db.session.add(users)
 #   db.session.commit()
-with app.app_context():
+
+# with app.app_context():
   # findian = User.query.get(1)
   # findian2 = User.query.get(2)
   # findian3 = User.query.get(3)
 
-  gettransaction2 = Transaction.query.get(2)
-  print(gettransaction2.to_dict())
+  # gettransaction2 = Transaction.query.get(2)
+  # print(gettransaction2.to_dict())
   # names = [(like.user.first_name) for like in gettransaction2.likes]
   # print(names)
   # for like in getlikes2.likes:

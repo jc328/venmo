@@ -8,7 +8,7 @@ from starter_app.models import User, Friendship, Transaction, Like, Comment
 with app.app_context():
   db.drop_all()
   db.create_all()
-  
+
   #Users
   u_list = [
     User( email = "TeresaDKnupp@armyspy.com", username = "magicalworld", hashed_password = "password", first_name = "Teresa", last_name = "Knupp",   picUrl = "https://zenmo-bucket.s3-us-west-1.amazonaws.com/profile-photos/profile_photo_1.png", balance = 925.15 ),
@@ -32,10 +32,11 @@ with app.app_context():
     User( email = "TomasMHawks@superrito.com", username = "annothing", hashed_password = "password", first_name = "Tomas", last_name = "Hawks",   picUrl = "https://zenmo-bucket.s3-us-west-1.amazonaws.com/profile-photos/profile_photo_19.png", balance = 711.1 ),
     User( email = "LarryLFernandez@gustr.com", username = "begather", hashed_password = "password", first_name = "Larry", last_name = "Fernandez",   picUrl = "https://zenmo-bucket.s3-us-west-1.amazonaws.com/profile-photos/profile_photo_20.png", balance = 976.23 ),
   ]
-  
+
   random.shuffle(u_list)
   for u in u_list:
     db.session.add(u)
+    u.set_password('P4ssword')
   db.session.commit()
 
   #Friendships
@@ -154,23 +155,23 @@ with app.app_context():
     Transaction( amount = 8.69, payee_id = 17, payer_id = 15, message = "BIRTHDAY LUNCH SPLIT", completed = True ),
     Transaction( amount = 45.77, payee_id = 11, payer_id = 1, message = "Forgot the total 🤦‍♀️", completed = False ),
   ]
-  
+
   random.shuffle(t_list)
   for t in t_list:
     db.session.add(t)
   db.session.commit()
-  
+
   #Likes
   l_list = []
   for t in range(100):
     for u in range(20):
       if random.random() < 0.2:
         l_list.append(Like(user_id = u + 1, transaction_id = t + 1))
-        
+
   for l in l_list:
     db.session.add(l)
   db.session.commit()
-  
+
   #Comments
   payee_comment_options = [ "thanks!", "awesome!", "you're the best", "until next time...", "wooo", "wooot thx!", "cant wait till the time", "another one", "thx lets do this again!", "always a pleasure", "always count on you", "next one is on me", "pleasure doing business with ya", "thank you", "thank you very much", "you didnt have to but ok hehe", "merci", "gracias", "xie xie", "THANK YOU!!!", "party time!", "party city", "so worth it", "word", "thats whats up", "can always count of you"]
   payer_comment_options = [ "for sure!", "always.", "yes", "word", "yup", "YUP", "heh", "already planning the next one", "next time will be nutz", "always down", "YOLO", ":D", ":-P","still taking donations... hehe", "we unstoppable!", "YASSSSS", "no, thank you!", "I got you yo!"]
@@ -181,7 +182,7 @@ with app.app_context():
       c_list.append(Comment(message = random.choice(payer_comment_options), transaction_id = t + 1, user_id = trans_post.payer_id))
       if random.random() < 0.8:
         c_list.append(Comment(message = random.choice(payee_comment_options), transaction_id = t + 1, user_id = trans_post.payee_id))
-  
+
   for c in c_list:
     db.session.add(c)
   db.session.commit()

@@ -76,8 +76,6 @@ class User(db.Model):
 
     return email
 
-
-
   @property
   def password(self):
       return self.hashed_password

@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, render_template, request, redirect, url_fo
 from starter_app.models import User
 from ..models import User, db
 from werkzeug.security import generate_password_hash
-from flask_jwt_extended import jwt_optional, create_access_token, get_jwt_identity, jwt_required
+from flask_jwt_extended import jwt_optional, create_access_token, get_jwt_identity, jwt_required, get_raw_jwt
 from flask_wtf.csrf import CSRFProtect, generate_csrf, validate_csrf
 import random
 
@@ -37,10 +37,6 @@ def sign_up():
   except AssertionError as exception_message:
     return jsonify(msg='Error: {}. '.format(exception_message)), 400
 
-
-
-
-
 @user_routes.route('/signin', methods=['POST'])
 def sign_in():
     try:
@@ -66,19 +62,3 @@ def sign_in():
         return jsonify({"msg": "Bad email or password"}), 400
     except:
       return jsonify({"msg": "Bad email or password"}), 400
-
-
-
-#from flask_jwt_extended docs https://flask-jwt-extended.readthedocs.io/en/stable/basic_usage/
-#if we want to protect a view or api request and make sure jwt is required, do something like the following:
-
-# Protect a view with jwt_required, which requires a valid access token
-# in the request to access.
-@user_routes.route('/protected', methods=['GET'])
-@jwt_required
-def protected():
-    # Access the identity of the current user with get_jwt_identity
-    current_user = get_jwt_identity()
-    return jsonify(logged_in_as=current_user), 200
-
-#if we want we can also put other pieces of info into the jwt in addition to the username.

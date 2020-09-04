@@ -1,6 +1,7 @@
 import React from 'react';
 import Feed from './Feed';
 import DashHeader from './DashHeader'
+import TransactionForm from './TransactionForm';
 
 
 function DashBoard() {
@@ -8,6 +9,7 @@ function DashBoard() {
         <>
             <DashHeader />
             <h3>Dashboard Content</h3>
+            <TransactionForm />
             <Feed/>
         </>
     );
