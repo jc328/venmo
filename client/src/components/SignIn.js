@@ -27,10 +27,7 @@ function SignIn() {
     await dispatch(AuthActions.removeAuth());
     const storeReady = await dispatch(AuthActions.signIn(email, password));
     if (storeReady) {
-      history.push({
-        pathname:'/dashboard',
-        state: {'email': email === "" ? "Demo" : email}
-      })
+      history.push('/dashboard')
     }
   }
 
