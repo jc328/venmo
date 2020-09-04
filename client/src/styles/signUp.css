@@ -1,6 +1,5 @@
 .signup_title {
   font-size: 26px;
-  background-color: white;
   margin-bottom: 25px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
@@ -36,7 +35,7 @@
 }
 
 .signup_fields {
-  width: 90%;
+  width: 85%;
 }
 
 .signup_disclosures {
@@ -45,7 +44,7 @@
   justify-content: center;
   width:355px;
   font-size: 12px;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 
 .signin_signup_link {
@@ -55,6 +54,8 @@
 }
 
 .signup_submit_disclaimer {
-  font-size: 10px;
+  font-size: 9px;
   text-align: center;
+  margin-left: 20px;
+  width: 90%;
 }

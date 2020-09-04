@@ -40,7 +40,7 @@ function LandingFooter() {
                 </a>
               </div>
             </div>
-            <h5 className="footer_disclaimer">Zenmo is a service of PayPal, Inc., a licensed provider of money transfer services (NMLS ID: 910457). All money transmission is provided by PayPal, Inc. pursuant to PayPal, Inc.’s licenses. © 2020 PayPal, Inc.</h5>
+            <h5 className="footer_disclaimer" style={{marginBottom: 25}}>Zenmo is a service of PayPal, Inc., a licensed provider of money transfer services (NMLS ID: 910457). All money transmission is provided by PayPal, Inc. pursuant to PayPal, Inc.’s licenses. © 2020 PayPal, Inc.</h5>
           </div>
           </ThemeProvider>
         </div>

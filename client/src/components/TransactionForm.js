@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import {Modal, TextField, Button, InputAdornment} from '@material-ui/core';
+import {Modal, TextField, Button} from '@material-ui/core';
+import { useDispatch } from 'react-redux';
+import {sendPayment} from '../actions/transactions'
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -28,11 +30,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function TransactionForm() {
+export default function TransactionForm(props) {
   const classes = useStyles();
   // getModalStyle is not a pure function, we roll the style only on the first render
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+  const [amount, setAmount] = useState("")
+  const [message, setMessage] = useState("")
+  const dispatch = useDispatch()
+
+  const handleSubmit = async (e) => {
+      e.preventDefault();
+      const approved = await dispatch(sendPayment(amount, message, props.userId, props.friendId));
+      const newBalance= props.balance-amount
+      props.newBalance(newBalance)
+      if (approved){
+          handleClose()
+      }
+  }
 
   const handleOpen = () => {
     setOpen(true);
@@ -42,19 +57,28 @@ export default function TransactionForm() {
     setOpen(false);
   };
 
+  const updateAmount = (e) => setAmount(e.target.value)
+  const updateMessage = (e) => setMessage(e.target.value)
+
   const body = (
     <div style={modalStyle} className={classes.paper}>
       <form >
+        <p>Current Balance: ${props.balance} </p>
         <TextField
             size="small"
-            label="Amount"
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}>
+            label="Amount $"
+            onChange={updateAmount}
+            >
         </TextField>
         <TextField
             size="small"
             label="What's it for?"
+            onChange={updateMessage}
             >
         </TextField>
+        <Button variant="contained" color="primary" onClick={handleSubmit}>
+            Pay user
+        </Button>
       </form>
     </div>
   );

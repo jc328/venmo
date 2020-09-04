@@ -1,5 +1,5 @@
 import React, { useState, useEffect }from 'react';
-// import SearchBar from "material-ui-search-bar";
+import { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { Autocomplete } from '@material-ui/lab';
 import { createMuiTheme } from '@material-ui/core/styles';
@@ -19,6 +19,11 @@ const theme = createMuiTheme({
     }
   }
 })
+
+const filterOptions = createFilterOptions({
+  limit: 4
+});
+
 
 function Search() {
 
@@ -46,10 +51,20 @@ function Search() {
             <Autocomplete
               className="searchbar"
               options={data}
+              filterOptions={filterOptions}
               autoComplete={true}
-              getOptionLabel={(option) => option.username}
-              renderInput={(params) => <TextField {...params} size="small" placeholder="Search People" className="searchbar_textfield" variant="outlined"
+              autoHighlight={true}
+              getOptionLabel={(option) => option.first_name + ' ' + option.last_name}
+              renderInput={(params) => <TextField {...params} size="small" placeholder="Search People" className="searchbar_textfield" variant="outlined" style={{centeerText: 'center'}}
               />}
+              renderOption={option => {
+                return (
+                  <>
+                    <img src={option.picUrl} alt="Logo" style={{width:40, borderRadius: 10, marginRight: 10}}/>
+                    <div>{option.first_name + ' ' + option.last_name}</div>
+                  </>
+                )
+              }}
             />
             </ThemeProvider>
         </>

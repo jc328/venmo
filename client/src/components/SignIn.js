@@ -7,16 +7,18 @@ import { TextField, Button, } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import theme from '../styles/theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
-import GoogleAuth from './GoogleAuth.js'
+// import GoogleAuth from './GoogleAuth.js'
 import { useDispatch, useSelector } from 'react-redux'
 // import { signIn } from '../store/authentication.js';
 import * as AuthActions from '../actions/authentication';
+import DemoButton from './DemoButton'
 
 
 function SignIn() {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
+
   const history = useHistory();
   const valErrors = useSelector(state=> state.authentication.valErrors)
 
@@ -25,24 +27,30 @@ function SignIn() {
     await dispatch(AuthActions.removeAuth());
     const storeReady = await dispatch(AuthActions.signIn(email, password));
     if (storeReady) {
-      history.push('/dashboard')
+      history.push({
+        pathname:'/dashboard',
+        state: {'email': email === "" ? "Demo" : email}
+      })
     }
   }
 
-  const demoSignIn = async (e) => {
-    e.preventDefault();
-    await dispatch(AuthActions.removeAuth());
-    const storeReady = await dispatch(AuthActions.signIn('demo@zenmo.com', 'P4ssword'));
-    if (storeReady) {
-      history.push('/dashboard')
-    }
-  }
+  // const demoSignIn = async (e) => {
+  //   e.preventDefault();
+  //   await dispatch(AuthActions.removeAuth());
+  //   const storeReady = await dispatch(AuthActions.signIn('demo@zenmo.com', 'P4ssword'));
+  //   if (storeReady) {
+  //     history.push({
+  //       pathname:'/dashboard',
+  //       state: {'email': email === "" ? "Demo" : email}
+  //     })
+  //   }
+  // }
 
     return (
         <>
           <ThemeProvider theme={theme}>
           <LandingHeader />
-          <GoogleAuth />
+
           {valErrors? <Alert severity="error">{valErrors.msg}</Alert> : null}
           <form onSubmit={handleSubmit}>
           <div className="signin_outer_container">
@@ -68,10 +76,12 @@ function SignIn() {
               </div>
               <div className="signin_demo_submit">
                 <div>
-                <Button variant="contained" color="primary" onClick={demoSignIn}>Demo</Button>
+                {/* <Button variant="contained" color="primary" onClick={demoSignIn}>Demo</Button> */}
+                <DemoButton email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
                 </div>
+                {/* <GoogleAuth /> */}
                 <div>
-                <Button type="submit" variant="contained" color="primary">Sign In</Button>
+                <Button className="signIn" type="submit" variant="contained" color="primary">Sign In</Button>
                 </div>
               </div>
             </div>

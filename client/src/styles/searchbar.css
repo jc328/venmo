@@ -1,13 +1,12 @@
 .searchbar {
   width: 200px;
-  height: 50px;
-  margin-top:10px;
+  height: 30px;
+
   overflow: hidden;
 }
 
 .searchbar_textfield {
   background-color: white;
   border-radius: 7px;
-  /* height: 50px; */
-
+  height: 30px;
 }
