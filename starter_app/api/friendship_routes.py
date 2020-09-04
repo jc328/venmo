@@ -5,15 +5,9 @@ from sqlalchemy import and_, or_
 friendship_routes = Blueprint("friends", __name__, url_prefix="/friends")
 
 #Route to get all friends
-'''only need user_id in request.json:
-{
-    "user_id": id (get this from authentication.user.id in redux store)
-}
-'''
-@friendship_routes.route('')
-def get_friends():
-    data = request.json
-    user = User.query.get(data["user_id"])
+@friendship_routes.route('/<userId>')
+def get_friends(userId):
+    user = User.query.get(userId)
     all= user.friends
     complete_friends = Friendship.query.filter(Friendship.user_first_id==user.id, Friendship.status==1).all()
     ids = [friendship.user_second_id for friendship in complete_friends]
@@ -22,22 +16,16 @@ def get_friends():
 
 
 #Route to get all pending friend requests to user
-'''only need user_id in request.json:
-{
-    "user_id": id (get this from authentication.user.id in redux store)
-}
-'''
-@friendship_routes.route('/requests')
-def get_requests():
-    data = request.json
-    user = User.query.get(data["user_id"])
+@friendship_routes.route('/requests/<int:userId>')
+def get_requests(userId):
+    user = User.query.get(userId)
     all= user.friends
     pending_friends = Friendship.query.filter(Friendship.user_second_id==user.id, Friendship.status==0).all()
     ids = [friendship.user_first_id for friendship in pending_friends]
     friend_info = [friend.censored_dict() for friend in all if (friend.id in ids)]
     return {"data": friend_info}, 200
 
-#Route to send friend
+#Route to send friend request
 ''' request json should look like this:
 {
     "user_id": id (get this from authentication.user.id in redux store),

@@ -1,7 +1,7 @@
 import React from 'react';
 import Feed from './Feed';
 import DashHeader from './DashHeader'
-import TransactionForm from './TransactionForm';
+import {Link} from 'react-router-dom'
 
 
 function DashBoard() {
@@ -9,7 +9,7 @@ function DashBoard() {
         <>
             <DashHeader />
             <h3>Dashboard Content</h3>
-            <TransactionForm />
+            <Link to="/friends">Friends</Link>
             <Feed/>
         </>
     );

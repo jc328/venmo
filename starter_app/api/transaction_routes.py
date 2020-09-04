@@ -65,9 +65,9 @@ def create_payment_transaction():
     payee = User.query.get(data["payee_id"])
     db.session.add(transaction)
     db.session.add(payer)
-    payer.balance = float(payer.balance) - data["amount"]
+    payer.balance = float(payer.balance) - float(data["amount"])
     db.session.add(payee)
-    payee.balance = float(payee.balance) + data["amount"]
+    payee.balance = float(payee.balance) + float(data["amount"])
     db.session.commit()
     return transaction.to_dict(), 200
 

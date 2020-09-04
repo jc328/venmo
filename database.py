@@ -11,7 +11,7 @@ with app.app_context():
 
   #Users
   u_list = [
-    User( email = "TeresaDKnupp@armyspy.com", username = "magicalworld", hashed_password = "password", first_name = "Teresa", last_name = "Knupp",   picUrl = "https://zenmo-bucket.s3-us-west-1.amazonaws.com/profile-photos/profile_photo_1.png", balance = 925.15 ),
+    User( email = "demo@zenmo.com", username = "magicalworld", hashed_password = "password", first_name = "Teresa", last_name = "Knupp",   picUrl = "https://zenmo-bucket.s3-us-west-1.amazonaws.com/profile-photos/profile_photo_1.png", balance = 925.15 ),
     User( email = "RandiJVarney@teleworm.us", username = "_sightunseen_", hashed_password = "password", first_name = "Randi", last_name = "Varney",   picUrl = "https://zenmo-bucket.s3-us-west-1.amazonaws.com/profile-photos/profile_photo_2.png", balance = 694.16 ),
     User( email = "CarrieRLuongo@teleworm.us", username = "_woldandmoon", hashed_password = "password", first_name = "Carrie", last_name = "Luongo",   picUrl = "https://zenmo-bucket.s3-us-west-1.amazonaws.com/profile-photos/profile_photo_3.png", balance = 522.7 ),
     User( email = "DiannaBCoulter@cuvox.de", username = "032c", hashed_password = "password", first_name = "Dianna", last_name = "Coulter",   picUrl = "https://zenmo-bucket.s3-us-west-1.amazonaws.com/profile-photos/profile_photo_4.png", balance = 4.28 ),

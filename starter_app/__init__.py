@@ -22,6 +22,7 @@ app.register_blueprint(user_routes)
 app.register_blueprint(transaction_routes)
 app.register_blueprint(like_routes)
 app.register_blueprint(comment_routes)
+app.register_blueprint(friendship_routes)
 db.init_app(app)
 migrate = Migrate(app, db)
 
