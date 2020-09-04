@@ -47,9 +47,17 @@ function Search() {
               className="searchbar"
               options={data}
               autoComplete={true}
-              getOptionLabel={(option) => option.first_name}
+              getOptionLabel={(option) => option.first_name + ' ' + option.last_name}
               renderInput={(params) => <TextField {...params} size="small" placeholder="Search People" className="searchbar_textfield" variant="outlined"
               />}
+              renderOption={option => {
+                return (
+                  <>
+                    <img src={option.picUrl} alt="Logo" style={{width:40, borderRadius: 10, marginRight: 10}}/>
+                    <div>{option.first_name + ' ' + option.last_name}</div>
+                  </>
+                )
+              }}
             />
             </ThemeProvider>
         </>
