@@ -1,7 +1,6 @@
 import React from 'react';
 import Feed from './Feed';
 import DashHeader from './DashHeader'
-import {Link} from 'react-router-dom'
 import Profile from './Profile'
 import '../styles/dashboard.css';
 import { useSelector } from 'react-redux'
