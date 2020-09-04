@@ -10,13 +10,21 @@ function DashBoard() {
     const balance = useSelector((state) => state.authentication.user.balance)
     const username = useSelector((state) => state.authentication.user.username)
     const picture = useSelector((state) => state.authentication.user.picUrl)
+    const firstName = useSelector((state) => state.authentication.user.first_name)
+    const lastName = useSelector((state) => state.authentication.user.last_name)
 
     return (
         <>
             <DashHeader username={username} />
             <div className="dashboard_container">
                 <div><Feed /></div>
-                <div><Profile username={username} balance={balance} picture={picture}/></div>
+                <div><Profile
+                username={username}
+                balance={balance}
+                picture={picture}
+                firstName={firstName}
+                lastName={lastName}
+                /></div>
             </div>
         </>
     );

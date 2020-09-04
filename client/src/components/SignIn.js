@@ -11,6 +11,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import { useDispatch, useSelector } from 'react-redux'
 // import { signIn } from '../store/authentication.js';
 import * as AuthActions from '../actions/authentication';
+import DemoButton from './DemoButton'
 
 
 function SignIn() {
@@ -33,17 +34,17 @@ function SignIn() {
     }
   }
 
-  const demoSignIn = async (e) => {
-    e.preventDefault();
-    await dispatch(AuthActions.removeAuth());
-    const storeReady = await dispatch(AuthActions.signIn('demo@zenmo.com', 'P4ssword'));
-    if (storeReady) {
-      history.push({
-        pathname:'/dashboard',
-        state: {'email': email === "" ? "Demo" : email}
-      })
-    }
-  }
+  // const demoSignIn = async (e) => {
+  //   e.preventDefault();
+  //   await dispatch(AuthActions.removeAuth());
+  //   const storeReady = await dispatch(AuthActions.signIn('demo@zenmo.com', 'P4ssword'));
+  //   if (storeReady) {
+  //     history.push({
+  //       pathname:'/dashboard',
+  //       state: {'email': email === "" ? "Demo" : email}
+  //     })
+  //   }
+  // }
 
     return (
         <>
@@ -75,11 +76,12 @@ function SignIn() {
               </div>
               <div className="signin_demo_submit">
                 <div>
-                <Button variant="contained" color="primary" onClick={demoSignIn}>Demo</Button>
+                {/* <Button variant="contained" color="primary" onClick={demoSignIn}>Demo</Button> */}
+                <DemoButton email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
                 </div>
                 {/* <GoogleAuth /> */}
                 <div>
-                <Button type="submit" variant="contained" color="primary">Sign In</Button>
+                <Button className="signIn" type="submit" variant="contained" color="primary">Sign In</Button>
                 </div>
               </div>
             </div>
