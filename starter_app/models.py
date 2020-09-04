@@ -168,3 +168,10 @@ class Like(db.Model):
   user = db.relationship("User", back_populates="likes")
   transaction = db.relationship("Transaction", back_populates="likes")
   comment = db.relationship("Comment", back_populates="likes")
+  
+  def to_dict(self):
+    return {
+        "id": self.id,
+        "user_id": self.user_id,
+        "transaction_id": self.transaction_id,
+    }

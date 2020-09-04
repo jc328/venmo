@@ -18,6 +18,7 @@ flask-wtf = "*"
 flask-login = "*"
 flask-cors = "*"
 flask-jwt-extended = "*"
+werkzeug = "*"
 
 [requires]
 python_version = "3.8"

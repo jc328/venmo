@@ -5,23 +5,24 @@ from sqlalchemy import and_, or_
 like_routes = Blueprint("likes", __name__, url_prefix="/like")
 
 
-@like_routes.route("/<int:transactionid>")
-def change_like(transactionid):
-  transaction = Transaction.query.get(transactionid)
-  print(transaction, "***TRANSACTIONS***")
-  # user_ids = [user_id for user_id in transaction.likers]
-  # print(user_ids, "***USER_IDS***")
-  # if user_id in user_ids:
-  like = Like(user_id=1, transaction_id=transactionid)
+@like_routes.route("/<int:transactionid>/<int:userid>")
+def heart(transactionid, userid):
+  like = Like(user_id=userid, transaction_id=transactionid)
   db.session.add(like)
   db.session.commit()
-  print(like, "***LIKE***")
-  return {"like": like}
+  data = like.to_dict()
+  return {"data": data}
+  
+
+@like_routes.route("/unlike/<int:transactionid>/<int:userid>")
+def unheart(transactionid, userid):
+  like = Like.query.filter(Like.user_id==userid, Like.transaction_id==transactionid).first()
+  data = like.to_dict()
+  db.session.delete(like)
+  db.session.commit()
+  return {"data": data}
 
 
-# @transaction_routes.route("/<int:userid>")
-# def get_user_transactions(userid):
-#     transactions = Transaction.query.filter(or_(Transaction.payee_id == userid, Transaction.payer_id == userid), Transaction.completed == True)\
-#         .order_by(Transaction.updated_at).all()
-#     data = [transaction.to_dict() for transaction in transactions]
-#     return {"data": data}
+
+
+
