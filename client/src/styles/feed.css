@@ -115,6 +115,11 @@ body {
   flex: 0 0 50px;
   padding: 6px 10px;
   text-align: right;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  margin-right: 15px;
+  outline: none;
 }
 
 .transaction__heart {
