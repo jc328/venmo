@@ -98,4 +98,4 @@ def remove_friend():
     for row in relationships:
         db.session.delete(row)
     db.session.commit()
-    return{"msg": "Friend removed"}, 200
+    return {"msg": "Friend removed"}, 200

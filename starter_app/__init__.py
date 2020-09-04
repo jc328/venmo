@@ -1,15 +1,17 @@
 import os
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, jsonify
 from flask_cors import CORS
 from flask_wtf.csrf import CSRFProtect, generate_csrf, validate_csrf
 from flask_migrate import Migrate
-from flask_jwt_extended import JWTManager
+from flask_jwt_extended import JWTManager, jwt_required, get_raw_jwt
 
 
 from starter_app.models import db, User, Friendship, Transaction, Comment, Like
 from starter_app.api.user_routes import user_routes
 from starter_app.api.transaction_routes import transaction_routes
 from starter_app.api.like_routes import like_routes
+from starter_app.api.comment_routes import comment_routes
+from starter_app.api.friendship_routes import friendship_routes
 
 from starter_app.config import Config
 
@@ -19,12 +21,28 @@ app.config.from_object(Config)
 app.register_blueprint(user_routes)
 app.register_blueprint(transaction_routes)
 app.register_blueprint(like_routes)
+app.register_blueprint(comment_routes)
 db.init_app(app)
 migrate = Migrate(app, db)
 
 ## Application Security
 jwt = JWTManager(app)
+blacklist=set()
+
+@jwt.token_in_blacklist_loader
+def check_if_token_in_blacklist(decrypted_token):
+    jti = decrypted_token['jti']
+    return jti in blacklist
+
+@app.route('/logout', methods=["DELETE"])
+@jwt_required
+def logout():
+    jti = get_raw_jwt()['jti']
+    blacklist.add(jti)
+    return jsonify({"msg": "Successfully logged out"}), 200
+
 CORS(app)
+
 @app.after_request
 def inject_csrf_token(response):
     response.set_cookie('csrf_token',

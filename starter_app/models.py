@@ -33,7 +33,7 @@ class User(db.Model):
   debit_transactions = db.relationship("Transaction", foreign_keys="Transaction.payer_id", backref="payer", cascade="all, delete-orphan", lazy="dynamic")
   comments = db.relationship("Comment", back_populates="user", cascade="all, delete-orphan")
   likes = db.relationship("Like", back_populates="user", cascade="all, delete-orphan")
-  
+
 
   friends = db.relationship('User',
                           secondary=Friendship.__table__,
@@ -51,6 +51,11 @@ class User(db.Model):
       "picUrl": self.picUrl,
       "balance": float(self.balance),
     }
+
+  def befriend(self, friend):
+      if friend not in self.friends:
+          self.friends.append(friend)
+          friend.friends.append(self)
 
   def censored_dict(self):
     return {
@@ -75,8 +80,6 @@ class User(db.Model):
       raise AssertionError('Provided email is not an email address')
 
     return email
-
-
 
   @property
   def password(self):
@@ -114,7 +117,7 @@ class Transaction(db.Model):
   #Users table uses backref to payer/payee. So you can query Transaction.payer.username to see the name of the person paying.
   comments = db.relationship("Comment", back_populates="transaction", cascade="all, delete-orphan")
   likes = db.relationship("Like", back_populates="transaction", cascade="all, delete-orphan")
-  
+
   def likers(self):
     likers_list = []
     for like in self.likes:
@@ -122,7 +125,7 @@ class Transaction(db.Model):
       likers_list.append(user_values)
     print(likers_list)
     return likers_list
-  
+
 
   def to_dict(self):
     return {
@@ -139,6 +142,7 @@ class Transaction(db.Model):
       "updated_at": self.updated_at,
       "like_count": len(self.likes),
       "likers": self.likers(),
+      "comments": [comment.to_dict() for comment in self.comments]
     }
 
 class Comment(db.Model):
@@ -154,6 +158,13 @@ class Comment(db.Model):
   user = db.relationship("User", back_populates="comments")
   transaction = db.relationship("Transaction", back_populates="comments")
   likes = db.relationship("Like", back_populates="comment", cascade="all, delete-orphan")
+
+  def to_dict(self):
+    return {
+      "id": self.id,
+      "user_id": self.user_id,
+      "message": self.message
+    }
 
 class Like(db.Model):
   __tablename__='likes'
