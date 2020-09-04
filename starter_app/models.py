@@ -121,7 +121,7 @@ class Transaction(db.Model):
   def likers(self):
     likers_list = []
     for like in self.likes:
-      user_values = {"name": like.user.first_name}
+      user_values = {"id": like.user.id, "name": (like.user.first_name + " " +  like.user.last_name)}
       likers_list.append(user_values)
     print(likers_list)
     return likers_list
