@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 function GoogleAuth() {
   const [signIn, setSignIn] = useState('null');
   const [auth, setAuth] = useState('');
+  const [email, setEmail]= useState('')
+  const [user, setUser]= useState('')
 
   useEffect(() => {
     window.gapi.load('client:auth2', () => {
@@ -13,7 +15,10 @@ function GoogleAuth() {
       }).then(() => {
         let auth = window.gapi.auth2.getAuthInstance();
         setAuth(auth)
+        // setEmail(auth.currentUser.le.rt.$t)
+        // setUser(auth.currentUser.le.rt.tV + " " + auth.currentUser.le.rt.uT)
         setSignIn(auth.isSignedIn.get())
+        console.log(auth)
       })
     });
   }, [signIn])
@@ -46,7 +51,7 @@ function GoogleAuth() {
       return (
         <button onClick={onSignIn} className="ui blue google button">
           <i className="google icon" />
-          Sign In with Google
+          Sign In
         </button>
       );
     }

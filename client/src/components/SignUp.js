@@ -7,7 +7,6 @@ import theme from '../styles/theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
 import { TextField, Button, Checkbox } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import FacebookIcon from '@material-ui/icons/Facebook';
 import { useDispatch, useSelector } from 'react-redux'
 import { removeAuth, signUp } from '../actions/authentication';
 import {useHistory} from 'react-router-dom'
@@ -37,7 +36,10 @@ function SignUp() {
       <LandingHeader />
       <div className="signup_outer_container">
         <div className="signup_title">Create your account</div>
-          <Button startIcon={<FacebookIcon />} variant="contained" color="primary" style={{marginBottom: 25}}>Sign Up with Facebook</Button>
+        <button className="ui blue google button" style={{marginBottom: 25}}>
+          <i className="google icon" />
+          Sign up with Google
+        </button>
           {valErrors? <Alert severity="error">{valErrors.msg}</Alert> : null}
         <div className="signup_container">
           <form onSubmit={handleSubmit}>

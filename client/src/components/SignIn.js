@@ -44,7 +44,7 @@ function SignIn() {
         <>
           <ThemeProvider theme={theme}>
           <LandingHeader />
-          <GoogleAuth />
+
           {valErrors? <Alert severity="error">{valErrors.msg}</Alert> : null}
           <form onSubmit={handleSubmit}>
           <div className="signin_outer_container">
@@ -72,6 +72,7 @@ function SignIn() {
                 <div>
                 <Button variant="contained" color="primary" onClick={demoSignIn}>Demo</Button>
                 </div>
+                <GoogleAuth />
                 <div>
                 <Button type="submit" variant="contained" color="primary">Sign In</Button>
                 </div>

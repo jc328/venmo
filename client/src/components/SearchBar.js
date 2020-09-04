@@ -53,6 +53,7 @@ function Search() {
               options={data}
               filterOptions={filterOptions}
               autoComplete={true}
+              autoHighlight={true}
               getOptionLabel={(option) => option.first_name + ' ' + option.last_name}
               renderInput={(params) => <TextField {...params} size="small" placeholder="Search People" className="searchbar_textfield" variant="outlined" style={{centeerText: 'center'}}
               />}
