@@ -8,6 +8,7 @@ import theme from '../styles/theme.js';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
+
 function LandingPage() {
     return (
         <>
@@ -15,7 +16,9 @@ function LandingPage() {
           <LandingHeader />
           <div className="landing_body">
             <div className="landing_body_images">
+            <img className="landing_blinking_cursur" src={process.env.PUBLIC_URL + 'blinking_cursur.gif'} />
                 <img className="landing_nexus" src={process.env.PUBLIC_URL + 'nexus.png'} alt="" />
+
                 <div className="landing_combined_iphone">
                 <img className="landing_iphone" src={process.env.PUBLIC_URL + 'iphone6crop.png'} alt="" />
                 <ReactPlayer className="landing_iphone_video" width="244px" height="375px" loop={true} playing={true} muted={true} url={process.env.PUBLIC_URL + 'landing-video.mp4'} />

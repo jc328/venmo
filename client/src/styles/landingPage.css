@@ -37,3 +37,12 @@
   justify-content: center;
   display: flex;
 }
+
+.landing_blinking_cursur {
+  position: absolute;
+  width: 4px;
+  height: 17px;
+  z-index: 2;
+  margin-top: 125px;
+  margin-right: 205px;
+}
