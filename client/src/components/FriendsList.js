@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import '../styles/feed.css';
+import '../styles/friendslist.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
@@ -32,18 +33,22 @@ const FriendsList = () => {
   return (
       <>
         <DashHeader />
-        <h1>friends</h1>
-        {friends.data.map((friend) => {
-            return (
-                <div key={friend.id}>
-                    <div className="transaction__icon" style={{ backgroundImage: `url('${friend.picUrl}')` }} />
-                    <p>
-                        {friend.first_name} {friend.last_name} (@{friend.username})
-                    </p>
-                    <TransactionForm userId={userId} friendId={friend.id} balance={newBalance} newBalance={newBalance => setNewBalance(newBalance)}/>
-                </div>
-            )
-        })}
+        <div className="friendslist__container">
+            <div className="friendslist">
+                <h1>Friends:</h1>
+                {friends.data.map((friend) => {
+                    return (
+                        <div className="friendslist__border friend" key={friend.id}>
+                            <div className="transaction__icon" style={{ backgroundImage: `url('${friend.picUrl}')` }} />
+                            <p>
+                                {friend.first_name} {friend.last_name} <span style={{color: "rgb(175, 175, 175)"}}>@{friend.username}</span>
+                            </p>
+                            <TransactionForm userId={userId} friendId={friend.id} balance={newBalance} newBalance={newBalance => setNewBalance(newBalance)}/>
+                        </div>
+                    )
+                })}
+            </div>
+        </div>
       </>
   );
 }

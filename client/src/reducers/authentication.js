@@ -3,6 +3,7 @@ import {
   SET_USER,
   REMOVE_AUTH,
   VAL_ERRORS,
+  SET_BALANCE,
 } from '../actions/authentication';
 
 const authReducer = (state = {}, action) => {
@@ -11,6 +12,11 @@ const authReducer = (state = {}, action) => {
 
     case SET_USER: {
       nextState= {...nextState, user: action.user}
+      return nextState;
+    }
+
+    case SET_BALANCE: {
+      nextState.user.balance = action.newBalance;
       return nextState;
     }
 

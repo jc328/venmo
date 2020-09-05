@@ -38,7 +38,7 @@ function DashHeader(props) {
         <ThemeProvider theme={theme}>
           <div className="dash_container">
             <div className="dash_logo_search">
-              <Link to="/"><img className="dash_logo" src="https://zenmo-bucket.s3-us-west-1.amazonaws.com/assets/venmo_logo_white.svg" alt="" /></Link>
+              <Link to="/dashboard"><img className="dash_logo" src="https://zenmo-bucket.s3-us-west-1.amazonaws.com/assets/venmo_logo_white.svg" alt="" /></Link>
               <SearchBar />
             </div>
 
