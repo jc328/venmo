@@ -12,8 +12,6 @@ import { useDispatch, useSelector } from 'react-redux'
 // import { signIn } from '../store/authentication.js';
 import * as AuthActions from '../actions/authentication';
 import DemoButton from './DemoButton'
-import TransactionForm from './TransactionForm';
-
 
 function SignIn() {
   const dispatch = useDispatch();
@@ -46,7 +44,6 @@ function SignIn() {
 
     return (
         <>
-          <TransactionForm userId='greg' friendId='matt' balance='99999'/>
           <ThemeProvider theme={theme}>
           <LandingHeader />
 
