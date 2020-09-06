@@ -13,7 +13,7 @@ def index():
   response = User.query.all()
   return { "users": [user.to_dict() for user in response]}
 
-@user_routes.route('/allusers')
+@user_routes.route('/allusers', methods=['POST'])
 def allusers():
   response = User.query.all()
   return { "users": [user.to_dict() for user in response]}
