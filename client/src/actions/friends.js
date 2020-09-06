@@ -2,10 +2,10 @@ import { baseUrl } from '../config';
 
 export const FRIENDSLOAD = 'FRIENDSLOAD';
 
-const friendsLoad = list => ({
-  type: FRIENDSLOAD,
-  list,
-});
+// const friendsLoad = list => ({
+//   type: FRIENDSLOAD,
+//   list,
+// });
 
 export const getFriends = (userId) => async (dispatch) => {
   const response = await fetch(`${baseUrl}/friends/${userId}`, {

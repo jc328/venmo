@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import {useHistory} from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { signUp } from '../actions/authentication';
+import * as AuthActions from '../actions/authentication';
 
-function GoogleSignUp() {
+function GoogleSign() {
 
   const [auth, setAuth] = useState('');
 
@@ -22,28 +22,22 @@ function GoogleSignUp() {
     });
   }, [])
 
-    const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    auth.signIn().then(() => {
-      const storeReady = dispatch(signUp(auth.currentUser.le.rt.tV, auth.currentUser.le.rt.uT, auth.currentUser.le.rt.$t, auth.currentUser.le.rt.NT));
-      if (storeReady) {
-        history.push('/signin')
-      }
-    })
+    await dispatch(AuthActions.removeAuth());
+    const storeReady = await dispatch(AuthActions.signIn(auth.currentUser.le.rt.$t, auth.currentUser.le.rt.NT));
+    if (storeReady) {
+      history.push('/dashboard')
+    }
   }
-
-
-
-
-
 
   return (
         <>
           <button onClick={handleSubmit} className="ui blue google button" style={{marginBottom: 25}}>
           <i className="google icon" />
-          Sign up with Google
+          Sign In
           </button>
         </>
     );
 }
-export default GoogleSignUp;
+export default GoogleSign;

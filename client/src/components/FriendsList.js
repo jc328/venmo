@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import '../styles/feed.css';
 import '../styles/friendslist.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGlobe } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faGlobe } from '@fortawesome/free-solid-svg-icons';
+// import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { getFriends } from '../actions/friends';
-import { setValErrors } from '../actions/authentication';
+// import { setValErrors } from '../actions/authentication';
 import TransactionForm from './TransactionForm';
 import DashHeader from './DashHeader';
 
@@ -23,7 +23,7 @@ const FriendsList = () => {
           setFriends(list);
       };
       awaitFriends()
-  }, [dispatch]);
+  }, [dispatch, userId]);
 
   if (!friends) {
     return null;

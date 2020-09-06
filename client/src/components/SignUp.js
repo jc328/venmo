@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
 import LandingHeader from './LandingHeader';
 import LandingFooter from './LandingFooter';
 import '../styles/signUp.css';
@@ -10,6 +9,7 @@ import { Alert } from '@material-ui/lab';
 import { useDispatch, useSelector } from 'react-redux'
 import { removeAuth, signUp } from '../actions/authentication';
 import {useHistory} from 'react-router-dom'
+import GoogleSignUp from './GoogleSignUp'
 
 function SignUp() {
 
@@ -36,10 +36,7 @@ function SignUp() {
       <LandingHeader />
       <div className="signup_outer_container">
         <div className="signup_title">Create your account</div>
-        <button className="ui blue google button" style={{marginBottom: 25}}>
-          <i className="google icon" />
-          Sign up with Google
-        </button>
+        <GoogleSignUp />
           {valErrors? <Alert severity="error">{valErrors.msg}</Alert> : null}
         <div className="signup_container">
           <form onSubmit={handleSubmit}>
