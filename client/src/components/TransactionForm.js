@@ -6,6 +6,8 @@ import {sendPayment, requestPayment} from '../actions/transactions'
 import { setBalance } from '../actions/authentication';
 // import { faFileExcel } from '@fortawesome/free-solid-svg-icons';
 import '../styles/friendslist.css';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/core/styles';
 
 function getModalStyle() {
   const top = 50;
@@ -17,6 +19,19 @@ function getModalStyle() {
     transform: `translate(-${top}%, -${left}%)`,
   };
 }
+
+const theme = createMuiTheme({
+  typography: {
+    button: {
+      textTransform: 'none',
+    }
+  },
+  palette: {
+    text: {
+      primary: 'rgb(255,255,255)'
+    }
+  }
+})
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -107,6 +122,7 @@ export default function TransactionForm(props) {
   );
 
   return (
+    <ThemeProvider theme={theme}>
     <div>
       <Button variant="contained" color="primary" onClick={handleOpen}>
         Pay or Request
@@ -120,5 +136,7 @@ export default function TransactionForm(props) {
         {body}
       </Modal>
     </div>
+    </ThemeProvider>
+
   );
 }

@@ -38,12 +38,6 @@ function App() {
             <PrivateRoute path="/friends" needSignIn={needSignIn} exact component={FriendsList} />
             <PrivateRoute path="/dashboard" needSignIn={needSignIn} exact component={DashBoard} />
         </Switch>
-        <nav>
-            <ul>
-                {/* <li><NavLink to="/" activeclass="active">Home</NavLink></li>
-                <li><NavLink to="/users" activeclass="active">Users</NavLink></li> */}
-            </ul>
-        </nav>
     </BrowserRouter>
   );
 }
