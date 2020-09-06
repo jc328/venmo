@@ -5,7 +5,7 @@ from sqlalchemy import and_, or_
 friendship_routes = Blueprint("friends", __name__, url_prefix="/friends")
 
 #Route to get all friends
-@friendship_routes.route('/<userId>')
+@friendship_routes.route('/<int:userId>')
 def get_friends(userId):
     user = User.query.get(userId)
     all= user.friends

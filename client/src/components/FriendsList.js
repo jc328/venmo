@@ -36,6 +36,7 @@ const FriendsList = () => {
         <div className="friendslist__container">
             <div className="friendslist">
                 <h1>Friends:</h1>
+                <p> Your Current Balance: ${balance} </p>
                 {friends.data.map((friend) => {
                     return (
                         <div className="friendslist__border friend" key={friend.id}>
