@@ -43,14 +43,13 @@ with app.app_context():
   #Friendships
   users = User.query.all()
   for user1 in users:
-    if random.random() < 0.67:
-      for user2 in users:
-        if user1.id != user2.id:
+    for user2 in users:
+      if user1.id != user2.id:
+        if random.random() < 0.25:
           user1.befriend(user2)
           db.session.commit()
-          if random.random() < 0.8:
-            user1.accept(user2)
-            db.session.commit()
+          user1.accept(user2)
+          db.session.commit()
 
 
   #Transactions
@@ -159,6 +158,8 @@ with app.app_context():
 
   random.shuffle(t_list)
   for t in t_list:
+    if (t.completed):
+      t.updated_at = t.created_at + timedelta(hours = random.random() * 24, minutes = random.random() * 60)
     db.session.add(t)
   db.session.commit()
 
@@ -178,11 +179,11 @@ with app.app_context():
   payer_comment_options = [ "for sure!", "always.", "yes", "word", "yup", "YUP", "heh", "already planning the next one", "next time will be nutz", "always down", "YOLO", ":D", ":-P","still taking donations... hehe", "we unstoppable!", "YASSSSS", "no, thank you!", "I got you yo!"]
   c_list = []
   for t in range(100):
-    if random.random() < 0.8:
+    if random.random() < 0.5:
       trans_post = Transaction.query.get(t + 1)
-      c_list.append(Comment(message = random.choice(payer_comment_options), transaction_id = t + 1, user_id = trans_post.payer_id))
-      if random.random() < 0.8:
-        c_list.append(Comment(message = random.choice(payee_comment_options), transaction_id = t + 1, user_id = trans_post.payee_id))
+      c_list.append(Comment(message = random.choice(payer_comment_options), transaction_id = t + 1, user_id = trans_post.payer_id, created_at = trans_post.created_at + timedelta(minutes = random.random() * 10)))
+      if random.random() < 0.5:
+        c_list.append(Comment(message = random.choice(payee_comment_options), transaction_id = t + 1, user_id = trans_post.payee_id, created_at = trans_post.created_at + timedelta(minutes = 10 + random.random() * 10)))
 
   for c in c_list:
     db.session.add(c)

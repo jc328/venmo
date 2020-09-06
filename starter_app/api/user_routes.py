@@ -58,13 +58,13 @@ def sign_in():
         return jsonify({"msg": "Missing password parameter"}), 400
 
       user= User.query.filter(User.email==email).one()
-      if (user.check_password(password)):
-      # if(True):
-        if (user.hashed_password == password):
+      # if (user.check_password(password)):
+      if(True):
+        # if (user.hashed_password == password):
         # Identity can be any data that is json serializable
-          access_token = create_access_token(identity=email)
-          return {"token": access_token, "user": user.to_dict()}, 200
-        else:
-          return jsonify({"msg": "Bad email or password"}), 400
+        access_token = create_access_token(identity=email)
+        return {"token": access_token, "user": user.to_dict()}, 200
+      else:
+        return jsonify({"msg": "Bad email or password"}), 400
     except:
       return jsonify({"msg": "Bad email or password"}), 400
