@@ -7,7 +7,7 @@ import { TextField, Button, } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import theme from '../styles/theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
-// import GoogleAuth from './GoogleAuth.js'
+import GoogleSign from './GoogleSign.js'
 import { useDispatch, useSelector } from 'react-redux'
 // import { signIn } from '../store/authentication.js';
 import * as AuthActions from '../actions/authentication';
@@ -75,7 +75,7 @@ function SignIn() {
                 {/* <Button variant="contained" color="primary" onClick={demoSignIn}>Demo</Button> */}
                 <DemoButton email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
                 </div>
-                {/* <GoogleAuth /> */}
+                <GoogleSign />
                 <div>
                 <Button className="signIn" type="submit" variant="contained" color="primary">Sign In</Button>
                 </div>

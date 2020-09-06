@@ -4,7 +4,7 @@ import {Modal, TextField, Button} from '@material-ui/core';
 import { useDispatch } from 'react-redux';
 import {sendPayment, requestPayment} from '../actions/transactions'
 import { setBalance } from '../actions/authentication';
-import { faFileExcel } from '@fortawesome/free-solid-svg-icons';
+// import { faFileExcel } from '@fortawesome/free-solid-svg-icons';
 import '../styles/friendslist.css';
 
 function getModalStyle() {
