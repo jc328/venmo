@@ -77,6 +77,7 @@ export default function TransactionForm(props) {
               size="small"
               label="Amount $"
               type="number"
+              required
               onChange={updateAmount}
               >
           </TextField>

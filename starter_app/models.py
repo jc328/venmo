@@ -140,7 +140,7 @@ class Transaction(db.Model):
       "completed": self.completed,
       "created_at": '{:%B %e, %Y, %H:%M %p}'.format(self.created_at),
       "updated_at": self.updated_at,
-      "like_count": len(self.likes),
+      # "like_count": len(self.likes),
       "likers": self.likers(),
       "comments": [comment.to_dict() for comment in self.comments]
     }
@@ -163,7 +163,9 @@ class Comment(db.Model):
     return {
       "id": self.id,
       "user_id": self.user_id,
-      "message": self.message
+      "message": self.message,
+      "created_at": self.created_at,
+      "updated_at": self.updated_at,
     }
 
 class Like(db.Model):
@@ -182,7 +184,9 @@ class Like(db.Model):
   
   def to_dict(self):
     return {
-        "id": self.id,
-        "user_id": self.user_id,
-        "transaction_id": self.transaction_id,
+      "id": self.id,
+      "user_id": self.user_id,
+      "transaction_id": self.transaction_id,
+      "created_at": self.created_at,
+      "updated_at": self.updated_at,
     }

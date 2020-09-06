@@ -5,9 +5,13 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import SearchBar from './SearchBar.js'
 // import SearchBarSem from './SearchBarSem.js'
 import '../styles/dashheader.css';
-import { Button } from '@material-ui/core';
-import { useDispatch } from 'react-redux'
+import { Button, Badge } from '@material-ui/core';
+import { useDispatch, useSelector } from 'react-redux'
 import * as AuthActions from '../actions/authentication';
+import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
+import lightBlue from '@material-ui/core/colors/lightBlue';
+
+const white = lightBlue[50]
 
 const theme = createMuiTheme({
   typography: {
@@ -26,6 +30,7 @@ function DashHeader(props) {
 
   const dispatch = useDispatch();
   const history = useHistory();
+  const username = useSelector((state) => state.authentication.user.username)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,7 +48,16 @@ function DashHeader(props) {
             </div>
 
             <div className="dash_account_buttons">
-              <Button size="small">{props.username}</Button>
+              <Badge
+                badgeContent={4}
+                color="error"
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}>
+                <NotificationsNoneOutlinedIcon style={{color: white}}/>
+              </Badge>
+              <Button size="small">{username}</Button>
               <Button size="small">Statement</Button>
               <Button size="small">Settings</Button>
               <Button size="small">Help</Button>

@@ -45,7 +45,6 @@ def sign_up():
 @user_routes.route('/signin', methods=['POST'])
 def sign_in():
     try:
-
       if not request.is_json:
         return jsonify({"msg": "Missing JSON in request"}), 400
 
@@ -59,9 +58,8 @@ def sign_in():
 
       user= User.query.filter(User.email==email).one()
       if (user.check_password(password)):
-        # Identity can be any data that is json serializable
-          access_token = create_access_token(identity=email)
-          return {"token": access_token, "user": user.to_dict()}, 200
+        access_token = create_access_token(identity=email)
+        return {"token": access_token, "user": user.to_dict()}, 200
       else:
         return jsonify({"msg": "Bad email or password"}), 400
     except:

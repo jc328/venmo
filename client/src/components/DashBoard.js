@@ -15,7 +15,7 @@ function DashBoard() {
 
     return (
         <>
-            <DashHeader username={username} />
+            <DashHeader/>
             <div className="dashboard_container">
                 <div><Feed /></div>
                 <div><Profile
