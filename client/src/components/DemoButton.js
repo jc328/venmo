@@ -36,7 +36,7 @@ export default function DemoButton ({ email, setEmail, password, setPassword }) 
   return (
     <Button
     variant="contained"
-    color="primary"
+    style={{backgroundColor:"#3D95CE", color:"white"}}
     onClick={handleClick}
     >Demo User</Button>
   )

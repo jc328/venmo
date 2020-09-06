@@ -30,18 +30,6 @@ function SignIn() {
     }
   }
 
-  // const demoSignIn = async (e) => {
-  //   e.preventDefault();
-  //   await dispatch(AuthActions.removeAuth());
-  //   const storeReady = await dispatch(AuthActions.signIn('demo@zenmo.com', 'P4ssword'));
-  //   if (storeReady) {
-  //     history.push({
-  //       pathname:'/dashboard',
-  //       state: {'email': email === "" ? "Demo" : email}
-  //     })
-  //   }
-  // }
-
     return (
         <>
           <ThemeProvider theme={theme}>
@@ -71,12 +59,13 @@ function SignIn() {
                 </TextField>
               </div>
               <div className="signin_demo_submit">
+              <GoogleSign />
                 <div>
                 <DemoButton email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
                 </div>
-                <GoogleSign />
+
                 <div>
-                <Button className="signIn" type="submit" variant="contained" color="primary">Sign In</Button>
+                <Button className="signIn" type="submit" variant="contained" style={{backgroundColor:"#3D95CE", color:"white"}}>Sign In</Button>
                 </div>
               </div>
             </div>
