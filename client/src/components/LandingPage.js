@@ -16,7 +16,7 @@ function LandingPage() {
           <LandingHeader />
           <div className="landing_body">
             <div className="landing_body_images">
-            <img className="landing_blinking_cursur" src={process.env.PUBLIC_URL + 'blinking_cursur.gif'} />
+            <img className="landing_blinking_cursur" src={process.env.PUBLIC_URL + 'blinking_cursur.gif'} alt="" />
                 <img className="landing_nexus" src={process.env.PUBLIC_URL + 'nexus.png'} alt="" />
 
                 <div className="landing_combined_iphone">
