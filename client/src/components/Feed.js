@@ -1,107 +1,67 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getTransactions, createLike, destroyLike } from '../actions/transactions';
+import React, { useEffect, useState } from 'react';
+import { usePromiseTracker } from 'react-promise-tracker';
+import { trackPromise } from 'react-promise-tracker';
+import Loader from 'react-loader-spinner';
+import { baseUrl } from '../config';
+import { useSelector } from 'react-redux';
 import '../styles/feed.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGlobe } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
+import Transaction from './Transaction';
 
 const Feed = () => {
-  const dispatch = useDispatch();
-  const transactions = useSelector(state => state.transactions.list);
+  const [transactions, setTransactions] = useState(null)
+  const [tab, setTab] = useState("public")
   const currentUserId = useSelector(state => state.authentication.user.id)
-  
+  const { promiseInProgress } = usePromiseTracker();
+
   useEffect(() => {
-    dispatch(getTransactions());
-  }, [dispatch]);
-
-  // console.log(currentUserId)
-  // useEffect(() => {
-  //   dispatch(getTransactions());
-  //   dispatch(createLike());
-  //   dispatch(destroyLike());
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(createLike());
-  // }, [dispatch]);
-
-  // useEffect(() => {
-  //   dispatch(destroyLike());
-  // }, [dispatch]);
-
-  if (!transactions) {
-    return null;
-  }
+    const fetchData = async () => {
+      if (tab === "public") {
+        const result = await trackPromise(fetch(`${baseUrl}/transaction/public`));
+        if (result.ok) {
+          const resultJSON = await result.json();
+          const transactions = resultJSON.data.map(r => <Transaction key={r.id} transaction={r} audience={tab}/>)
+          setTransactions(transactions);
+        }
+      }
+      else if (tab === "friends") {
+        const result = await trackPromise(fetch(`${baseUrl}/transaction/${currentUserId}/friends`));
+        if (result.ok) {
+          const resultJSON = await result.json();
+          const transactions = resultJSON.data.map(r => <Transaction key={r.id} transaction={r} audience={tab}/>)
+          setTransactions(transactions);
+        }
+      }
+      else if (tab === "mine") {
+        const result = await trackPromise(fetch(`${baseUrl}/transaction/${currentUserId}`));
+        if (result.ok) {
+          const resultJSON = await result.json();
+          const transactions = resultJSON.data.map(r => <Transaction key={r.id} transaction={r} audience={tab}/>)
+          setTransactions(transactions);
+        }
+      }
+    };
+    fetchData();
+  }, [currentUserId, tab]);
+  console.log("TAB:", tab);
 
   
-  // const changeLike = (idx, transactionId, userId) => {
-    // console.log("CHANGE LIKE")
-    // if (transactions.data[idx].likers.filter(liker => liker.id === userId).length === 1){
-      // console.log("DESTROY")
-      // destroyLike(transactionId, userId)
-    // }
-    // else{
-      // console.log("CREATE") 
-    // createLike(transactionId, userId)
-    // }
-    // const len = transactions.data[idx].likers.length
-    // for (let i = 0; i < len; i++){
-    //   console.log("LIKER-FOUND:", transactions.data[idx].likers[i].id === user_id);
-    //   if (transactions.data[idx].likers[i].id === user_id){
-    //     return true;
-    //   }
-    // }
-  // }
 
+  const LoadingIndicator = () => {
+    return (
+      <div style={{ width: "100%", height: "100", display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
+      </div>
+    )
+  }
 
   return (
     <div className="feed">
       <div className="feed__tabs">
-        <button className="pressed">PUBLIC</button>
-        <button className="">FRIENDS</button>
-        <button className="">MINE</button>
+        <button className={tab === "public" ? "pressed" : ""} onClick={() => setTab("public")}>PUBLIC</button>
+        <button className={tab === "friends" ? "pressed" : ""} onClick={() => setTab("friends")}>FRIENDS</button>
+        <button className={tab === "mine" ? "pressed" : ""} onClick={() => setTab("mine")}>MINE</button>
       </div>
-      {transactions.data.map((transaction, idx) => {
-        return (
-          <div key={transaction.id} className="feed__transaction">
-            <div className="transaction__description">
-              <div className="transaction__icon" style={{ backgroundImage: `url('${transaction.payee_pic}')` }} />
-              <div className="transaction__details">
-                <div className="transaction__details-name">
-                  <span className="transaction__pay-name">{transaction.payee_name}</span>
-                  <span className="transaction__paid"> paid </span>
-                  <span className="transaction__pay-name">{transaction.payer_name}</span>
-                </div>
-                <div className="transaction__details-date">
-                  <div className="transaction__date">{transaction.created_at}&nbsp;</div>
-                  <FontAwesomeIcon className="transaction__audience" icon={faGlobe}/>
-                </div>
-                <div className="transaction__message">{transaction.message}</div>
-              </div>
-            </div>
-            <div className="transaction__likes">
-              {/* <button className="transaction__like" onClick={changeLike(idx, transaction.id, currentUserId)}> */}
-                {transactions.data[idx].likers.filter(liker => liker.id === currentUserId).length === 1
-                ? <button className="transaction__like" onClick={destroyLike(transaction.id, currentUserId)}>
-                      <FontAwesomeIcon className="transaction__heart liked" icon={farHeart} />
-                    </button>
-                : <button className="transaction__like" onClick={createLike(transaction.id, currentUserId)}>
-                    <FontAwesomeIcon className="transaction__heart" icon={farHeart} />
-                  </button>}
-              <div className="transaction__likes-likers">
-                {transaction.like_count === 1
-                  ? <div><span className="transaction__liker">{transaction.likers[0].name}</span> likes this.</div>
-                  : transaction.like_count === 2
-                  ? <div><span className="transaction__liker">{transaction.likers[0].name}</span> and <span className="transaction__liker">{transaction.likers[1].name}</span> like this.</div>
-                  : transaction.like_count > 2
-                  ? <div><span className="transaction__liker">{transaction.likers[0].name}</span> and <span className="transaction__likers">{transaction.likers.length - 1} others</span> like this.</div>
-                  : <span className="transaction__likers">Be the first to like this.</span>}
-              </div>
-            </div>
-          </div>
-        );
-      })}
+      {promiseInProgress ? <LoadingIndicator/> : transactions}
     </div>
   );
 }
