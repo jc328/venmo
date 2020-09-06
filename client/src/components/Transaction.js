@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { baseUrl } from '../config';
 import '../styles/feed.css';
@@ -44,7 +44,7 @@ const Transaction = ({ transaction }) => {
   }
 
 
-  
+
   return (
     <div className="feed__transaction">
       <div className="transaction__description">

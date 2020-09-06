@@ -22,13 +22,16 @@ function GoogleSignUp() {
     });
   }, [])
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
     e.preventDefault();
     auth.signIn().then(() => {
-      const storeReady = dispatch(signUp(auth.currentUser.le.rt.tV, auth.currentUser.le.rt.uT, auth.currentUser.le.rt.$t, auth.currentUser.le.rt.NT));
-      if (storeReady) {
-        history.push('/signin')
-      }
+      const storeReady = dispatch(signUp(auth.currentUser.le.rt.tV, auth.currentUser.le.rt.uT, auth.currentUser.le.rt.$t, auth.currentUser.le.rt.NT))
+
+      storeReady.then((result) => {
+        if (result===true) {
+          history.push('/signin')
+        }
+      })
     })
   }
 

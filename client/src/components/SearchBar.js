@@ -40,7 +40,6 @@ function Search() {
     const response = await fetch(`${baseUrl}/allusers`, requestOptions)
     const newData = await response.json()
     setData(newData.users)
-    console.log(newData.users)
     }
     test()
 

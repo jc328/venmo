@@ -72,7 +72,6 @@ function SignIn() {
               </div>
               <div className="signin_demo_submit">
                 <div>
-                {/* <Button variant="contained" color="primary" onClick={demoSignIn}>Demo</Button> */}
                 <DemoButton email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
                 </div>
                 <GoogleSign />
