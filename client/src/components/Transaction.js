@@ -12,15 +12,15 @@ const Transaction = ({ transaction }) => {
   const transLiked = transaction.likers.filter(liker => liker.id === currentUserId).length === 1
   const [liked, setLiked] = useState(transLiked);
 
-  // useEffect(() => {}, [currentUserId, liked]);
+  useEffect(() => {}, [currentUserId, liked]);
 
   const createLike = (transaction_id, user_id) => async (getState) => {
-    // const { authentication: { token } } = getState();
+    const { authentication: { token } } = getState();
     await fetch(`${baseUrl}/like/${transaction_id}/${user_id}`, {});
   };
 
   const destroyLike = (transaction_id, user_id) => async (getState) => {
-    // const { authentication: { token } } = getState();
+    const { authentication: { token } } = getState();
     await fetch(`${baseUrl}/like/unlike/${transaction_id}/${user_id}`, {});
   };
 
@@ -40,11 +40,12 @@ const Transaction = ({ transaction }) => {
   }
   const handleClickLike = () => {
     console.log('click like')
-    addLike(transId, currentUserId)
+    setLiked(true)
+    createLike(transId, currentUserId)
   }
 
 
-  
+
   return (
     <div className="feed__transaction">
       <div className="transaction__description">

@@ -29,6 +29,17 @@
   padding: 20px;
 }
 
+.requestlist__holder {
+  border-bottom: 1px solid #e9e9e9;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.payButton {
+  padding-left: 15px;
+}
+
 .button__holder {
     display: flex;
     align-items: center;

@@ -1,13 +1,14 @@
 from flask import Blueprint, jsonify, request
 from starter_app.models import db, User, Transaction, Comment, Like
 from sqlalchemy import and_, or_, desc
+import datetime
 
 transaction_routes = Blueprint("transactions", __name__, url_prefix="/transaction")
 
 #Route to get all public transactions
 @transaction_routes.route("/public")
 def get_all_transactions():
-    transactions = Transaction.query.filter(Transaction.completed==True).order_by(desc(Transaction.created_at)).all()
+    transactions = Transaction.query.filter(Transaction.completed==True).order_by(desc(Transaction.updated_at)).all()
     data = [transaction.to_dict() for transaction in transactions]
     return {"data": data}, 200
 
@@ -15,7 +16,7 @@ def get_all_transactions():
 @transaction_routes.route("/<int:userid>")
 def get_user_transactions(userid):
     transactions = Transaction.query.filter(or_(Transaction.payee_id==userid, Transaction.payer_id==userid), Transaction.completed==True)\
-        .order_by(desc(Transaction.created_at)).all()
+        .order_by(desc(Transaction.updated_at)).all()
     data = [transaction.to_dict() for transaction in transactions]
     return {"data": data}, 200
 
@@ -25,7 +26,7 @@ def get_user_transactions(userid):
 def get_friend_transactions(userid):
     user = User.query.get(userid)
     friends_list = [friend.id for friend in user.friends]
-    transactions = Transaction.query.filter(Transaction.completed==True).order_by(desc(Transaction.created_at)).all()
+    transactions = Transaction.query.filter(Transaction.completed==True).order_by(desc(Transaction.updated_at)).all()
     friend_transactions = [transaction for transaction in transactions if ((transaction.payer_id in friends_list)) or ((transaction.payee_id in friends_list))]
     data = [transaction.to_dict() for transaction in friend_transactions]
     return {"data": data}, 200
@@ -35,7 +36,7 @@ def get_friend_transactions(userid):
 @transaction_routes.route("/<int:userid>/debit")
 def get_pending_debits(userid):
     transactions = Transaction.query.filter(Transaction.payer_id==userid, Transaction.completed==False)\
-        .order_by(desc(Transaction.created_at)).all()
+        .order_by(desc(Transaction.updated_at)).all()
     data = [transaction.to_dict() for transaction in transactions]
     return {"data": data}, 200
 
@@ -43,7 +44,7 @@ def get_pending_debits(userid):
 @transaction_routes.route("/<int:userid>/credit")
 def get_pending_credits(userid):
     transactions = Transaction.query.filter(Transaction.payee_id==userid, Transaction.completed==False)\
-        .order_by(desc(Transaction.created_at)).all()
+        .order_by(desc(Transaction.updated_at)).all()
     data = [transaction.to_dict() for transaction in transactions]
     return {"data": data}, 200
 
@@ -63,6 +64,7 @@ def create_payment_transaction():
     transaction = Transaction(**data)
     payer = User.query.get(data["payer_id"])
     payee = User.query.get(data["payee_id"])
+    transaction.updated_at = datetime.datetime.now()
     db.session.add(transaction)
     db.session.add(payer)
     payer.balance = float(payer.balance) - float(data["amount"])

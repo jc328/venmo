@@ -1,14 +1,14 @@
-import { baseUrl } from '../config';
+import { baseUrl } from "../config";
 
-export const TRANSACTIONSLOAD = 'TRANSACTIONSLOAD';
-export const CHANGE_BALANCE = 'CHANGE_BALANCE'
+export const TRANSACTIONSLOAD = "TRANSACTIONSLOAD";
+export const CHANGE_BALANCE = "CHANGE_BALANCE";
 
-export const transactionsLoad = list => ({
+export const transactionsLoad = (list) => ({
   type: TRANSACTIONSLOAD,
   list,
 });
 
-export const changeBalance = amount => ({
+export const changeBalance = (amount) => ({
   type: CHANGE_BALANCE,
   amount,
 });
@@ -28,7 +28,23 @@ export const changeBalance = amount => ({
 //   }
 // };
 
-export const createLike = (transaction_id, user_id) => async (dispatch, getState) => {
+export const getRequests = (userId) => async (dispatch) => {
+  const response = await fetch(`${baseUrl}/transaction/${userId}/debit`, {
+    method: "get",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (response.ok) {
+    const list = await response.json();
+    console.log(list);
+    return list;
+  }
+};
+
+export const createLike = (transaction_id, user_id) => async (
+  dispatch,
+  getState
+) => {
   // const { authentication: { token } } = getState();
   const response = await fetch(`${baseUrl}/like/${transaction_id}/${user_id}`, {
     // headers: {
@@ -44,13 +60,19 @@ export const createLike = (transaction_id, user_id) => async (dispatch, getState
   }
 };
 
-export const destroyLike = (transaction_id, user_id) => async (dispatch, getState) => {
+export const destroyLike = (transaction_id, user_id) => async (
+  dispatch,
+  getState
+) => {
   // const { authentication: { token } } = getState();
-  const response = await fetch(`${baseUrl}/like/unlike/${transaction_id}/${user_id}`, {
-    // headers: {
-    //   Authorization: `Bearer ${token}`,
-    // },
-  });
+  const response = await fetch(
+    `${baseUrl}/like/unlike/${transaction_id}/${user_id}`,
+    {
+      // headers: {
+      //   Authorization: `Bearer ${token}`,
+      // },
+    }
+  );
 
   if (response.ok) {
     const destroyedLike = await response.json();
@@ -60,30 +82,62 @@ export const destroyLike = (transaction_id, user_id) => async (dispatch, getStat
   }
 };
 
-export const sendPayment = (amount, message, payer_id, payee_id) => async (dispatch) => {
+export const sendPayment = (amount, message, payer_id, payee_id) => async (
+  dispatch
+) => {
   const response = await fetch(`${baseUrl}/transaction/pay`, {
     method: "post",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ amount, message, payer_id, payee_id, "completed": true }),
+    body: JSON.stringify({
+      amount,
+      message,
+      payer_id,
+      payee_id,
+      completed: true,
+    }),
   });
 
   if (response.ok) {
-    return true
+    return true;
   } else {
-    return response
+    return response;
   }
-}
+};
 
-export const requestPayment = (amount, message, payee_id, payer_id) => async (dispatch) => {
+export const confirmPayment = (transaction_id) => async (dispatch) => {
+  const response = await fetch(`${baseUrl}/transaction/confirm`, {
+    method: "post",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      transaction_id
+    }),
+  });
+
+  if (response.ok) {
+    return true;
+  } else {
+    return response;
+  }
+};
+
+export const requestPayment = (amount, message, payee_id, payer_id) => async (
+  dispatch
+) => {
   const response = await fetch(`${baseUrl}/transaction/request`, {
     method: "post",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ amount, message, payee_id, payer_id, "completed": false }),
+    body: JSON.stringify({
+      amount,
+      message,
+      payee_id,
+      payer_id,
+      completed: false,
+    }),
   });
 
   if (response.ok) {
-    return true
+    return true;
   } else {
-    return response
+    return response;
   }
-}
+};
