@@ -12,9 +12,7 @@ function Profile(props) {
                     <div><img className="profile_image" src={pictureURL} alt="" /></div>
                     <div className="profile_username">{props.firstName} {props.lastName}</div>
                 </div>
-                <p className="profile_divider" />
-                <div className="profile_value">${props.balance} in Zenmo</div>
-                <p className="profile_divider" />
+                <div className="profile_value profile_balance_info"><div className="profile_balance">${props.balance}</div><span className="profile_zenmo"> in Zenmo</span></div>
                 <div className="profile_value"><Link to='/friends'>Friends List</Link></div>
             </div>
         </>

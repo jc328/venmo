@@ -106,6 +106,7 @@ class Transaction(db.Model):
   __tablename__='transactions'
 
   id = db.Column(db.Integer, primary_key = True)
+  privacy = db.Column(db.Integer, default=0)
   amount = db.Column(db.Numeric(9,2), nullable = False)
   payee_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
   payer_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
@@ -130,6 +131,7 @@ class Transaction(db.Model):
   def to_dict(self):
     return {
       "id": self.id,
+      "privacy": self.privacy,
       "amount": float(self.amount),
       "payee": self.payee.id, #id as placeholder for now, may want to change to username or something else later
       "payee_pic": self.payee.picUrl,
@@ -138,9 +140,10 @@ class Transaction(db.Model):
       "payer": self.payer.id,
       "message": self.message,
       "completed": self.completed,
-      "created_at": '{:%B %e, %Y, %H:%M %p}'.format(self.created_at),
+      "created": '{:%B %e, %Y, %H:%M %p}'.format(self.created_at),
+      "created_at": self.created_at,
+      "updated": '{:%B %e, %Y, %H:%M %p}'.format(self.updated_at),
       "updated_at": self.updated_at,
-      # "like_count": len(self.likes),
       "likers": self.likers(),
       "comments": [comment.to_dict() for comment in self.comments]
     }

@@ -1,86 +1,92 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { baseUrl } from '../config';
 import '../styles/feed.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGlobe } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
+import { faGlobe, faUserFriends, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import Likers from './Likers';
 
-const Transaction = ({ transaction }) => {
+const Transaction = ({ transaction, index, transactionsData, newTransactionsData }) => {
   const currentUserId = useSelector(state => state.authentication.user.id)
+  const firstName = useSelector((state) => state.authentication.user.first_name)
+  const lastName = useSelector((state) => state.authentication.user.last_name)
   const transId = transaction.id;
-  const transLiked = transaction.likers.filter(liker => liker.id === currentUserId).length === 1
-  const [liked, setLiked] = useState(transLiked);
+  
+  const findLike = () => ( transactionsData[index].likers.filter(liker => liker.id === currentUserId).length === 1 );
+  const [liked, setLiked] = useState(findLike);
 
-  useEffect(() => {}, [currentUserId, liked]);
-
-  const createLike = (transaction_id, user_id) => async (getState) => {
-    const { authentication: { token } } = getState();
-    await fetch(`${baseUrl}/like/${transaction_id}/${user_id}`, {});
+  const createLike = async () => {
+    await fetch(`${baseUrl}/like/${transId}/${currentUserId}`, {});
   };
 
-  const destroyLike = (transaction_id, user_id) => async (getState) => {
-    const { authentication: { token } } = getState();
-    await fetch(`${baseUrl}/like/unlike/${transaction_id}/${user_id}`, {});
+  const destroyLike = async () => {
+    await fetch(`${baseUrl}/like/unlike/${transId}/${currentUserId}`, {});
   };
 
-  const addLike = (transaction_id, user_id) => {
-    setLiked(true);
-    createLike(transaction_id, user_id);
-  };
-
-  const removeLike = (transaction_id, user_id) => {
-    setLiked(false);
-    destroyLike(transaction_id, user_id);
-  }
-
-  const handleClickRemove = () => {
+  const handleUnlike = async (e) => {
     console.log('click remove')
-    removeLike(transId, currentUserId)
-  }
-  const handleClickLike = () => {
-    console.log('click like')
-    setLiked(true)
-    createLike(transId, currentUserId)
+    e.preventDefault();
+    await destroyLike(transId, currentUserId);
+    setLiked(false)
+    const oldTransData = transactionsData[index];
+    const likerIdx = oldTransData.likers.findIndex(liker => liker.id === currentUserId);
+    const newLikers = [...oldTransData.likers.slice(0, likerIdx), ...oldTransData.likers.slice(likerIdx + 1)];
+    const TransactionDataUpdate = { ...oldTransData, "likers": newLikers };
+    const newTransData = [...transactionsData.slice(0, index), TransactionDataUpdate, ...transactionsData.slice(index + 1)];
+    newTransactionsData(newTransData);
   }
 
+  const handleLike = async (e) => {
+    console.log('click like')
+    e.preventDefault();
+    await createLike(transId, currentUserId);
+    setLiked(true)
+    const oldTransData = transactionsData[index];
+    const likerIdx = oldTransData.likers.findIndex(liker => liker.id === currentUserId);
+    const newLiker = { "id": currentUserId, "name": `${firstName} ${lastName}`}
+    const newLikers = [...oldTransData.likers.slice(0, likerIdx), newLiker,...oldTransData.likers.slice(likerIdx + 1)];
+    const TransactionDataUpdate = { ...oldTransData, "likers": newLikers };
+    const newTransData = [...transactionsData.slice(0, index), TransactionDataUpdate, ...transactionsData.slice(index + 1)];
+    newTransactionsData(newTransData);
+  }
+<<<<<<< HEAD
+
+=======
+  
+>>>>>>> 42c38fa46280a7bf817033ce7dee2c3ab8f5330f
   return (
     <div className="feed__transaction">
       <div className="transaction__description">
         <div className="transaction__icon" style={{ backgroundImage: `url('${transaction.payee_pic}')` }} />
         <div className="transaction__details">
           <div className="transaction__details-name">
-            <span className="transaction__pay-name">{transaction.payee_name}</span>
-            <span className="transaction__paid"> paid </span>
             <span className="transaction__pay-name">{transaction.payer_name}</span>
+            <span className="transaction__paid"> paid </span>
+            <span className="transaction__pay-name">{transaction.payee_name}</span>
           </div>
           <div className="transaction__details-date">
-            <div className="transaction__date">{transaction.created_at}&nbsp;</div>
-            <FontAwesomeIcon className="transaction__audience" icon={faGlobe} />
+            <div className="transaction__date">{transaction.updated}&nbsp;</div>
+            {transaction.privacy === 0
+              ? <FontAwesomeIcon className="transaction__audience" icon={faGlobe} />
+              : transaction.privacy === 1
+                ? <FontAwesomeIcon className="transaction__audience" icon={faUserFriends} />
+                : <FontAwesomeIcon className="transaction__audience" icon={faLock} />
+            }
           </div>
           <div className="transaction__message">{transaction.message}</div>
         </div>
       </div>
       <div className="transaction__likes">
         {liked
-          ? <button className="transaction__like" onClick={handleClickRemove}>
-          {/* ? <button className="transaction__like" > */}
-            <FontAwesomeIcon className="transaction__heart liked" icon={farHeart} />
+          ? <button className="transaction__like" onClick={handleUnlike}>
+            <FontAwesomeIcon className="transaction__heart liked" icon={faHeart} />
           </button>
-           : <button className="transaction__like" onClick={handleClickLike}>
-          {/* : <button className="transaction__like" > */}
-            <FontAwesomeIcon className="transaction__heart" icon={farHeart} />
+          : <button className="transaction__like" onClick={handleLike}>
+            <FontAwesomeIcon className="transaction__heart" icon={faHeart} />
           </button>
         }
-        <div className="transaction__likes-likers">
-          {transaction.likers.length === 1
-            ? <div><span className="transaction__liker">{transaction.likers[0].name}</span> likes this.</div>
-            : transaction.like_count === 2
-              ? <div><span className="transaction__liker">{transaction.likers[0].name}</span> and <span className="transaction__liker">{transaction.likers[1].name}</span> like this.</div>
-              : transaction.like_count > 2
-                ? <div><span className="transaction__liker">{transaction.likers[0].name}</span> and <span className="transaction__likers">{transaction.likers.length - 1} others</span> like this.</div>
-                : <span className="transaction__likers">Be the first to like this.</span>}
-        </div>
+        <Likers transaction={transaction} liked={liked}/>
       </div>
     </div>
   );

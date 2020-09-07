@@ -8,60 +8,61 @@ import '../styles/feed.css';
 import Transaction from './Transaction';
 
 const Feed = () => {
-  const [transactions, setTransactions] = useState(null)
-  const [tab, setTab] = useState("public")
+  const [transactionsData, setTransactionsData] = useState(null)
+  const [tab, setTab] = useState(0)
   const currentUserId = useSelector(state => state.authentication.user.id)
   const { promiseInProgress } = usePromiseTracker();
+  console.log("FEED");
 
   useEffect(() => {
     const fetchData = async () => {
-      if (tab === "public") {
+      if (tab === 0) {
         const result = await trackPromise(fetch(`${baseUrl}/transaction/public`));
         if (result.ok) {
           const resultJSON = await result.json();
-          const transactions = resultJSON.data.map(r => <Transaction key={r.id} transaction={r} audience={tab}/>)
-          setTransactions(transactions);
+          setTransactionsData(resultJSON.data);
         }
       }
-      else if (tab === "friends") {
+      else if (tab === 1) {
         const result = await trackPromise(fetch(`${baseUrl}/transaction/${currentUserId}/friends`));
         if (result.ok) {
           const resultJSON = await result.json();
-          const transactions = resultJSON.data.map(r => <Transaction key={r.id} transaction={r} audience={tab}/>)
-          setTransactions(transactions);
+          setTransactionsData(resultJSON.data);
         }
       }
-      else if (tab === "mine") {
+      else if (tab === 2) {
         const result = await trackPromise(fetch(`${baseUrl}/transaction/${currentUserId}`));
         if (result.ok) {
           const resultJSON = await result.json();
-          const transactions = resultJSON.data.map(r => <Transaction key={r.id} transaction={r} audience={tab}/>)
-          setTransactions(transactions);
+          setTransactionsData(resultJSON.data);
         }
       }
     };
     fetchData();
   }, [currentUserId, tab]);
-  console.log("TAB:", tab);
 
+  if (!transactionsData){
+    return null;
+  }
   
-
   const LoadingIndicator = () => {
     return (
       <div style={{ width: "100%", height: "100", display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <Loader type="TailSpin" color="#00BFFF" height={80} width={80} />
+        <Loader type="Rings" color="#057FC6" height={80} width={80} />
       </div>
     )
   }
-
+  
   return (
     <div className="feed">
       <div className="feed__tabs">
-        <button className={tab === "public" ? "pressed" : ""} onClick={() => setTab("public")}>PUBLIC</button>
-        <button className={tab === "friends" ? "pressed" : ""} onClick={() => setTab("friends")}>FRIENDS</button>
-        <button className={tab === "mine" ? "pressed" : ""} onClick={() => setTab("mine")}>MINE</button>
+        <button className={tab === 0 ? "pressed" : ""} onClick={() => setTab(0)}>PUBLIC</button>
+        <button className={tab === 1 ? "pressed" : ""} onClick={() => setTab(1)}>FRIENDS</button>
+        <button className={tab === 2 ? "pressed" : ""} onClick={() => setTab(2)}>MINE</button>
       </div>
-      {promiseInProgress ? <LoadingIndicator/> : transactions}
+      {promiseInProgress 
+        ? <LoadingIndicator/> 
+        : transactionsData.map((t, index) => <Transaction key={t.id} transaction={t} index={index} transactionsData={transactionsData} newTransactionsData={transactionsData => setTransactionsData(transactionsData)} />)}
     </div>
   );
 }

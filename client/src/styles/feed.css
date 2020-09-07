@@ -13,6 +13,7 @@ body {
   border: solid 1px rgb(187, 187, 187);
   margin-left: 20px;
   background-color: #fff;
+  margin: 0 20px;
 }
 
 .feed__tabs {
@@ -95,15 +96,15 @@ body {
 }
 
 .transaction__audience {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   color: rgb(64, 64, 64);
   filter: invert(100%);
 }
 
 .transaction__message {
-  padding: 10px 0 0;
-  margin: 0 0 10px;
+  padding: 15px 0 0;
+  margin: 0 0 15px;
   font-size: 17px;
 }
 
@@ -118,7 +119,7 @@ body {
   background: transparent;
   border: none;
   cursor: pointer;
-  margin-right: 15px;
+  margin-left: 20px;
   outline: none;
 }
 

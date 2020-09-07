@@ -3,7 +3,7 @@ import { Button } from '@material-ui/core'
 
 export default function DemoButton ({ email, setEmail, password, setPassword }) {
 
-  let i=0, k=0, spd = 60;
+  let i=0, k=0, spd = 10;
   let txt = 'demo@zenmo.com'
   let pwd = 'P4ssword'
 
