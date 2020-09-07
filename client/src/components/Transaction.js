@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { baseUrl } from '../config';
 import '../styles/feed.css';
@@ -6,41 +6,52 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 
-const Transaction = ({ transaction }) => {
+const Transaction = ({ transaction, audience, index, transactionsData, newTransactionsData }) => {
   const currentUserId = useSelector(state => state.authentication.user.id)
+  const firstName = useSelector((state) => state.authentication.user.first_name)
+  const lastName = useSelector((state) => state.authentication.user.last_name)
   const transId = transaction.id;
-  const transLiked = transaction.likers.filter(liker => liker.id === currentUserId).length === 1
-  const [liked, setLiked] = useState(transLiked);
+  console.log("TRANSACTION")
+  
+  const findLike = () => ( transactionsData[index].likers.filter(liker => liker.id === currentUserId).length === 1 );
 
-  // useEffect(() => {}, [currentUserId, liked]);
+  const [liked, setLiked] = useState(findLike);
 
-  const createLike = (transaction_id, user_id) => async (getState) => {
+  const createLike = async (getState) => {
     // const { authentication: { token } } = getState();
-    await fetch(`${baseUrl}/like/${transaction_id}/${user_id}`, {});
+    await fetch(`${baseUrl}/like/${transId}/${currentUserId}`, {});
   };
 
-  const destroyLike = (transaction_id, user_id) => async (getState) => {
+  const destroyLike = async (getState) => {
     // const { authentication: { token } } = getState();
-    await fetch(`${baseUrl}/like/unlike/${transaction_id}/${user_id}`, {});
+    await fetch(`${baseUrl}/like/unlike/${transId}/${currentUserId}`, {});
   };
 
-  const addLike = (transaction_id, user_id) => {
-    setLiked(true);
-    createLike(transaction_id, user_id);
-  };
-
-  const removeLike = (transaction_id, user_id) => {
-    setLiked(false);
-    destroyLike(transaction_id, user_id);
-  }
-
-  const handleClickRemove = () => {
+  const handleUnlike = async (e) => {
     console.log('click remove')
-    removeLike(transId, currentUserId)
+    e.preventDefault();
+    await destroyLike(transId, currentUserId);
+    setLiked(false)
+    const oldTransData = transactionsData[index];
+    const likerIdx = oldTransData.likers.findIndex(liker => liker.id === currentUserId);
+    const newLikers = [...oldTransData.likers.slice(0, likerIdx), ...oldTransData.likers.slice(likerIdx + 1)];
+    const TransactionDataUpdate = { ...oldTransData, "likers": newLikers };
+    const newTransData = [...transactionsData.slice(0, index), TransactionDataUpdate, ...transactionsData.slice(index + 1)];
+    newTransactionsData(newTransData);
   }
-  const handleClickLike = () => {
+
+  const handleLike = async (e) => {
     console.log('click like')
-    addLike(transId, currentUserId)
+    e.preventDefault();
+    await createLike(transId, currentUserId);
+    setLiked(true)
+    const oldTransData = transactionsData[index];
+    const likerIdx = oldTransData.likers.findIndex(liker => liker.id === currentUserId);
+    const newLiker = { "id": currentUserId, "name": `${firstName} ${lastName}`}
+    const newLikers = [...oldTransData.likers.slice(0, likerIdx), newLiker,...oldTransData.likers.slice(likerIdx + 1)];
+    const TransactionDataUpdate = { ...oldTransData, "likers": newLikers };
+    const newTransData = [...transactionsData.slice(0, index), TransactionDataUpdate, ...transactionsData.slice(index + 1)];
+    newTransactionsData(newTransData);
   }
 
 
@@ -64,12 +75,10 @@ const Transaction = ({ transaction }) => {
       </div>
       <div className="transaction__likes">
         {liked
-          ? <button className="transaction__like" onClick={handleClickRemove}>
-          {/* ? <button className="transaction__like" > */}
+          ? <button className="transaction__like" onClick={handleUnlike}>
             <FontAwesomeIcon className="transaction__heart liked" icon={farHeart} />
           </button>
-           : <button className="transaction__like" onClick={handleClickLike}>
-          {/* : <button className="transaction__like" > */}
+          : <button className="transaction__like" onClick={handleLike}>
             <FontAwesomeIcon className="transaction__heart" icon={farHeart} />
           </button>
         }

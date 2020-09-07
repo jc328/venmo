@@ -8,10 +8,11 @@ import '../styles/feed.css';
 import Transaction from './Transaction';
 
 const Feed = () => {
-  const [transactionsData, setTransactionsData] = useState(null)
+  const [transactions, setTransactions] = useState(null)
   const [tab, setTab] = useState("public")
   const currentUserId = useSelector(state => state.authentication.user.id)
   const { promiseInProgress } = usePromiseTracker();
+  const [likesStatus, setLikesStatus] = useState([]);
   console.log("FEED");
 
   useEffect(() => {
@@ -20,31 +21,47 @@ const Feed = () => {
         const result = await trackPromise(fetch(`${baseUrl}/transaction/public`));
         if (result.ok) {
           const resultJSON = await result.json();
-          setTransactionsData(resultJSON.data);
+          const initialLikes = resultJSON.data.map(t => t.likers.filter(liker => liker.id === currentUserId).length === 1);
+          setLikesStatus(initialLikes)
+          console.log("likesStatus:", likesStatus);
+          const transactions = resultJSON.data.map((r, index) => <Transaction key={r.id} transaction={r} audience={tab} index={index} likes={likesStatus} likesStatus={likesStatus => setLikesStatus(likesStatus)}/>)
+          setTransactions(transactions);
         }
       }
       else if (tab === "friends") {
         const result = await trackPromise(fetch(`${baseUrl}/transaction/${currentUserId}/friends`));
         if (result.ok) {
           const resultJSON = await result.json();
-          setTransactionsData(resultJSON.data);
+          const initialLikes = resultJSON.data.map(t => t.likers.filter(liker => liker.id === currentUserId).length === 1);
+          setLikesStatus(initialLikes)
+          console.log("likesStatus:", likesStatus);
+          const transactions = resultJSON.data.map((r, index) => <Transaction key={r.id} transaction={r} audience={tab} index={index} likes={likesStatus} likesStatus={likesStatus => setLikesStatus(likesStatus)}/>)
+          setTransactions(transactions);
         }
       }
       else if (tab === "mine") {
         const result = await trackPromise(fetch(`${baseUrl}/transaction/${currentUserId}`));
         if (result.ok) {
           const resultJSON = await result.json();
-          setTransactionsData(resultJSON.data);
+          const initialLikes = resultJSON.data.map(t => t.likers.filter(liker => liker.id === currentUserId).length === 1);
+          setLikesStatus(initialLikes);
+          console.log("likesStatus:", likesStatus);
+          const transactions = resultJSON.data.map((r, index) => <Transaction key={r.id} transaction={r} audience={tab} index={index} likes={likesStatus} likesStatus={likesStatus => setLikesStatus(likesStatus)}/>)
+          setTransactions(transactions);
         }
       }
     };
     fetchData();
   }, [currentUserId, tab]);
-
-  if (!transactionsData){
-    return null;
-  }
+  console.log("TAB:", tab);
   
+  // if (!transactions){
+    
+  // }
+  // else{
+  //   const [likesStatus, setLikesStatus] = useState(transactions.data.map(t => t.likers.filter(liker => liker.id === currentUserId).length === 1));
+  // }
+
   const LoadingIndicator = () => {
     return (
       <div style={{ width: "100%", height: "100", display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -52,7 +69,7 @@ const Feed = () => {
       </div>
     )
   }
-  
+
   return (
     <div className="feed">
       <div className="feed__tabs">
@@ -60,9 +77,7 @@ const Feed = () => {
         <button className={tab === "friends" ? "pressed" : ""} onClick={() => setTab("friends")}>FRIENDS</button>
         <button className={tab === "mine" ? "pressed" : ""} onClick={() => setTab("mine")}>MINE</button>
       </div>
-      {promiseInProgress 
-        ? <LoadingIndicator/> 
-        : transactionsData.map((t, index) => <Transaction key={t.id} transaction={t} audience={tab} index={index} transactionsData={transactionsData} newTransactionsData={transactionsData => setTransactionsData(transactionsData)} />)}
+      {promiseInProgress ? <LoadingIndicator/> : transactions}
     </div>
   );
 }
