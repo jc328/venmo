@@ -53,7 +53,7 @@ function RequestNotification(props) {
             await setRequests(list.data);
         };
         awaitRequests();
-    }, [dispatch]);
+    }, [dispatch, userId]);
 
     if (requests) {
         console.log(requests)

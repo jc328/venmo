@@ -33,6 +33,19 @@ const theme = createMuiTheme({
   }
 })
 
+const modalTheme = createMuiTheme({
+  typography: {
+    button: {
+      textTransform: 'none',
+    }
+  },
+  palette: {
+    text: {
+      primary: 'rgb(0,0,0)'
+    }
+  }
+})
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
@@ -136,7 +149,9 @@ export default function TransactionSearch(props) {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
+      <ThemeProvider theme={modalTheme}>
         {body}
+      </ThemeProvider>
       </Modal>
     </div>
     </ThemeProvider>
