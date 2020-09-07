@@ -34,7 +34,6 @@ export const getRequests = (userId) => async (dispatch) => {
 
   if (response.ok) {
     const list = await response.json();
-    console.log(list);
     return list;
   }
 };

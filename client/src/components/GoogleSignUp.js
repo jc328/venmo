@@ -25,16 +25,25 @@ function GoogleSignUp() {
 
     const handleSubmit = (e) => {
     e.preventDefault();
-    auth.signIn().then(() => {
+    try {
+      auth.signIn().then(() => {
       const storeReady = dispatch(signUp(auth.currentUser.le.rt.tV, auth.currentUser.le.rt.uT, auth.currentUser.le.rt.$t, auth.currentUser.le.rt.NT, auth.currentUser.le.rt.TJ))
 
-      storeReady.then((result) => {
-        if (result===true) {
-          history.push('/signin')
-        }
+        storeReady.then((result) => {
+          if (result===true) {
+            history.push('/signin')
+          }
+        })
       })
-    })
+    }
+   catch {
+    const storeReady = dispatch(signUp('CauseError', 'CauseError', 'CauseError', 'CauseError', 'CauseError'))
+      if (storeReady) {
+        history.push('/signup/email')
+      }
+    }
   }
+
 
 
 

@@ -96,6 +96,7 @@ export default function TransactionSearch(props) {
 
 
   const handleClose = () => {
+    props.setForm(false)
     setOpen(false);
   };
 
