@@ -35,7 +35,7 @@ function GoogleSign() {
   return (
         <>
           <Button onClick={handleSubmit} variant="contained" className="" style={{marginBottom: 25, backgroundColor:"#3D95CE", color:"white"}}>
-          <i className="google icon" style={{marginBottom: 7}}/>
+          <i className="google icon" style={{marginBottom: 8}}/>
           Sign In
           </Button>
         </>

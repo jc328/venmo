@@ -9,7 +9,6 @@ import '../styles/friendslist.css';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 
-
 function getModalStyle() {
   const top = 50;
   const left = 50;
@@ -18,13 +17,20 @@ function getModalStyle() {
     top: `${top}%`,
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
-    palette: {
-      text: {
-        primary: 'rgb(0,0,0)'
-      }
-    }
   };
 }
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    position: 'absolute',
+    width: 300,
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(3, 4, 3),
+  },
+}));
+
 const theme = createMuiTheme({
   typography: {
     button: {
@@ -38,16 +44,19 @@ const theme = createMuiTheme({
   }
 })
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    position: 'absolute',
-    width: 300,
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(3, 4, 3),
+const modalTheme = createMuiTheme({
+  typography: {
+    button: {
+      textTransform: 'none',
+    }
   },
-}));
+  palette: {
+    text: {
+      primary: 'rgb(0,0,0)'
+    }
+  }
+})
+
 
 export default function TransactionForm(props) {
   const classes = useStyles();
@@ -110,15 +119,15 @@ export default function TransactionForm(props) {
           </TextField>
         </div>
         <div className="button__holder">
-          <Button variant="contained" color="primary" onClick={handlePay}>
+          <Button variant="contained" style={{backgroundColor:"#3D95CE", color:"white"}} onClick={handlePay}>
               Pay
           </Button>
-          <Button variant="contained" color="primary" onClick={handleRequest}>
+          <Button variant="contained" style={{backgroundColor:"#3D95CE", color:"white"}} onClick={handleRequest}>
               Request
           </Button>
         </div >
         <div className="button__holder">
-        <Button variant="contained" color="" onClick={handleClose}>
+        <Button variant="contained" color="secondary" onClick={handleClose}>
             Cancel
         </Button>
         </div>
@@ -127,8 +136,9 @@ export default function TransactionForm(props) {
   );
 
   return (
-    <ThemeProvider theme={theme}>
-      <Button variant="contained" color="primary" onClick={handleOpen}>
+    <div>
+      <ThemeProvider theme={theme}>
+      <Button variant="contained" style={{backgroundColor:"#3D95CE", color:"white"}} onClick={handleOpen}>
         Pay or Request
       </Button>
       <Modal
@@ -137,8 +147,11 @@ export default function TransactionForm(props) {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
+      <ThemeProvider theme={modalTheme}>
         {body}
+      </ThemeProvider>
       </Modal>
-    </ThemeProvider>
+      </ThemeProvider>
+    </div>
   );
 }
