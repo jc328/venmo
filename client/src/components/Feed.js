@@ -12,7 +12,6 @@ const Feed = () => {
   const [tab, setTab] = useState(0)
   const currentUserId = useSelector(state => state.authentication.user.id)
   const { promiseInProgress } = usePromiseTracker();
-  console.log("FEED");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,7 +43,7 @@ const Feed = () => {
   if (!transactionsData){
     return null;
   }
-  
+
   const LoadingIndicator = () => {
     return (
       <div style={{ width: "100%", height: "100", display: "flex", justifyContent: "center", alignItems: "center" }}>
@@ -52,7 +51,7 @@ const Feed = () => {
       </div>
     )
   }
-  
+
   return (
     <div className="feed">
       <div className="feed__tabs">
@@ -60,8 +59,8 @@ const Feed = () => {
         <button className={tab === 1 ? "pressed" : ""} onClick={() => setTab(1)}>FRIENDS</button>
         <button className={tab === 2 ? "pressed" : ""} onClick={() => setTab(2)}>MINE</button>
       </div>
-      {promiseInProgress 
-        ? <LoadingIndicator/> 
+      {promiseInProgress
+        ? <LoadingIndicator/>
         : transactionsData.map((t, index) => <Transaction key={t.id} transaction={t} index={index} transactionsData={transactionsData} newTransactionsData={transactionsData => setTransactionsData(transactionsData)} />)}
     </div>
   );

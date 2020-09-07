@@ -3,14 +3,14 @@ import { Button } from '@material-ui/core'
 
 export default function DemoButton ({ email, setEmail, password, setPassword }) {
 
-  let i=0, k=0, spd = 30;
+  let i=0, k=0, spd = 25;
   let txt = 'demo@zenmo.com'
   let pwd = 'P4ssword'
 
   let handleClick = () => {
     setEmail('')
-    email = ''
     setPassword('')
+    email = ''
     password = ''
     typeEmail()
     setTimeout(typePassword, spd*txt.length)
@@ -29,9 +29,12 @@ export default function DemoButton ({ email, setEmail, password, setPassword }) 
       setPassword(password += pwd.charAt(k))
       k++;
       setTimeout(typePassword, spd);
+    } else {
+      document.querySelector('.signIn').click()
     }
-    // document.querySelector('.signIn').click()
   }
+
+
 
   return (
     <Button

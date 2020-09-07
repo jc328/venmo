@@ -99,6 +99,7 @@ export default function TransactionForm(props) {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
+      <ThemeProvider theme={modalTheme}>
       <form >
         <p> Your Current Balance: ${props.balance} </p>
         <div>
@@ -132,6 +133,7 @@ export default function TransactionForm(props) {
         </Button>
         </div>
       </form>
+    </ThemeProvider>
     </div>
   );
 
@@ -147,9 +149,9 @@ export default function TransactionForm(props) {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-      <ThemeProvider theme={modalTheme}>
+
         {body}
-      </ThemeProvider>
+
       </Modal>
       </ThemeProvider>
     </div>

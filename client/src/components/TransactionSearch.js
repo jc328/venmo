@@ -96,6 +96,7 @@ export default function TransactionSearch(props) {
 
 
   const handleClose = () => {
+    props.setForm(false)
     setOpen(false);
   };
 
@@ -104,6 +105,7 @@ export default function TransactionSearch(props) {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
+      <ThemeProvider theme={modalTheme}>
       <form >
         <p> Your Current Balance: ${props.balance} </p>
         <div>
@@ -137,6 +139,7 @@ export default function TransactionSearch(props) {
         </Button>
         </div>
       </form>
+      </ThemeProvider>
     </div>
   );
 
@@ -149,9 +152,7 @@ export default function TransactionSearch(props) {
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
       >
-      <ThemeProvider theme={modalTheme}>
         {body}
-      </ThemeProvider>
       </Modal>
     </div>
     </ThemeProvider>
