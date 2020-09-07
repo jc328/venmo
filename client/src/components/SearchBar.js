@@ -51,7 +51,6 @@ function Search() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(search)
     setForm(true)
   }
     return (
