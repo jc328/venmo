@@ -5,13 +5,11 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import SearchBar from './SearchBar.js'
 // import SearchBarSem from './SearchBarSem.js'
 import '../styles/dashheader.css';
-import { Button, Badge } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux'
 import * as AuthActions from '../actions/authentication';
-import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
-import lightBlue from '@material-ui/core/colors/lightBlue';
+import RequestNotification from './RequestNotification.js';
 
-const white = lightBlue[50]
 
 const theme = createMuiTheme({
   typography: {
@@ -48,15 +46,7 @@ function DashHeader(props) {
             </div>
 
             <div className="dash_account_buttons">
-              <Badge
-                badgeContent={4}
-                color="error"
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'left',
-                }}>
-                <NotificationsNoneOutlinedIcon style={{color: white}}/>
-              </Badge>
+              <RequestNotification />
               <Button size="small">{username}</Button>
               <Button size="small">Statement</Button>
               <Button size="small">Settings</Button>
@@ -64,7 +54,6 @@ function DashHeader(props) {
               <Button size="small" onClick={handleSubmit}>Log Out</Button>
             </div>
           </div>
-
 
         </ThemeProvider>
       </>

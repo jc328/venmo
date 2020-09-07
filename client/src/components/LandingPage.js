@@ -29,7 +29,7 @@ function LandingPage() {
               <div style={{lineHeight: 1}}>Send money and make purchases at approved merchants</div>
 
               <Link to="/signup" style={{textDecoration: 'none'}}>
-                <Button variant="contained" color="primary" style={{width: '100%', marginTop: '30px'}}>Sign Up Now</Button>
+                <Button variant="contained"  style={{width: '100%', marginTop: '30px', backgroundColor:"#3D95CE", color:"white"}}>Sign Up Now</Button>
                 </Link>
             </div>
           </div>

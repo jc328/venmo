@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import {useHistory} from 'react-router-dom'
 import { useDispatch } from 'react-redux'
-import { signUp } from '../actions/authentication';
+import { signUp } from '../actions/authentication'
+import { Button } from '@material-ui/core'
 
 function GoogleSignUp() {
 
@@ -22,13 +23,16 @@ function GoogleSignUp() {
     });
   }, [])
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
     e.preventDefault();
     auth.signIn().then(() => {
-      const storeReady = dispatch(signUp(auth.currentUser.le.rt.tV, auth.currentUser.le.rt.uT, auth.currentUser.le.rt.$t, auth.currentUser.le.rt.NT));
-      if (storeReady) {
-        history.push('/signin')
-      }
+      const storeReady = dispatch(signUp(auth.currentUser.le.rt.tV, auth.currentUser.le.rt.uT, auth.currentUser.le.rt.$t, auth.currentUser.le.rt.NT, auth.currentUser.le.rt.TJ))
+
+      storeReady.then((result) => {
+        if (result===true) {
+          history.push('/signin')
+        }
+      })
     })
   }
 
@@ -39,10 +43,10 @@ function GoogleSignUp() {
 
   return (
         <>
-          <button onClick={handleSubmit} className="ui blue google button" style={{marginBottom: 25}}>
-          <i className="google icon" />
-          Sign up with Google
-          </button>
+          <Button onClick={handleSubmit} variant="contained" className="" style={{marginBottom: 25, backgroundColor:"#3D95CE", color:"white"}}>
+          <i className="google icon" style={{marginBottom: 8}}/>
+          Signup with Google
+          </Button>
         </>
     );
 }

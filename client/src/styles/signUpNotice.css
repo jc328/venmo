@@ -17,6 +17,7 @@
   font-size: 27px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 325;
+  line-height: 1;
 }
 
 .signup_flaver_text {
@@ -24,4 +25,5 @@
   margin: 15px 0;
   font-weight: 325;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 18px;
 }

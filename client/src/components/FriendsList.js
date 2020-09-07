@@ -28,7 +28,7 @@ const FriendsList = () => {
   if (!friends) {
     return null;
   }
-  console.log(friends.data)
+//   console.log(friends.data)
 
   return (
       <>
@@ -36,7 +36,7 @@ const FriendsList = () => {
         <div className="friendslist__container">
             <div className="friendslist">
                 <h1>Friends:</h1>
-                <p> Your Current Balance: ${balance} </p>
+                <p> Your Current Balance: ${newBalance} </p>
                 {friends.data.map((friend) => {
                     return (
                         <div className="friendslist__border friend" key={friend.id}>

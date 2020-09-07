@@ -30,6 +30,7 @@ def sign_up():
       last_name=data['lastName'],
       email=data['email'],
       hashed_password=hash,
+      picUrl=data['picture'],
       balance = 500)
 
     # user.set_password(data[hash])

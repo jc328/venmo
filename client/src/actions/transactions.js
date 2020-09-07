@@ -10,26 +10,56 @@ export const sendPayment = (amount, message, payer_id, payee_id) => async (dispa
   const response = await fetch(`${baseUrl}/transaction/pay`, {
     method: "post",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ amount, message, payer_id, payee_id, "completed": true }),
+    body: JSON.stringify({
+      amount,
+      message,
+      payer_id,
+      payee_id,
+      completed: true,
+    }),
   });
 
   if (response.ok) {
-    return true
+    return true;
   } else {
-    return response
+    return response;
   }
-}
+};
 
-export const requestPayment = (amount, message, payee_id, payer_id) => async (dispatch) => {
+export const confirmPayment = (transaction_id) => async (dispatch) => {
+  const response = await fetch(`${baseUrl}/transaction/confirm`, {
+    method: "post",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      transaction_id
+    }),
+  });
+
+  if (response.ok) {
+    return true;
+  } else {
+    return response;
+  }
+};
+
+export const requestPayment = (amount, message, payee_id, payer_id) => async (
+  dispatch
+) => {
   const response = await fetch(`${baseUrl}/transaction/request`, {
     method: "post",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ amount, message, payee_id, payer_id, "completed": false }),
+    body: JSON.stringify({
+      amount,
+      message,
+      payee_id,
+      payer_id,
+      completed: false,
+    }),
   });
 
   if (response.ok) {
-    return true
+    return true;
   } else {
-    return response
+    return response;
   }
-}
+};

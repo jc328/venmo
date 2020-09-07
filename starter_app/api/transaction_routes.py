@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from starter_app.models import db, User, Transaction, Comment, Like
 from sqlalchemy import and_, or_, desc
+import datetime
 
 transaction_routes = Blueprint("transactions", __name__, url_prefix="/transaction")
 
@@ -35,7 +36,7 @@ def get_friend_transactions(userid):
 @transaction_routes.route("/<int:userid>/debit")
 def get_pending_debits(userid):
     transactions = Transaction.query.filter(Transaction.payer_id==userid, Transaction.completed==False)\
-        .order_by(desc(Transaction.created_at)).all()
+        .order_by(desc(Transaction.updated_at)).all()
     data = [transaction.to_dict() for transaction in transactions]
     return {"data": data}, 200
 
@@ -43,7 +44,7 @@ def get_pending_debits(userid):
 @transaction_routes.route("/<int:userid>/credit")
 def get_pending_credits(userid):
     transactions = Transaction.query.filter(Transaction.payee_id==userid, Transaction.completed==False)\
-        .order_by(desc(Transaction.created_at)).all()
+        .order_by(desc(Transaction.updated_at)).all()
     data = [transaction.to_dict() for transaction in transactions]
     return {"data": data}, 200
 
@@ -63,6 +64,7 @@ def create_payment_transaction():
     transaction = Transaction(**data)
     payer = User.query.get(data["payer_id"])
     payee = User.query.get(data["payee_id"])
+    transaction.updated_at = datetime.datetime.now()
     db.session.add(transaction)
     db.session.add(payer)
     payer.balance = float(payer.balance) - float(data["amount"])

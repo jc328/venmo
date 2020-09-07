@@ -21,11 +21,11 @@ function SignUpNotice() {
         <div className="signup_box">
           <div className="signup_title">The fun and easy way to send, spend, and receive money</div>
         </div>
-        <CompareArrowsIcon />
+        <CompareArrowsIcon style={{color:"3D95CE", fontSize:"30px"}}/>
         <div className="signup_flaver_text">Make payments using your debit card, credit card, bank account, and more</div>
-        <LocalAtmIcon color="primary" style={{ fontSize: 30 }}/>
+        <LocalAtmIcon color="primary" style={{color:"3D95CE", fontSize:"30px"}}/>
         <div className="signup_flaver_text">Track all your payments in one place, and split or share with Venmo friends</div>
-        <CreditCardIcon size="large" color="primary" style={{ fontSize: 30 }}/>
+        <CreditCardIcon size="large" style={{color:"3D95CE", fontSize:"30px"}}/>
         <div className="signup_flaver_text">Apply for a Venmo card and take Venmo shopping everywhere Mastercard® is accepted in the U.S.  A quick look at our fees</div>
         <Divider />
         <Link to='/signup/email' style={{textDecoration:'none', marginTop:50}}>
@@ -33,6 +33,7 @@ function SignUpNotice() {
             variant="contained"
             color="primary"
             className="signup_next_button"
+            style={{backgroundColor:"#3D95CE", color:"white"}}
           >Next</Button>
         </Link>
       </div>
