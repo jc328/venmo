@@ -12,6 +12,7 @@ body {
   height: 38px;
   align-items: center;
   justify-content: space-evenly;
+  margin-bottom: 20px;
 }
 
 .dash_logo_search {

@@ -3,27 +3,24 @@ import { useSelector } from 'react-redux';
 import { baseUrl } from '../config';
 import '../styles/feed.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faGlobe } from '@fortawesome/free-solid-svg-icons';
-import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
+import { faGlobe, faUserFriends, faLock } from '@fortawesome/free-solid-svg-icons';
+import { faHeart } from '@fortawesome/free-regular-svg-icons';
+import Likers from './Likers';
 
-const Transaction = ({ transaction, audience, index, transactionsData, newTransactionsData }) => {
+const Transaction = ({ transaction, index, transactionsData, newTransactionsData }) => {
   const currentUserId = useSelector(state => state.authentication.user.id)
   const firstName = useSelector((state) => state.authentication.user.first_name)
   const lastName = useSelector((state) => state.authentication.user.last_name)
   const transId = transaction.id;
-  console.log("TRANSACTION")
   
   const findLike = () => ( transactionsData[index].likers.filter(liker => liker.id === currentUserId).length === 1 );
-
   const [liked, setLiked] = useState(findLike);
 
-  const createLike = async (getState) => {
-    // const { authentication: { token } } = getState();
+  const createLike = async () => {
     await fetch(`${baseUrl}/like/${transId}/${currentUserId}`, {});
   };
 
-  const destroyLike = async (getState) => {
-    // const { authentication: { token } } = getState();
+  const destroyLike = async () => {
     await fetch(`${baseUrl}/like/unlike/${transId}/${currentUserId}`, {});
   };
 
@@ -53,8 +50,6 @@ const Transaction = ({ transaction, audience, index, transactionsData, newTransa
     const newTransData = [...transactionsData.slice(0, index), TransactionDataUpdate, ...transactionsData.slice(index + 1)];
     newTransactionsData(newTransData);
   }
-
-
   
   return (
     <div className="feed__transaction">
@@ -62,13 +57,18 @@ const Transaction = ({ transaction, audience, index, transactionsData, newTransa
         <div className="transaction__icon" style={{ backgroundImage: `url('${transaction.payee_pic}')` }} />
         <div className="transaction__details">
           <div className="transaction__details-name">
-            <span className="transaction__pay-name">{transaction.payee_name}</span>
-            <span className="transaction__paid"> paid </span>
             <span className="transaction__pay-name">{transaction.payer_name}</span>
+            <span className="transaction__paid"> paid </span>
+            <span className="transaction__pay-name">{transaction.payee_name}</span>
           </div>
           <div className="transaction__details-date">
-            <div className="transaction__date">{transaction.created_at}&nbsp;</div>
-            <FontAwesomeIcon className="transaction__audience" icon={faGlobe} />
+            <div className="transaction__date">{transaction.updated}&nbsp;</div>
+            {transaction.privacy === 0
+              ? <FontAwesomeIcon className="transaction__audience" icon={faGlobe} />
+              : transaction.privacy === 1
+                ? <FontAwesomeIcon className="transaction__audience" icon={faUserFriends} />
+                : <FontAwesomeIcon className="transaction__audience" icon={faLock} />
+            }
           </div>
           <div className="transaction__message">{transaction.message}</div>
         </div>
@@ -76,21 +76,13 @@ const Transaction = ({ transaction, audience, index, transactionsData, newTransa
       <div className="transaction__likes">
         {liked
           ? <button className="transaction__like" onClick={handleUnlike}>
-            <FontAwesomeIcon className="transaction__heart liked" icon={farHeart} />
+            <FontAwesomeIcon className="transaction__heart liked" icon={faHeart} />
           </button>
           : <button className="transaction__like" onClick={handleLike}>
-            <FontAwesomeIcon className="transaction__heart" icon={farHeart} />
+            <FontAwesomeIcon className="transaction__heart" icon={faHeart} />
           </button>
         }
-        <div className="transaction__likes-likers">
-          {transaction.likers.length === 1
-            ? <div><span className="transaction__liker">{transaction.likers[0].name}</span> likes this.</div>
-            : transaction.like_count === 2
-              ? <div><span className="transaction__liker">{transaction.likers[0].name}</span> and <span className="transaction__liker">{transaction.likers[1].name}</span> like this.</div>
-              : transaction.like_count > 2
-                ? <div><span className="transaction__liker">{transaction.likers[0].name}</span> and <span className="transaction__likers">{transaction.likers.length - 1} others</span> like this.</div>
-                : <span className="transaction__likers">Be the first to like this.</span>}
-        </div>
+        <Likers transaction={transaction} liked={liked}/>
       </div>
     </div>
   );

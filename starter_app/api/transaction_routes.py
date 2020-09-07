@@ -7,15 +7,15 @@ transaction_routes = Blueprint("transactions", __name__, url_prefix="/transactio
 #Route to get all public transactions
 @transaction_routes.route("/public")
 def get_all_transactions():
-    transactions = Transaction.query.filter(Transaction.completed==True).order_by(desc(Transaction.created_at)).all()
+    transactions = Transaction.query.filter(and_(Transaction.completed==True, Transaction.privacy==0)).order_by(desc(Transaction.updated_at)).all()
     data = [transaction.to_dict() for transaction in transactions]
     return {"data": data}, 200
 
 #Route to get all user's transactions
 @transaction_routes.route("/<int:userid>")
 def get_user_transactions(userid):
-    transactions = Transaction.query.filter(or_(Transaction.payee_id==userid, Transaction.payer_id==userid), Transaction.completed==True)\
-        .order_by(desc(Transaction.created_at)).all()
+    transactions = Transaction.query.filter(or_(Transaction.payee_id == userid, Transaction.payer_id == userid), Transaction.completed == True)\
+        .order_by(desc(Transaction.updated_at)).all()
     data = [transaction.to_dict() for transaction in transactions]
     return {"data": data}, 200
 
@@ -25,7 +25,7 @@ def get_user_transactions(userid):
 def get_friend_transactions(userid):
     user = User.query.get(userid)
     friends_list = [friend.id for friend in user.friends]
-    transactions = Transaction.query.filter(Transaction.completed==True).order_by(desc(Transaction.created_at)).all()
+    transactions = Transaction.query.filter(or_(and_(Transaction.completed==True, Transaction.privacy==0), and_(Transaction.completed==True, Transaction.privacy==1))).order_by(desc(Transaction.updated_at)).all()
     friend_transactions = [transaction for transaction in transactions if ((transaction.payer_id in friends_list)) or ((transaction.payee_id in friends_list))]
     data = [transaction.to_dict() for transaction in friend_transactions]
     return {"data": data}, 200

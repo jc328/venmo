@@ -3,40 +3,49 @@
   flex-direction: column;
   /* align-items: center; */
   justify-content: center;
-  width: 200px;
-  height: 185px;
+  width: 265px;
   background-color: white;
-  border-radius: 7px;
+  border: solid 1px rgb(187, 187, 187);
 }
 
 .profile_image {
-  margin-top: 10px;
-  width: 70px;
-  height: 70px;
+  margin: 10px;
+  width: 75px;
+  height: 75px;
 }
 
 .profile_image_name {
   display: flex;
   align-items: center;
-  margin-left: 15px;
 }
 
 .profile_username {
-  margin-left: 10px;
-  margin-bottom: 20px;
-  color: #3C95D2;
+  color: #057FC6;
   font-weight: 700;
-}
-
-.profile_divider {
-  border-bottom: 1px solid lightgrey;
-  width: 100%;
-  /* margin-top: 90px; */
 }
 
 .profile_value {
-  margin-left: 40px;
-  margin-bottom: 20px;
+  border-top: 1px solid #e9e9e9;
   color: black;
   font-weight: 700;
+  padding: 10px
+}
+
+.profile_value.profile_balance_info {
+  display: flex;
+}
+
+.profile_balance {
+  color: black;
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: 10px;
+  width: 75px;
+  text-align: right;
+}
+
+.profile_zenmo {
+  color: #057FC6;
+  font-size: 13px;
+  text-align: left;
 }
