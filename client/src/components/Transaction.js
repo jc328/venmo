@@ -44,8 +44,6 @@ const Transaction = ({ transaction }) => {
     createLike(transId, currentUserId)
   }
 
-
-
   return (
     <div className="feed__transaction">
       <div className="transaction__description">
