@@ -53,9 +53,10 @@ function RequestNotification(props) {
             await setRequests(list.data);
         };
         awaitRequests();
-    }, [dispatch, userId]);
+    }, [dispatch]);
 
     if (requests) {
+        console.log(requests)
         return(
             <Button>
                 <Badge
@@ -71,7 +72,7 @@ function RequestNotification(props) {
                         <Fade {...TransitionProps} timeout={350}>
                             <div className={classes.paper}>
 
-                                {requests.length>1?
+                                {requests.length>=1?
                                 requests.map((request) => {
                                     return (
                                         <p className="requestlist__holder">{request.payee_name} requests $ {request.amount} <span className="payButton"><Button variant="contained" onClick={() => handleConfirm(request.id, request.amount)} size="small" color="primary">Pay</Button></span></p>
