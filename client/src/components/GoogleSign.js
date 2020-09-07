@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import {useHistory} from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import * as AuthActions from '../actions/authentication';
+import { Button } from '@material-ui/core'
 
 function GoogleSign() {
 
@@ -33,10 +34,10 @@ function GoogleSign() {
 
   return (
         <>
-          <button onClick={handleSubmit} className="ui blue google button" style={{marginBottom: 25}}>
-          <i className="google icon" />
+          <Button onClick={handleSubmit} variant="contained" className="" style={{marginBottom: 25, backgroundColor:"#3D95CE", color:"white"}}>
+          <i className="google icon" style={{marginBottom: 7}}/>
           Sign In
-          </button>
+          </Button>
         </>
     );
 }

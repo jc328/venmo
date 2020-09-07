@@ -48,12 +48,13 @@ export const loadUser = () => async dispatch => {
   }
 };
 
-export const signUp = (firstName, lastName, email, password) => async dispatch => {
+export const signUp = (firstName, lastName, email, password, picture = "") => async dispatch => {
+
   try {
     const response = await fetch(`${baseUrl}/signup`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ firstName, lastName, email, password }),
+      body: JSON.stringify({ firstName, lastName, email, password, picture }),
     });
     if (!response.ok) {
       const valErrors = await response.json();
