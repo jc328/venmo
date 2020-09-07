@@ -12,7 +12,7 @@ const Transaction = ({ transaction, index, transactionsData, newTransactionsData
   const firstName = useSelector((state) => state.authentication.user.first_name)
   const lastName = useSelector((state) => state.authentication.user.last_name)
   const transId = transaction.id;
-  
+
   const findLike = () => ( transactionsData[index].likers.filter(liker => liker.id === currentUserId).length === 1 );
   const [liked, setLiked] = useState(findLike);
 
@@ -50,11 +50,6 @@ const Transaction = ({ transaction, index, transactionsData, newTransactionsData
     const newTransData = [...transactionsData.slice(0, index), TransactionDataUpdate, ...transactionsData.slice(index + 1)];
     newTransactionsData(newTransData);
   }
-<<<<<<< HEAD
-
-=======
-  
->>>>>>> 42c38fa46280a7bf817033ce7dee2c3ab8f5330f
   return (
     <div className="feed__transaction">
       <div className="transaction__description">

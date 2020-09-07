@@ -26,6 +26,19 @@ export const sendPayment = (amount, message, payer_id, payee_id) => async (dispa
   }
 };
 
+export const getRequests = (userId) => async (dispatch) => {
+  const response = await fetch(`${baseUrl}/transaction/${userId}/debit`, {
+    method: "get",
+    headers: { "Content-Type": "application/json" },
+  });
+
+  if (response.ok) {
+    const list = await response.json();
+    console.log(list);
+    return list;
+  }
+};
+
 export const confirmPayment = (transaction_id) => async (dispatch) => {
   const response = await fetch(`${baseUrl}/transaction/confirm`, {
     method: "post",
