@@ -29,6 +29,9 @@ const theme = createMuiTheme({
   palette: {
     text: {
       primary: 'rgb(255,255,255)'
+    },
+    input: {
+      color: "black"
     }
   }
 })
@@ -122,21 +125,26 @@ export default function TransactionForm(props) {
   );
 
   return (
-    <ThemeProvider theme={theme}>
+
+
     <div>
+      <ThemeProvider theme={theme}>
       <Button variant="contained" color="primary" onClick={handleOpen}>
         Pay or Request
       </Button>
+
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
         aria-describedby="simple-modal-description"
-      >
+        >
         {body}
       </Modal>
+
+        </ThemeProvider>
     </div>
-    </ThemeProvider>
+
 
   );
 }

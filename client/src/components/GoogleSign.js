@@ -26,7 +26,6 @@ function GoogleSign() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(AuthActions.removeAuth());
-    console.log(auth)
     const storeReady = await dispatch(AuthActions.signIn(auth.currentUser.le.rt.$t, auth.currentUser.le.rt.NT));
     if (storeReady) {
       history.push('/dashboard')

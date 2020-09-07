@@ -1,4 +1,5 @@
 import React, { useState, useEffect }from 'react';
+import { useSelector } from 'react-redux';
 import { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import { Autocomplete } from '@material-ui/lab';
@@ -6,6 +7,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/core/styles';
 import { baseUrl } from '../config';
 import '../styles/searchbar.css';
+import TransactionSearch from './TransactionSearch.js'
 
 const theme = createMuiTheme({
   typography: {
@@ -24,10 +26,13 @@ const filterOptions = createFilterOptions({
   limit: 4
 });
 
-
 function Search() {
-
+  const userId = useSelector((state) => state.authentication.user.id);
+  const balance = useSelector((state)=> state.authentication.user.balance);
+  const [newBalance, setNewBalance] = useState(balance)
   const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
+  const [form, setForm] = useState(false)
 
   useEffect(() => {
     const requestOptions = {
@@ -42,19 +47,28 @@ function Search() {
     setData(newData.users)
     }
     test()
-
   },[]);
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log(search)
+    setForm(true)
+  }
     return (
         <>
             <ThemeProvider theme={theme}>
+            <form onSubmit={handleSubmit}>
             <Autocomplete
               className="searchbar"
               options={data}
               filterOptions={filterOptions}
-              autoComplete={true}
-              autoHighlight={true}
+              clearOnBlur={true}
+              clearOnEscape={true}
+              autoSelect={true}
+              onChange={(e, value) => {setSearch(value)}}
+              noOptionsText="No Person Found"
               getOptionLabel={(option) => option.first_name + ' ' + option.last_name}
-              renderInput={(params) => <TextField {...params} size="small" placeholder="Search People" className="searchbar_textfield" variant="outlined" style={{centeerText: 'center'}}
+              renderInput={(params) => <TextField {...params} size="small" placeholder="Search People" className="searchbar_textfield" variant="outlined" style={{centerText: 'center'}}
               />}
               renderOption={option => {
                 return (
@@ -65,6 +79,15 @@ function Search() {
                 )
               }}
             />
+            </form>
+            <TransactionSearch
+              form={form}
+              setForm={setForm}
+              userId={userId}
+              friendId={search.id}
+              balance={newBalance}
+              newBalance={newBalance => setNewBalance(newBalance)}
+              />
             </ThemeProvider>
         </>
     );

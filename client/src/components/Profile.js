@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 function Profile(props) {
     const pictureURL = props.picture ? props.picture : process.env.PUBLIC_URL + 'no-image.gif'
-    console.log(pictureURL)
 
     return (
         <>
