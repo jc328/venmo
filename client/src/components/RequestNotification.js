@@ -49,14 +49,12 @@ function RequestNotification(props) {
     useEffect(() => {
         const awaitRequests = async () => {
             const list = await dispatch(getRequests(userId));
-            console.log(list.data)
             await setRequests(list.data);
         };
         awaitRequests();
-    }, [dispatch]);
+    }, [dispatch, userId]);
 
     if (requests) {
-        console.log(requests)
         return(
             <Button>
                 <Badge

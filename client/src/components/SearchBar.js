@@ -51,7 +51,6 @@ function Search() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(search)
     setForm(true)
   }
     return (
@@ -62,10 +61,9 @@ function Search() {
               className="searchbar"
               options={data}
               filterOptions={filterOptions}
-              clearOnBlur={true}
-              clearOnEscape={true}
-              autoSelect={true}
               onChange={(e, value) => {setSearch(value)}}
+              clearOnBlur={true}
+              disableClearable={true}
               noOptionsText="No Person Found"
               getOptionLabel={(option) => option.first_name + ' ' + option.last_name}
               renderInput={(params) => <TextField {...params} size="small" placeholder="Search People" className="searchbar_textfield" style={{centerText: 'center'}}

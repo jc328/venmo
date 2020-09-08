@@ -26,16 +26,23 @@ function GoogleSign() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(AuthActions.removeAuth());
-    const storeReady = await dispatch(AuthActions.signIn(auth.currentUser.le.rt.$t, auth.currentUser.le.rt.NT));
-    if (storeReady) {
-      history.push('/dashboard')
+    try {
+      const storeReady = await dispatch(AuthActions.signIn(auth.currentUser.le.rt.$t, auth.currentUser.le.rt.NT));
+      if (storeReady) {
+        history.push('/dashboard')
+      }
+    } catch {
+      const storeReady = await dispatch(AuthActions.signIn('causeError', 'C4useError' ));
+      if (storeReady) {
+        history.push('/dashboard')
+      }
     }
   }
 
   return (
         <>
           <Button onClick={handleSubmit} variant="contained" className="" style={{marginBottom: 25, backgroundColor:"#3D95CE", color:"white"}}>
-          <i className="google icon" style={{marginBottom: 7}}/>
+          <i className="google icon" style={{marginBottom: 8}}/>
           Sign In
           </Button>
         </>

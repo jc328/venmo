@@ -89,6 +89,7 @@ def create_request_transaction():
     data = request.json
     transaction = Transaction(**data)
     db.session.add(transaction)
+    transaction.updated_at = datetime.datetime.now()
     db.session.commit()
     return transaction.to_dict(), 200
 

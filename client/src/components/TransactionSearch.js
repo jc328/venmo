@@ -33,6 +33,19 @@ const theme = createMuiTheme({
   }
 })
 
+const modalTheme = createMuiTheme({
+  typography: {
+    button: {
+      textTransform: 'none',
+    }
+  },
+  palette: {
+    text: {
+      primary: 'rgb(0,0,0)'
+    }
+  }
+})
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
@@ -83,6 +96,7 @@ export default function TransactionSearch(props) {
 
 
   const handleClose = () => {
+    props.setForm(false)
     setOpen(false);
   };
 
@@ -91,6 +105,7 @@ export default function TransactionSearch(props) {
 
   const body = (
     <div style={modalStyle} className={classes.paper}>
+      <ThemeProvider theme={modalTheme}>
       <form >
         <p> Your Current Balance: ${props.balance} </p>
         <div>
@@ -124,6 +139,7 @@ export default function TransactionSearch(props) {
         </Button>
         </div>
       </form>
+      </ThemeProvider>
     </div>
   );
 

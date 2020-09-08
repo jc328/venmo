@@ -28,7 +28,6 @@ const FriendsList = () => {
   if (!friends) {
     return null;
   }
-//   console.log(friends.data)
 
   return (
       <>
