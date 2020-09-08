@@ -47,6 +47,7 @@ class User(db.Model):
       "username": self.username,
       "first_name": self.first_name,
       "last_name": self.last_name,
+      "full_name": (self.first_name + ' ' + self.last_name),
       "email": self.email,
       "picUrl": self.picUrl,
       "balance": float(self.balance),
@@ -63,6 +64,7 @@ class User(db.Model):
       "username": self.username,
       "first_name": self.first_name,
       "last_name": self.last_name,
+      "full_name": self.first_name + " " + self.last_name,
       "picUrl": self.picUrl,
     }
 
@@ -124,8 +126,22 @@ class Transaction(db.Model):
     for like in self.likes:
       user_values = {"id": like.user.id, "name": (like.user.first_name + " " +  like.user.last_name)}
       likers_list.append(user_values)
-    print(likers_list)
     return likers_list
+  
+  def comments_full(self):
+    comments_list = []
+    for comment in self.comments:
+      comment_values = {
+        "id": comment.id, 
+        "message": comment.message, 
+        "created_at": "{:%B %e, %Y, %H:%M %p}".format(comment.created_at),
+        "transaction_id": comment.transaction_id, 
+        "user_id": comment.user.id, 
+        "user_pic": comment.user.picUrl, 
+        "name": (comment.user.first_name + " " + comment.user.last_name)
+      }
+      comments_list.append(comment_values)
+    return comments_list
 
 
   def to_dict(self):
@@ -135,6 +151,7 @@ class Transaction(db.Model):
       "amount": float(self.amount),
       "payee": self.payee.id, #id as placeholder for now, may want to change to username or something else later
       "payee_pic": self.payee.picUrl,
+      "payer_pic": self.payer.picUrl,
       "payee_name": self.payee.first_name + " " + self.payee.last_name,
       "payer_name": self.payer.first_name + " " + self.payer.last_name,
       "payer": self.payer.id,
@@ -145,7 +162,8 @@ class Transaction(db.Model):
       "updated": '{:%B %e, %Y, %H:%M %p}'.format(self.updated_at),
       "updated_at": self.updated_at,
       "likers": self.likers(),
-      "comments": [comment.to_dict() for comment in self.comments]
+      "comments": self.comments_full(),
+      # "comments": [comment.to_dict() for comment in self.comments],
     }
 
 class Comment(db.Model):
@@ -166,6 +184,7 @@ class Comment(db.Model):
     return {
       "id": self.id,
       "user_id": self.user_id,
+      "transaction_id": self.transaction_id,
       "message": self.message,
       "created_at": self.created_at,
       "updated_at": self.updated_at,

@@ -68,7 +68,7 @@ function Search() {
               onChange={(e, value) => {setSearch(value)}}
               noOptionsText="No Person Found"
               getOptionLabel={(option) => option.first_name + ' ' + option.last_name}
-              renderInput={(params) => <TextField {...params} size="small" placeholder="Search People" className="searchbar_textfield" variant="outlined" style={{centerText: 'center'}}
+              renderInput={(params) => <TextField {...params} size="small" placeholder="Search People" className="searchbar_textfield" style={{centerText: 'center'}}
               />}
               renderOption={option => {
                 return (

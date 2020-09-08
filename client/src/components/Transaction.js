@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe, faUserFriends, faLock } from '@fortawesome/free-solid-svg-icons';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import Likers from './Likers';
+import Comment from './Comment';
 
 const Transaction = ({ transaction, index, transactionsData, newTransactionsData }) => {
   const currentUserId = useSelector(state => state.authentication.user.id)
@@ -50,10 +51,11 @@ const Transaction = ({ transaction, index, transactionsData, newTransactionsData
     const newTransData = [...transactionsData.slice(0, index), TransactionDataUpdate, ...transactionsData.slice(index + 1)];
     newTransactionsData(newTransData);
   }
+
   return (
     <div className="feed__transaction">
       <div className="transaction__description">
-        <div className="transaction__icon" style={{ backgroundImage: `url('${transaction.payee_pic}')` }} />
+        <div className="transaction__icon" style={{ backgroundImage: `url('${transaction.payer_pic}')` }} />
         <div className="transaction__details">
           <div className="transaction__details-name">
             <span className="transaction__pay-name">{transaction.payer_name}</span>
@@ -83,6 +85,9 @@ const Transaction = ({ transaction, index, transactionsData, newTransactionsData
         }
         <Likers transaction={transaction} liked={liked}/>
       </div>
+      {transaction.comments && 
+        transaction.comments.map(comment => <Comment key={comment.id} id={comment.id} userId={comment.user_id} fullname={comment.name} userPic={comment.user_pic} message={comment.message} transId={comment.transaction_id} createdAt={comment.created_at}/>)
+      }
     </div>
   );
 }

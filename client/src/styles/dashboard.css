@@ -1,6 +1,7 @@
 .dashboard_container {
   display: flex;
-  width: 80%;
-  margin-left: 100px;
   justify-content: center;
+  background-color: #EEF0F4;
+  padding: 20px 0;
+  min-height: 100vh;
 }

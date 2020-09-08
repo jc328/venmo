@@ -1,7 +1,8 @@
 .landing_body {
   display: flex;
   height: 500px;
-  margin-top: 20px;
+  margin-top: 60px;
+  justify-content: center;
 }
 
 .landing_iphone {
@@ -33,7 +34,7 @@
 
 .landing_body_images {
   position: relative;
-  width:55%;
+  width: 600px;
   justify-content: center;
   display: flex;
 }

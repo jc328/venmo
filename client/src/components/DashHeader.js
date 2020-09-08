@@ -29,6 +29,7 @@ function DashHeader(props) {
   const dispatch = useDispatch();
   const history = useHistory();
   const username = useSelector((state) => state.authentication.user.username)
+  const fullname = useSelector((state) => state.authentication.user.full_name)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -47,7 +48,10 @@ function DashHeader(props) {
 
             <div className="dash_account_buttons">
               <RequestNotification />
-              <Button size="small">{username}</Button>
+              {fullname
+              ? <Button size="small">{fullname}</Button>
+              : <Button size="small">{username}</Button>
+              }
               <Button size="small">Statement</Button>
               <Button size="small">Settings</Button>
               <Button size="small">Help</Button>

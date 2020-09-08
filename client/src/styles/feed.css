@@ -1,7 +1,6 @@
 body {
   font-size: 13px;
   font-family: Helvetica, Arial;
-  background-color: #EEF0F4;
 }
 
 .feed {
@@ -17,8 +16,6 @@ body {
 }
 
 .feed__tabs {
-  /* width: auto; */
-  /* height: 67px; */
   padding: 20px;
   display: flex;
   justify-content: left;
@@ -70,8 +67,6 @@ body {
   border-radius: 50%;
   text-align: right;
   margin: 0 10px;
-  /* padding: 0 10px; */
-  /* flex: 0 0 50px; */
 }
 
 .transaction__details-name {
@@ -81,6 +76,10 @@ body {
 .transaction__pay-name {
   color: #545d66;
   font-weight: 700;
+}
+
+.transaction__paid {
+  color: #545d66;
 }
 
 .transaction__details-date {
@@ -146,4 +145,52 @@ body {
 
 .transaction__likers {
   color: #057FC6;
+}
+
+.transaction__comments {
+  display: flex;
+}
+
+.transaction__comment-left {
+  flex: 0 0 0px;
+  padding: 10px;
+  margin-left: 25px;
+}
+
+.transaction__comment-icon {
+  width: 25px;
+  height: 25px;
+  background-size: 25px 25px;
+  position: relative;
+  border-radius: 50%;
+  text-align: right;
+}
+
+.transaction__comment-right {
+  border-top: 1px solid #eaeaea;
+  flex: 1;
+  padding: 10px 0;
+}
+
+.transaction__comment-detail {
+  display: flex;
+  margin-bottom: 5px;
+  position: relative;
+  height: 18px;
+}
+
+.transaction__comment-name {
+  display: flex;
+  color: #545d66;
+  font-weight: 600;
+  margin-right: 10px;
+  position: relative;
+}
+
+.transaction__comment-date {
+  display: flex;
+  font-size: 9px;
+  color: #979797;
+  position: relative;
+  bottom: -1px;
 }
