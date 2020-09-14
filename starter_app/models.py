@@ -40,6 +40,9 @@ class User(db.Model):
                           primaryjoin=id==Friendship.user_first_id,
                           secondaryjoin=id==Friendship.user_second_id,
                           cascade="all")
+  
+  def has_friends(self):
+    return len(self.friends) > 0
 
   def to_dict(self):
     return {
@@ -47,10 +50,10 @@ class User(db.Model):
       "username": self.username,
       "first_name": self.first_name,
       "last_name": self.last_name,
-      "full_name": (self.first_name + ' ' + self.last_name),
       "email": self.email,
       "picUrl": self.picUrl,
       "balance": float(self.balance),
+      "has_friends": self.has_friends()
     }
 
   def befriend(self, friend):
@@ -103,6 +106,7 @@ class User(db.Model):
       user2_friendship = Friendship.query.filter(Friendship.user_first_id == self.id, Friendship.user_second_id == friend.id).one()
       user1_friendship.status = 1
       user2_friendship.status = 1
+    
 
 class Transaction(db.Model):
   __tablename__='transactions'
@@ -121,10 +125,14 @@ class Transaction(db.Model):
   comments = db.relationship("Comment", back_populates="transaction", cascade="all, delete-orphan")
   likes = db.relationship("Like", back_populates="transaction", cascade="all, delete-orphan")
 
-  def likers(self):
+  def likers_full(self):
     likers_list = []
     for like in self.likes:
-      user_values = {"id": like.user.id, "name": (like.user.first_name + " " +  like.user.last_name)}
+      user_values = {
+                    "user_id": like.user_id, 
+                    "user_full_name": (like.user.first_name + ' ' + like.user.last_name), 
+                    "transaction_id": like.transaction_id,
+                    }
       likers_list.append(user_values)
     return likers_list
   
@@ -132,38 +140,40 @@ class Transaction(db.Model):
     comments_list = []
     for comment in self.comments:
       comment_values = {
-        "id": comment.id, 
-        "message": comment.message, 
-        "created_at": "{:%B %e, %Y, %H:%M %p}".format(comment.created_at),
-        "transaction_id": comment.transaction_id, 
-        "user_id": comment.user.id, 
+        "id": comment.id,
+        "user_id": comment.user_id, 
+        "user_full_name": (comment.user.first_name + ' ' + comment.user.last_name),
         "user_pic": comment.user.picUrl, 
-        "name": (comment.user.first_name + " " + comment.user.last_name)
+        "transaction_id": comment.transaction_id, 
+        "message": comment.message, 
+        "created_at": comment.created_at,
+        "updated_at": comment.updated_at,
       }
       comments_list.append(comment_values)
     return comments_list
-
+  
+  def friend_ids(self):
+    friends_list = [ friend.id for friend in self.payee.friends ] + [ friend.id for friend in self.payer.friends ]
+    return friends_list
 
   def to_dict(self):
     return {
       "id": self.id,
       "privacy": self.privacy,
       "amount": float(self.amount),
-      "payee": self.payee.id, #id as placeholder for now, may want to change to username or something else later
+      "payee_id": self.payee.id,
+      "payee_full_name": (self.payee.first_name + ' ' + self.payee.last_name),
       "payee_pic": self.payee.picUrl,
+      "payer_id": self.payer.id,
+      "payer_full_name": (self.payer.first_name + ' ' + self.payer.last_name),
       "payer_pic": self.payer.picUrl,
-      "payee_name": self.payee.first_name + " " + self.payee.last_name,
-      "payer_name": self.payer.first_name + " " + self.payer.last_name,
-      "payer": self.payer.id,
       "message": self.message,
       "completed": self.completed,
-      "created": '{:%B %e, %Y, %H:%M %p}'.format(self.created_at),
       "created_at": self.created_at,
-      "updated": '{:%B %e, %Y, %H:%M %p}'.format(self.updated_at),
       "updated_at": self.updated_at,
-      "likers": self.likers(),
-      "comments": self.comments_full(),
-      # "comments": [comment.to_dict() for comment in self.comments],
+      "likers_full": self.likers_full(),
+      "comments_full": self.comments_full(),
+      "friend_ids": self.friend_ids()
     }
 
 class Comment(db.Model):
@@ -171,8 +181,8 @@ class Comment(db.Model):
 
   id = db.Column(db.Integer, primary_key = True)
   message = db.Column(db.String(300), nullable = False)
-  transaction_id = db.Column(db.Integer, db.ForeignKey("transactions.id"))
   user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+  transaction_id = db.Column(db.Integer, db.ForeignKey("transactions.id"))
   created_at = db.Column(db.DateTime, default=datetime.datetime.now)
   updated_at = db.Column(db.DateTime, onupdate=datetime.datetime.now)
 

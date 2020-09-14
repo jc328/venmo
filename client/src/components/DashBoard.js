@@ -17,14 +17,14 @@ function DashBoard() {
         <>
             <DashHeader/>
             <div className="dashboard_container">
-                <div><Feed /></div>
-                <div><Profile
+                <Feed />
+                <Profile
                 username={username}
                 balance={balance}
                 picture={picture}
                 firstName={firstName}
                 lastName={lastName}
-                /></div>
+                />
             </div>
         </>
     );

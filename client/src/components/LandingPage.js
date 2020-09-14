@@ -20,7 +20,8 @@ function LandingPage() {
                 <img className="landing_nexus" src={process.env.PUBLIC_URL + 'nexus.png'} alt="" />
                 <div className="landing_combined_iphone">
                 <img className="landing_iphone" src={process.env.PUBLIC_URL + 'iphone6crop.png'} alt="" />
-                <ReactPlayer className="landing_iphone_video" width="270px" height="367px" loop={true} playing={true} muted={true} url={process.env.PUBLIC_URL + 'landing-video.mp4'} />
+                <div className="landing__iphone-border"/>
+                <ReactPlayer className="landing_iphone_video" height="380px" loop={true} playing={true} muted={true} url={process.env.PUBLIC_URL + 'landing-video.mp4'} />
                 </div>
             </div>
 

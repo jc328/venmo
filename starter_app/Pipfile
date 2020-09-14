@@ -7,7 +7,7 @@ verify_ssl = true
 
 [packages]
 flask = "*"
-python-dotenv = "*"
+python-dotenv = "==0.14.0"
 sqlalchemy = "*"
 flask-sqlalchemy = "*"
 alembic = "*"

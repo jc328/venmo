@@ -13,8 +13,19 @@
 
 .landing_iphone_video {
   position: absolute;
-  top: 60px;
-  left: 287px;
+  top: 50px;
+  left: 103px;
+}
+
+.landing__iphone-border {
+  border: solid 2px rgb(95, 95, 95);
+  border-radius: 4px;
+  position: absolute;
+  width: 215px;
+  height: 380px;
+  top: 50px;
+  left: 315px;
+  z-index: 1;
 }
 
 .landing_nexus {

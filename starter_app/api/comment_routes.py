@@ -14,26 +14,18 @@ comment_routes = Blueprint("comments", __name__, url_prefix="/comment")
 '''
 @comment_routes.route('', methods=["POST"])
 def add_comment():
-    data= request.json
-    transaction = Transaction.query.get(data["transaction_id"])
-
-    comment = Comment(
-        message=data["message"],
-        transaction_id= transaction.id,
-        user_id=data["user_id"]
-    )
-    db.session.add(transaction)
-    transaction.comments.append(comment)
+    data = request.json
+    comment = Comment(**data)
+    db.session.add(comment)
     db.session.commit()
-    response = [comment.to_dict() for comment in transaction.comments]
-    return {"data": response}, 200
+    return comment.to_dict(), 200
 
 #Route to delete a comment
 # request json example = {"comment_id": comment id}
-@comment_routes.route('/delete', methods=["POST"])
-def delete_comment():
-    data = request.json
-    comment = Comment.query.get(data["comment_id"])
+@comment_routes.route("/delete/<int:transactionid>/<int:userid>")
+def delete_comment(transactionid, userid):
+    # like = Like.query.filter(Like.user_id==userid, Like.transaction_id==transactionid).first()
+    comment = Comment.query.filter(Comment.user_id==userid, Comment.transaction_id==transactionid).first()
     db.session.delete(comment)
     db.session.commit()
     return {"msg": "comment deleted"}, 200
