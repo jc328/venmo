@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from starter_app.models import db, User, Transaction, Comment, Like
+from app.models import db, User, Transaction, Comment, Like
 from sqlalchemy import and_, or_
 
 like_routes = Blueprint("likes", __name__, url_prefix="/like")
@@ -12,7 +12,7 @@ def heart(transactionid, userid):
   db.session.commit()
   data = like.to_dict()
   return {"data": data}
-  
+
 
 @like_routes.route("/unlike/<int:transactionid>/<int:userid>")
 def unheart(transactionid, userid):
@@ -21,8 +21,3 @@ def unheart(transactionid, userid):
   db.session.delete(like)
   db.session.commit()
   return {"data": data}
-
-
-
-
-

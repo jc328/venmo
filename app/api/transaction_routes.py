@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from starter_app.models import db, User, Transaction, Comment, Like
+from app.models import db, User, Transaction, Comment, Like
 from sqlalchemy import and_, or_, desc
 import datetime
 

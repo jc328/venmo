@@ -6,16 +6,17 @@ from flask_migrate import Migrate
 from flask_jwt_extended import JWTManager, jwt_required, get_raw_jwt
 
 
-from starter_app.models import db, User, Friendship, Transaction, Comment, Like
-from starter_app.api.user_routes import user_routes
-from starter_app.api.transaction_routes import transaction_routes
-from starter_app.api.like_routes import like_routes
-from starter_app.api.comment_routes import comment_routes
-from starter_app.api.friendship_routes import friendship_routes
+from app.models import db, User, Friendship, Transaction, Comment, Like
+from app.api.user_routes import user_routes
+from app.api.transaction_routes import transaction_routes
+from app.api.like_routes import like_routes
+from app.api.comment_routes import comment_routes
+from app.api.friendship_routes import friendship_routes
 
-from starter_app.config import Config
+from app.config import Config
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='')
+# app = Flask(__name__, static_url_path='', static_folder="./static/dist", template_folder="./static")
 
 app.config.from_object(Config)
 app.register_blueprint(user_routes)
