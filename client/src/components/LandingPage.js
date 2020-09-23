@@ -16,12 +16,12 @@ function LandingPage() {
           <LandingHeader />
           <div className="landing_body">
             <div className="landing_body_images">
-            <img className="landing_blinking_cursur" src={process.env.PUBLIC_URL + 'blinking_cursur.gif'} alt="" />
-                <img className="landing_nexus" src={process.env.PUBLIC_URL + 'nexus.png'} alt="" />
+              <img className="landing_blinking_cursur" src={"https://zenmo-bucket.s3-us-west-1.amazonaws.com/assets/blinking_cursur.gif"} alt="" />
+              <img className="landing_nexus" src={"https://zenmo-bucket.s3-us-west-1.amazonaws.com/assets/nexus.png"} alt="" />
                 <div className="landing_combined_iphone">
-                <img className="landing_iphone" src={process.env.PUBLIC_URL + 'iphone6crop.png'} alt="" />
-                <div className="landing__iphone-border"/>
-                <ReactPlayer className="landing_iphone_video" height="380px" loop={true} playing={true} muted={true} url={process.env.PUBLIC_URL + 'landing-video.mp4'} />
+                <img className="landing_iphone" src={"https://zenmo-bucket.s3-us-west-1.amazonaws.com/assets/iphone6crop.png"} alt="" />
+                <div className="landing__iphone-border" />
+                <ReactPlayer className="landing_iphone_video" height="380px" loop={true} playing={true} muted={true} url={"https://zenmo-bucket.s3-us-west-1.amazonaws.com/assets/landing-video.mp4"} />
                 </div>
             </div>
 

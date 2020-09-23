@@ -33,10 +33,10 @@ function LandingFooter() {
               </div>
               <div className="footer_logos">
                 <a href="https://www.apple.com/lae/ios/app-store/">
-                <img className="footer_storelogo" src={process.env.PUBLIC_URL + '/apple-app-store.png'} alt="" />
+                  <img className="footer_storelogo" src={"https://zenmo-bucket.s3-us-west-1.amazonaws.com/assets/apple-app-store.png"} alt="" />
                 </a>
                 <a href="https://play.google.com/store/apps?hl=en_US">
-                <img className="footer_storelogo" src={process.env.PUBLIC_URL + '/google-play-badge.png'} alt="" style={{marginLeft: "15px"}}/>
+                  <img className="footer_storelogo" src={"https://zenmo-bucket.s3-us-west-1.amazonaws.com/assets/google-play-badge.png"} alt="" style={{marginLeft: "15px"}}/>
                 </a>
               </div>
             </div>
