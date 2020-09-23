@@ -30,7 +30,7 @@ function LandingPage() {
 
               <Link to="/signup" style={{textDecoration: 'none'}}>
                 <Button variant="contained"  style={{width: '100%', marginTop: '30px', backgroundColor:"#3D95CE", color:"white"}}>Sign Up Now</Button>
-                </Link>
+              </Link>
             </div>
           </div>
           <LandingFooter />

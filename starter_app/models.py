@@ -14,7 +14,7 @@ class Friendship(db.Model):
     status = db.Column(db.Integer, default = 0)
     db.UniqueConstraint('user_first_id', 'user_second_id', name='unique_friendships')
 
-# Status codes: 0=pending, 1=accepted
+
 class User(db.Model):
   __tablename__ = 'users'
 

@@ -59,13 +59,12 @@ function SignIn() {
                 </TextField>
               </div>
               <div className="signin_demo_submit">
-              <GoogleSign />
+                <GoogleSign />
                 <div>
-                <DemoButton email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
+                  <DemoButton email={email} setEmail={setEmail} password={password} setPassword={setPassword} />
                 </div>
-
                 <div>
-                <Button className="signIn" type="submit" variant="contained" style={{backgroundColor:"#3D95CE", color:"white"}}>Sign In</Button>
+                  <Button className="signIn" type="submit" variant="contained" style={{backgroundColor:"#3D95CE", color:"white"}}>Sign In</Button>
                 </div>
               </div>
             </div>
