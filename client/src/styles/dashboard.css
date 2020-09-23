@@ -1,7 +1,12 @@
 .dashboard_container {
   display: flex;
+  position: sticky;
+  align-items: flex-start;
   justify-content: center;
   background-color: #EEF0F4;
-  padding: 20px 0;
-  min-height: 100vh;
+  padding: 20px 20px 0 20px;
+  /* min-height: 100vh; */
+  /* overflow-x: hidden;  */
+  /* overflow-y: auto;  */
+  /* height: calc(100vh - 58px - 67px); */
 }

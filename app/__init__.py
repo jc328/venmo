@@ -44,7 +44,6 @@ def logout():
     return jsonify({"msg": "Successfully logged out"}), 200
 
 CORS(app)
-
 @app.after_request
 def inject_csrf_token(response):
     response.set_cookie('csrf_token',
