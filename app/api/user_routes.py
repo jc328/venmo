@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, render_template, request, redirect, url_for
-from starter_app.models import User
+from app.models import User
 from ..models import User, db
 from werkzeug.security import generate_password_hash
 from flask_jwt_extended import jwt_optional, create_access_token, get_jwt_identity, jwt_required, get_raw_jwt
@@ -8,10 +8,10 @@ import random
 
 user_routes = Blueprint("user", __name__, "")
 
-@user_routes.route('/')
-def index():
-  response = User.query.all()
-  return { "users": [user.to_dict() for user in response]}
+# @user_routes.route('/')
+# def index():
+#   response = User.query.all()
+#   return { "users": [user.to_dict() for user in response]}
 
 @user_routes.route('/allusers', methods=['POST'])
 def allusers():

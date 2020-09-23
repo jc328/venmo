@@ -3,8 +3,8 @@ from datetime import datetime, timedelta
 import random
 load_dotenv()
 
-from starter_app import app, db
-from starter_app.models import User, Friendship, Transaction, Like, Comment
+from app import app, db
+from app.models import User, Friendship, Transaction, Like, Comment
 
 with app.app_context():
   db.drop_all()

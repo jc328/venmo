@@ -1,92 +1,166 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { baseUrl } from '../config';
+import NumberFormat from 'react-number-format';
+import moment from 'moment';
 import '../styles/feed.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe, faUserFriends, faLock } from '@fortawesome/free-solid-svg-icons';
-import { faHeart } from '@fortawesome/free-regular-svg-icons';
 import Likers from './Likers';
 import Comment from './Comment';
+import CommentForm from './CommentForm';
+import CommentNull from './CommentNull';
 
-const Transaction = ({ transaction, index, transactionsData, newTransactionsData }) => {
-  const currentUserId = useSelector(state => state.authentication.user.id)
-  const firstName = useSelector((state) => state.authentication.user.first_name)
-  const lastName = useSelector((state) => state.authentication.user.last_name)
-  const transId = transaction.id;
+const Transaction = ({ 
+                    tdx, transactionsData, newTransactionsData, transaction,
+                    transaction:  { 
+                                  id, privacy, amount, message, updated_at,
+                                  payee_id, payee_full_name, payer_id, payer_full_name, payer_pic, 
+                                  likers_full, comments_full, friend_ids
+                                  } 
+                    }) => {
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const currentUserId = useSelector(state => state.authentication.user.id);
+  const first_name = useSelector(state => state.authentication.user.first_name);
+  const last_name = useSelector(state => state.authentication.user.last_name);
+  const userFullname = `${first_name} ${last_name}`;
 
-  const findLike = () => ( transactionsData[index].likers.filter(liker => liker.id === currentUserId).length === 1 );
+  const isFriend = friend_ids.filter(friend_id => friend_id === currentUserId).length > 0;
+  const findLike = likers_full.filter(liker => liker.user_id === currentUserId).length === 1;
   const [liked, setLiked] = useState(findLike);
 
   const createLike = async () => {
-    await fetch(`${baseUrl}/like/${transId}/${currentUserId}`, {});
+    await fetch(`${baseUrl}/like/${id}/${currentUserId}`, {});
   };
 
   const destroyLike = async () => {
-    await fetch(`${baseUrl}/like/unlike/${transId}/${currentUserId}`, {});
+    await fetch(`${baseUrl}/like/unlike/${id}/${currentUserId}`, {});
   };
 
   const handleUnlike = async (e) => {
-    console.log('click remove')
     e.preventDefault();
-    await destroyLike(transId, currentUserId);
+    await destroyLike(id, currentUserId);
     setLiked(false)
-    const oldTransData = transactionsData[index];
-    const likerIdx = oldTransData.likers.findIndex(liker => liker.id === currentUserId);
-    const newLikers = [...oldTransData.likers.slice(0, likerIdx), ...oldTransData.likers.slice(likerIdx + 1)];
-    const TransactionDataUpdate = { ...oldTransData, "likers": newLikers };
-    const newTransData = [...transactionsData.slice(0, index), TransactionDataUpdate, ...transactionsData.slice(index + 1)];
-    newTransactionsData(newTransData);
+    
+    const ldx = likers_full.findIndex(liker => liker.user_id === currentUserId);
+    const newLikers =  [
+                      ...likers_full.slice(0, ldx), 
+                      ...likers_full.slice(ldx + 1)
+                      ];
+    const newTransaction = { ...transaction, "likers_full": newLikers };
+    const newTransactions = {...transactionsData, "transactions": [
+                        ...transactionsData.transactions.slice(0, tdx), 
+                        newTransaction, 
+                        ...transactionsData.transactions.slice(tdx + 1)
+                        ]};
+    newTransactionsData(newTransactions);
   }
 
   const handleLike = async (e) => {
-    console.log('click like')
     e.preventDefault();
-    await createLike(transId, currentUserId);
+    await createLike(id, currentUserId);
     setLiked(true)
-    const oldTransData = transactionsData[index];
-    const likerIdx = oldTransData.likers.findIndex(liker => liker.id === currentUserId);
-    const newLiker = { "id": currentUserId, "name": `${firstName} ${lastName}`}
-    const newLikers = [...oldTransData.likers.slice(0, likerIdx), newLiker,...oldTransData.likers.slice(likerIdx + 1)];
-    const TransactionDataUpdate = { ...oldTransData, "likers": newLikers };
-    const newTransData = [...transactionsData.slice(0, index), TransactionDataUpdate, ...transactionsData.slice(index + 1)];
-    newTransactionsData(newTransData);
+
+    const ldx = likers_full.findIndex(liker => liker.user_id === currentUserId);
+    const newLiker = { "user_id": currentUserId, "user_full_name": userFullname, "transaction_id": id };
+    const newLikers =  [
+                      ...likers_full.slice(0, ldx), 
+                      newLiker,
+                      ...likers_full.slice(ldx + 1)
+                      ];
+    const newTransaction = { ...transaction, "likers_full": newLikers };
+    const newTransactions = { ...transactionsData, "transactions": [
+                        ...transactionsData.transactions.slice(0, tdx), 
+                        newTransaction, 
+                        ...transactionsData.transactions.slice(tdx + 1)
+                        ]};
+    newTransactionsData(newTransactions);
   }
 
   return (
-    <div className="feed__transaction">
+    <div className="feed__transaction" style={{ animation: `fadeIn 0.5s` }}>
       <div className="transaction__description">
-        <div className="transaction__icon" style={{ backgroundImage: `url('${transaction.payer_pic}')` }} />
+        <div className="transaction__icon">
+          <img
+            src={payer_pic}
+            alt={"profile-pic"}
+            className={`smooth-image image-${
+              imageLoaded ? 'visible' : 'hidden'
+              }`}
+            onLoad={() => setImageLoaded(true)}
+          />
+          {!imageLoaded && (
+            <div className="smooth-preloader">
+              <span className="loader" />
+            </div>
+          )}
+        </div>
         <div className="transaction__details">
-          <div className="transaction__details-name">
-            <span className="transaction__pay-name">{transaction.payer_name}</span>
-            <span className="transaction__paid"> paid </span>
-            <span className="transaction__pay-name">{transaction.payee_name}</span>
+          <div className="transaction__names-amount">
+            <div className="transaction__names">
+              <span className="transaction__pay-name">{payer_full_name}</span>
+              <span className="transaction__paid"> paid </span>
+              <span className="transaction__pay-name">{payee_full_name}</span>
+            </div>
           </div>
           <div className="transaction__details-date">
-            <div className="transaction__date">{transaction.updated}&nbsp;</div>
-            {transaction.privacy === 0
+            <div className="transaction__date">{moment(updated_at).format('MMMM Do, YYYY, h:mm A')}&nbsp;</div>
+            {privacy === 0
               ? <FontAwesomeIcon className="transaction__audience" icon={faGlobe} />
-              : transaction.privacy === 1
+              : privacy === 1
                 ? <FontAwesomeIcon className="transaction__audience" icon={faUserFriends} />
                 : <FontAwesomeIcon className="transaction__audience" icon={faLock} />
             }
           </div>
-          <div className="transaction__message">{transaction.message}</div>
+          <div className="transaction__message">{message}</div>
         </div>
+        {payee_id === currentUserId  
+          ? <div className="transaction__amount">$<NumberFormat value={amount} displayType={'text'} decimalScale={2} fixedDecimalScale={true} /></div>
+          : payer_id === currentUserId &&
+            <div className="transaction__amount payee">-$<NumberFormat value={amount} displayType={'text'} decimalScale={2} fixedDecimalScale={true} /></div>
+        }
       </div>
       <div className="transaction__likes">
+        <div className="transaction__likes-heart">
         {liked
-          ? <button className="transaction__like" onClick={handleUnlike}>
-            <FontAwesomeIcon className="transaction__heart liked" icon={faHeart} />
-          </button>
-          : <button className="transaction__like" onClick={handleLike}>
-            <FontAwesomeIcon className="transaction__heart" icon={faHeart} />
+          ? <button id="heart" className="transaction__heart-button liked" onClick={handleUnlike}>
+              <svg viewBox="0 0 20 20" width="20" height="20">
+                <path d="M10 5.6c.4-1.8 2.2-3.2 4.2-3 2.4 0 4.8 1.7 4.6 5.5-.3 4.2-7.2 11-8.7 11C8.7 19 1.7 12 1.5 8c-.4-3.8 2-5.5 4.4-5.5 2 0 3.8 1.3 4.2 3"></path>
+                <path d="M10 5.6c.4-1.8 2.2-3.2 4.2-3 2.4 0 4.8 1.7 4.6 5.5-.3 4.2-7.2 11-8.7 11C8.7 19 1.7 12 1.5 8c-.4-3.8 2-5.5 4.4-5.5 2 0 3.8 1.3 4.2 3"></path>
+                <path d="M10 5.6c.4-1.8 2.2-3.2 4.2-3 2.4 0 4.8 1.7 4.6 5.5-.3 4.2-7.2 11-8.7 11C8.7 19 1.7 12 1.5 8c-.4-3.8 2-5.5 4.4-5.5 2 0 3.8 1.3 4.2 3"></path>
+              </svg>
+            </button>
+          : <button id="heart" className="transaction__heart-button" onClick={handleLike}>
+            <svg viewBox="0 0 20 20" width="20" height="20">
+              <path d="M10 5.6c.4-1.8 2.2-3.2 4.2-3 2.4 0 4.8 1.7 4.6 5.5-.3 4.2-7.2 11-8.7 11C8.7 19 1.7 12 1.5 8c-.4-3.8 2-5.5 4.4-5.5 2 0 3.8 1.3 4.2 3"></path>
+              <path d="M10 5.6c.4-1.8 2.2-3.2 4.2-3 2.4 0 4.8 1.7 4.6 5.5-.3 4.2-7.2 11-8.7 11C8.7 19 1.7 12 1.5 8c-.4-3.8 2-5.5 4.4-5.5 2 0 3.8 1.3 4.2 3"></path>
+              <path d="M10 5.6c.4-1.8 2.2-3.2 4.2-3 2.4 0 4.8 1.7 4.6 5.5-.3 4.2-7.2 11-8.7 11C8.7 19 1.7 12 1.5 8c-.4-3.8 2-5.5 4.4-5.5 2 0 3.8 1.3 4.2 3"></path>
+            </svg>
           </button>
         }
-        <Likers transaction={transaction} liked={liked}/>
+        </div>
+        <Likers likers_full={likers_full} liked={liked}/>
       </div>
-      {transaction.comments && 
-        transaction.comments.map(comment => <Comment key={comment.id} id={comment.id} userId={comment.user_id} fullname={comment.name} userPic={comment.user_pic} message={comment.message} transId={comment.transaction_id} createdAt={comment.created_at}/>)
+      {
+      comments_full && 
+        comments_full.map((comment, cdx) => <Comment 
+                                              key={cdx}  
+                                              tdx={tdx} 
+                                              cdx={cdx}
+                                              transactionsData={transactionsData} 
+                                              newTransactionsData={newTransactionsData}
+                                              transaction={transaction} 
+                                              comment={comment} />)
+      }
+      { isFriend 
+        ? <CommentForm 
+            tdx={tdx} 
+            transactionId={id}
+            transactionsData={transactionsData} 
+            newTransactionsData={newTransactionsData}
+            transaction={transaction}  
+          />
+        : <CommentNull/>
       }
     </div>
   );

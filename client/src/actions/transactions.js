@@ -75,3 +75,21 @@ export const requestPayment = (amount, message, payee_id, payer_id) => async (
     return response;
   }
 };
+
+export const createComment = (message, transaction_id, user_id) => async (dispatch) => {
+  const response = await fetch(`${baseUrl}/comment`, {
+    method: "post",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      message,
+      transaction_id,
+      user_id,
+    }),
+  });
+
+  if (response.ok) {
+    return true;
+  } else {
+    return response;
+  }
+};

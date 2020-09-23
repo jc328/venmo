@@ -3,7 +3,7 @@ import '../styles/profile.css';
 import { Link } from 'react-router-dom';
 
 function Profile(props) {
-    const pictureURL = props.picture ? props.picture : process.env.PUBLIC_URL + 'no-image.gif'
+    const pictureURL = props.picture ? props.picture : "https://zenmo-bucket.s3-us-west-1.amazonaws.com/assets/no-image.gif"
 
     return (
         <>

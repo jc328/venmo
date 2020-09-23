@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, request
-from starter_app.models import db, User, Transaction, Comment, Like, Friendship
+from app.models import db, User, Transaction, Comment, Like, Friendship
 from sqlalchemy import and_, or_
 
 friendship_routes = Blueprint("friends", __name__, url_prefix="/friends")
