@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { createComment } from '../actions/transactions'
+import moment from 'moment';
 import '../styles/feed.css';
 
 const Comment = ({ 
@@ -22,13 +23,19 @@ const Comment = ({
   const handleCommentAdd = async (e) => {
     e.preventDefault();
     const createdComment = await dispatch(createComment(message, transactionId, currentUserId));
+    const correctedDate = moment().format("ddd, D MMM YYYY HH:mm:ss [GMT]");
+    console.log("CORRECTED DATE:", correctedDate);
+    const commentDateNow = `${correctedDate}`;
+    console.log("commentDateNow:", commentDateNow);
     const newComment = { 
                       "user_id": currentUserId, 
                       "user_full_name": currentUserFullname, 
                       "user_pic": currentUserPic,
                       "transaction_id": transactionId,
                       "message": message,
+                      "created_at": commentDateNow,
                       }
+    console.log(newComment);
     const newComments = [...comments_full, newComment];
     const newTransaction = { ...transaction, "comments_full": newComments };
     const newTransactions = { ...transactionsData, "transactions": [...transactionsData.transactions.slice(0, tdx), newTransaction, ...transactionsData.transactions.slice(tdx + 1)]};

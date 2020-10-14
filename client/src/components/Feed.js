@@ -45,7 +45,9 @@ const Feed = () => {
       fetchData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pageData.page]);  
+  }, [pageData.page]);
+  
+  // useEffect(() => {}, [transactionsData])
   
   
   useLayoutEffect(() => {

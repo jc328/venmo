@@ -61,12 +61,10 @@ const Transaction = ({
     await createLike(id, currentUserId);
     setLiked(true)
 
-    const ldx = likers_full.findIndex(liker => liker.user_id === currentUserId);
     const newLiker = { "user_id": currentUserId, "user_full_name": userFullname, "transaction_id": id };
     const newLikers =  [
-                      ...likers_full.slice(0, ldx), 
-                      newLiker,
-                      ...likers_full.slice(ldx + 1)
+                      ...likers_full, 
+                      newLiker
                       ];
     const newTransaction = { ...transaction, "likers_full": newLikers };
     const newTransactions = { ...transactionsData, "transactions": [

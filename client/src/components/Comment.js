@@ -6,22 +6,31 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import '../styles/feed.css';
 
+moment.relativeTimeThreshold('d', 365);
+moment.relativeTimeThreshold('M', 0);
+
 moment.updateLocale('en', {
   relativeTime: {
-    future: 'in %s',
-    past: '%s ago',
-    s: '%ss',
-    ss: '%ss',
-    m: '%dm',
-    mm: '%dm',
-    h: '%dh',
-    hh: '%dh',
-    d: '%dd',
-    dd: '%dd',
-    M: '%dd',
-    MM: '%dd',
-    y: '%dy',
-    yy: '%dy'
+    future: "in %s",
+    past: function (input) {
+      return input === 'just now'
+        ? input
+        : input + ' ago'
+    },
+    s: 'just now',
+    ss: '%ds',
+    m: "1m",
+    mm: "%dm",
+    h: "1h",
+    hh: "%dh",
+    d: "1d",
+    dd: "%dd",
+    w: "1w",
+    ww: "%dw",
+    M: "1m",
+    MM: "%dm",
+    y: "1y",
+    yy: "%dy"
   }
 });
 
@@ -53,6 +62,8 @@ const Comment = ({
     newTransactionsData(newTransactions);
     await destroyComment(transactionId, currentUserId);
   }
+
+  const tzOffset = { "h": moment().utcOffset() / 60, "m": moment().utcOffset() % 60};
   
   return (
     <div className="transaction__comments">
@@ -76,7 +87,7 @@ const Comment = ({
       <div className="transaction__comment-right">
         <p className="transaction__comment-detail">
           <span className="transaction__comment-name">{user_full_name}</span>
-          <span className="transaction__comment-date">{moment(created_at).fromNow()}</span>
+          <span className="transaction__comment-date">{moment(created_at).subtract(tzOffset).fromNow()}</span>
         </p>
         <div className="transaction__comment-message">
           {message}
