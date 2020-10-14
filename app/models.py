@@ -1,8 +1,9 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import validates
-import datetime
+from datetime import datetime, timezone, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 import re
+
 
 db = SQLAlchemy()
 
@@ -26,8 +27,8 @@ class User(db.Model):
   hashed_password = db.Column(db.String, nullable = False)
   picUrl = db.Column(db.String)
   balance = db.Column(db.Numeric(9,2))
-  created_at = db.Column(db.DateTime, default=datetime.datetime.now)
-  updated_at = db.Column(db.DateTime, onupdate=datetime.datetime.now)
+  created_at = db.Column(db.DateTime, default=datetime.now)
+  updated_at = db.Column(db.DateTime, onupdate=datetime.now)
 
   credit_transactions = db.relationship("Transaction", foreign_keys= "Transaction.payee_id", backref="payee", cascade="all, delete-orphan", lazy="dynamic")
   debit_transactions = db.relationship("Transaction", foreign_keys="Transaction.payer_id", backref="payer", cascade="all, delete-orphan", lazy="dynamic")
@@ -118,8 +119,8 @@ class Transaction(db.Model):
   payer_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
   message = db.Column(db.String(300))
   completed = db.Column(db.Boolean, nullable = False)
-  created_at = db.Column(db.DateTime, default=datetime.datetime.now)
-  updated_at = db.Column(db.DateTime, onupdate=datetime.datetime.now)
+  created_at = db.Column(db.DateTime, default=datetime.now)
+  updated_at = db.Column(db.DateTime, onupdate=datetime.now)
 
   #Users table uses backref to payer/payee. So you can query Transaction.payer.username to see the name of the person paying.
   comments = db.relationship("Comment", back_populates="transaction", cascade="all, delete-orphan")
@@ -183,8 +184,8 @@ class Comment(db.Model):
   message = db.Column(db.String(300), nullable = False)
   user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
   transaction_id = db.Column(db.Integer, db.ForeignKey("transactions.id"))
-  created_at = db.Column(db.DateTime, default=datetime.datetime.now)
-  updated_at = db.Column(db.DateTime, onupdate=datetime.datetime.now)
+  created_at = db.Column(db.DateTime, default=datetime.now)
+  updated_at = db.Column(db.DateTime, onupdate=datetime.now)
 
   user = db.relationship("User", back_populates="comments")
   transaction = db.relationship("Transaction", back_populates="comments")
@@ -207,8 +208,8 @@ class Like(db.Model):
   user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
   comment_id = db.Column(db.Integer, db.ForeignKey("comments.id"))
   transaction_id = db.Column(db.Integer, db.ForeignKey("transactions.id"))
-  created_at = db.Column(db.DateTime, default=datetime.datetime.now)
-  updated_at = db.Column(db.DateTime, onupdate=datetime.datetime.now)
+  created_at = db.Column(db.DateTime, default=datetime.now)
+  updated_at = db.Column(db.DateTime, onupdate=datetime.now)
 
   user = db.relationship("User", back_populates="likes")
   transaction = db.relationship("Transaction", back_populates="likes")

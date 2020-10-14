@@ -16,8 +16,10 @@ comment_routes = Blueprint("comments", __name__, url_prefix="/comment")
 def add_comment():
     data = request.json
     comment = Comment(**data)
+    print(f'COMMENT: {comment.created_at}')
     db.session.add(comment)
     db.session.commit()
+    print(f'COMMENT TO DICT: {comment.to_dict()}')
     return comment.to_dict(), 200
 
 #Route to delete a comment

@@ -52,3 +52,8 @@
   text-decoration: none;
   font-size: 13px;
 }
+
+.dev {
+  align-self: center;
+  justify-self: center;
+}

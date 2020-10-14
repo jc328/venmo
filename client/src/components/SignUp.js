@@ -95,7 +95,7 @@ function SignUp() {
                 required
                 color="primary"
               />
-              <p>I have read and agree to Venmo's User Agreement and Privacy Policy.</p>
+              <p>I have read and agree to Zenmo's User Agreement and Privacy Policy.</p>
             </div>
             <div className="signin_signup_link">
               <Button type="submit" variant="contained" style={{backgroundColor:"#3D95CE", color:"white"}}>

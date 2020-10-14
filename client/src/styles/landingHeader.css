@@ -16,5 +16,5 @@
 .landing_buttons {
   width: 47%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }

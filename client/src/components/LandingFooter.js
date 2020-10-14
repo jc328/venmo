@@ -10,37 +10,30 @@ function LandingFooter() {
         <>
         <Divider style={{marginTop: '50px'}}/>
         <div className="landing_footer_outer">
-
           <ThemeProvider theme={theme}>
           <div className="landing_footer_container">
-
             <div className="footer_container">
+              <h3 className="dev">Developed By:</h3>
               <div className="footer_links_container">
-                <p className="footer_title">Learn More</p>
-                <Link to="" className="footer_links">How it Works</Link>
-                <Link to="" className="footer_links">Contact Us</Link>
-                <Link to="" className="footer_links">Business</Link>
+                <p className="footer_title">John Chen</p>
+                <a href="https://www.linkedin.com/in/john-chen-92714817/" className="footer_links">LinkedIn</a>
+                <a href="https://github.com/jc328" className="footer_links">GitHub</a>
               </div>
               <div className="footer_links_container">
-                <p className="footer_title">Company</p>
-                <Link to="" className="footer_links">Our Team</Link>
-                <Link to="" className="footer_links">Jobs</Link>
+                <p className="footer_title">Robert Estrada</p>
+                <a href="https://www.linkedin.com/in/robertmestrada/" className="footer_links">LinkedIn</a>
+                <a href="https://github.com/robertestrada" className="footer_links">GitHub</a>
               </div>
               <div className="footer_links_container">
-                <p className="footer_title">Community</p>
-                <Link to="" className="footer_links">Blog</Link>
-                <Link to="" className="footer_links">Help Center</Link>
+                <p className="footer_title">Greg Lloyd</p>
+                <a href="https://www.linkedin.com/in/greglloyd1/" className="footer_links">LinkedIn</a>
+                <a href="https://github.com/Greg001100" className="footer_links">GitHub</a>
               </div>
               <div className="footer_logos">
-                <a href="https://www.apple.com/lae/ios/app-store/">
-                  <img className="footer_storelogo" src={"https://zenmo-bucket.s3-us-west-1.amazonaws.com/assets/apple-app-store.png"} alt="" />
-                </a>
-                <a href="https://play.google.com/store/apps?hl=en_US">
-                  <img className="footer_storelogo" src={"https://zenmo-bucket.s3-us-west-1.amazonaws.com/assets/google-play-badge.png"} alt="" style={{marginLeft: "15px"}}/>
-                </a>
+
               </div>
             </div>
-            <h5 className="footer_disclaimer" style={{marginBottom: 25}}>Zenmo is a service of PayPal, Inc., a licensed provider of money transfer services (NMLS ID: 910457). All money transmission is provided by PayPal, Inc. pursuant to PayPal, Inc.’s licenses. © 2020 PayPal, Inc.</h5>
+            <h5 className="footer_disclaimer" style={{marginBottom: 25}}>Zenmo is a service of PayBuddy, Inc., a licensed provider of money transfer services (NMLS ID: 999999). All money transmission is provided by PayBuddy, Inc. pursuant to PayBuddy, Inc.’s licenses. © 2020 PayBuddy, Inc.</h5>
           </div>
           </ThemeProvider>
         </div>
