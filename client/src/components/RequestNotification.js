@@ -56,7 +56,7 @@ function RequestNotification(props) {
 
     if (requests) {
         return(
-            <Button>
+            <Button onClick ={handleClick}>
                 <Badge
                     badgeContent={requests.length}
                     color="error"
@@ -64,7 +64,7 @@ function RequestNotification(props) {
                         vertical: 'bottom',
                         horizontal: 'left',
                     }}>
-                    <NotificationsNoneOutlinedIcon onClick ={handleClick} style={{color: white}}/>
+                    <NotificationsNoneOutlinedIcon style={{color: white}}/>
                     <Popper id={id} open={open} anchorEl={anchorEl} transition>
                         {({ TransitionProps }) => (
                         <Fade {...TransitionProps} timeout={350}>

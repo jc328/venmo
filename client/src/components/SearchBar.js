@@ -71,8 +71,8 @@ function Search() {
               renderOption={option => {
                 return (
                   <>
-                    <img src={option.picUrl} alt="Logo" style={{width:40, borderRadius: 10, marginRight: 10}}/>
-                    <div>{option.first_name + ' ' + option.last_name}</div>
+                    <img onClick={handleSubmit} src={option.picUrl} alt="Logo" style={{width:40, borderRadius: 10, marginRight: 10}}/>
+                    <div onClick={handleSubmit}>{option.first_name + ' ' + option.last_name}</div>
                   </>
                 )
               }}
