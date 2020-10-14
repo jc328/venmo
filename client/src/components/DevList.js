@@ -11,46 +11,41 @@ import TransactionForm from './TransactionForm';
 import DashHeader from './DashHeader';
 
 const FriendsList = () => {
-  const dispatch = useDispatch();
-  const userId = useSelector((state) => state.authentication.user.id);
-  const balance = useSelector((state)=> state.authentication.user.balance);
-  const [friends, setFriends] = useState(null)
-  const [newBalance, setNewBalance] = useState(balance)
+//   const dispatch = useDispatch();
+//   const userId = useSelector((state) => state.authentication.user.id);
+//   const balance = useSelector((state)=> state.authentication.user.balance);
+//   const [friends, setFriends] = useState(null)
+//   const [newBalance, setNewBalance] = useState(balance)
 
-  useEffect(() => {
-      const awaitFriends = async () => {
-          const list = await dispatch(getFriends(userId))
-          setFriends(list);
-      };
-      awaitFriends()
-  }, [dispatch, userId]);
+//   useEffect(() => {
+//       const awaitFriends = async () => {
+//           const list = await dispatch(getFriends(userId))
+//           setFriends(list);
+//       };
+//       awaitFriends()
+//   }, [dispatch, userId]);
 
-  if (!friends) {
-    return null;
-  }
+//   if (!friends) {
+//     return null;
+//   }
 
-  return (
-      <>
-        <DashHeader />
-        <div className="friendslist__container">
-            <div className="friendslist">
-                <h1>Friends:</h1>
-                <p> Your Current Balance: ${newBalance} </p>
-                {friends.data.map((friend) => {
-                    return (
-                        <div className="friendslist__border friend" key={friend.id}>
-                            <div className="transaction__icon" style={{ backgroundImage: `url('${friend.picUrl}')` }} />
-                            <p>
-                                {friend.first_name} {friend.last_name} <span style={{color: "rgb(175, 175, 175)"}}>@{friend.username}</span>
-                            </p>
-                            <TransactionForm userId={userId} friendId={friend.id} balance={newBalance} newBalance={newBalance => setNewBalance(newBalance)}/>
-                        </div>
-                    )
-                })}
-            </div>
-        </div>
-      </>
-  );
+//   return (
+//       <>
+//         <DashHeader />
+//         <div className="friendslist__container">
+//             <div className="friendslist">
+//                 <h1>Developers</h1>
+//                 <div className="friendslist__border friend">
+//                     <div className="transaction__icon" style={{ backgroundImage: `url('${friend.picUrl}')` }} />
+//                     <p>
+//                         {friend.first_name} {friend.last_name} <span style={{color: "rgb(175, 175, 175)"}}>@{friend.username}</span>
+//                     </p>
+//                     <TransactionForm userId={userId} friendId={friend.id} balance={newBalance} newBalance={newBalance => setNewBalance(newBalance)}/>
+//                 </div>
+//             </div>
+//         </div>
+//       </>
+//   );
 }
 
 export default FriendsList;

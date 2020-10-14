@@ -15,7 +15,7 @@ function LandingHeader() {
 
               <div className="landing_buttons">
 
-                <Button size="small" style={{fontColor:"white"}} disabled>Contact Us</Button>
+                <Button size="small" style={{fontColor:"white"}}><Link to="/about">Contact Us</Link></Button>
 
                 <Link to="/signin" style={{textDecoration: 'none'}}><Button size="small" style={{fontColor:"white"}}>Sign In</Button></Link>
               </div>
