@@ -11,13 +11,13 @@ import Comment from './Comment';
 import CommentForm from './CommentForm';
 import CommentNull from './CommentNull';
 
-const Transaction = ({ 
+const Transaction = ({
                     tdx, transactionsData, newTransactionsData, transaction,
-                    transaction:  { 
+                    transaction:  {
                                   id, privacy, amount, message, updated_at,
-                                  payee_id, payee_full_name, payer_id, payer_full_name, payer_pic, 
+                                  payee_id, payee_full_name, payer_id, payer_full_name, payer_pic,
                                   likers_full, comments_full, friend_ids
-                                  } 
+                                  }
                     }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
   const currentUserId = useSelector(state => state.authentication.user.id);
@@ -26,6 +26,7 @@ const Transaction = ({
   const userFullname = `${first_name} ${last_name}`;
 
   const isFriend = friend_ids.filter(friend_id => friend_id === currentUserId).length > 0;
+  console.log(isFriend, "isFriend")
   const findLike = likers_full.filter(liker => liker.user_id === currentUserId).length === 1;
   const [liked, setLiked] = useState(findLike);
 
@@ -41,16 +42,16 @@ const Transaction = ({
     e.preventDefault();
     await destroyLike(id, currentUserId);
     setLiked(false)
-    
+
     const ldx = likers_full.findIndex(liker => liker.user_id === currentUserId);
     const newLikers =  [
-                      ...likers_full.slice(0, ldx), 
+                      ...likers_full.slice(0, ldx),
                       ...likers_full.slice(ldx + 1)
                       ];
     const newTransaction = { ...transaction, "likers_full": newLikers };
     const newTransactions = {...transactionsData, "transactions": [
-                        ...transactionsData.transactions.slice(0, tdx), 
-                        newTransaction, 
+                        ...transactionsData.transactions.slice(0, tdx),
+                        newTransaction,
                         ...transactionsData.transactions.slice(tdx + 1)
                         ]};
     newTransactionsData(newTransactions);
@@ -64,14 +65,14 @@ const Transaction = ({
     const ldx = likers_full.findIndex(liker => liker.user_id === currentUserId);
     const newLiker = { "user_id": currentUserId, "user_full_name": userFullname, "transaction_id": id };
     const newLikers =  [
-                      ...likers_full.slice(0, ldx), 
+                      ...likers_full.slice(0, ldx),
                       newLiker,
                       ...likers_full.slice(ldx + 1)
                       ];
     const newTransaction = { ...transaction, "likers_full": newLikers };
     const newTransactions = { ...transactionsData, "transactions": [
-                        ...transactionsData.transactions.slice(0, tdx), 
-                        newTransaction, 
+                        ...transactionsData.transactions.slice(0, tdx),
+                        newTransaction,
                         ...transactionsData.transactions.slice(tdx + 1)
                         ]};
     newTransactionsData(newTransactions);
@@ -114,7 +115,7 @@ const Transaction = ({
           </div>
           <div className="transaction__message">{message}</div>
         </div>
-        {payee_id === currentUserId  
+        {payee_id === currentUserId
           ? <div className="transaction__amount">$<NumberFormat value={amount} displayType={'text'} decimalScale={2} fixedDecimalScale={true} /></div>
           : payer_id === currentUserId &&
             <div className="transaction__amount payee">-$<NumberFormat value={amount} displayType={'text'} decimalScale={2} fixedDecimalScale={true} /></div>
@@ -142,23 +143,23 @@ const Transaction = ({
         <Likers likers_full={likers_full} liked={liked}/>
       </div>
       {
-      comments_full && 
-        comments_full.map((comment, cdx) => <Comment 
-                                              key={cdx}  
-                                              tdx={tdx} 
+      comments_full &&
+        comments_full.map((comment, cdx) => <Comment
+                                              key={cdx}
+                                              tdx={tdx}
                                               cdx={cdx}
-                                              transactionsData={transactionsData} 
+                                              transactionsData={transactionsData}
                                               newTransactionsData={newTransactionsData}
-                                              transaction={transaction} 
+                                              transaction={transaction}
                                               comment={comment} />)
       }
-      { isFriend 
-        ? <CommentForm 
-            tdx={tdx} 
+      { isFriend
+        ? <CommentForm
+            tdx={tdx}
             transactionId={id}
-            transactionsData={transactionsData} 
+            transactionsData={transactionsData}
             newTransactionsData={newTransactionsData}
-            transaction={transaction}  
+            transaction={transaction}
           />
         : <CommentNull/>
       }
