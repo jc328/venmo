@@ -52,9 +52,7 @@ function DashHeader(props) {
               ? <Button size="small">{fullname}</Button>
               : <Button size="small">{username}</Button>
               }
-              <Button size="small">Statement</Button>
-              <Button size="small">Settings</Button>
-              <Button size="small">Help</Button>
+              <Link to="/about"><Button size="small">About</Button></Link>
               <Button size="small" onClick={handleSubmit}>Log Out</Button>
             </div>
           </div>

@@ -5,6 +5,11 @@
   justify-content: space-evenly;
 }
 
+.bg {
+  background-color: #EEF0F4;
+  height: 100vh;
+}
+
 .friendslist {
   width: 632px;
   height: auto;

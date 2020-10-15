@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import '../styles/landingFooter.css'
 import theme from '../styles/theme.js'
 import { Divider } from '@material-ui/core';

@@ -30,7 +30,7 @@ const FriendsList = () => {
   }
 
   return (
-      <>
+      <div className='bg'>
         <DashHeader />
         <div className="friendslist__container">
             <div className="friendslist">
@@ -49,7 +49,7 @@ const FriendsList = () => {
                 })}
             </div>
         </div>
-      </>
+      </div>
   );
 }
 
