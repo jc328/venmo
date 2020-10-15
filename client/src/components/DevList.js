@@ -9,43 +9,57 @@ import { getFriends } from '../actions/friends';
 // import { setValErrors } from '../actions/authentication';
 import TransactionForm from './TransactionForm';
 import DashHeader from './DashHeader';
+import LandingHeader from './LandingHeader';
 
-const FriendsList = () => {
-//   const dispatch = useDispatch();
-//   const userId = useSelector((state) => state.authentication.user.id);
-//   const balance = useSelector((state)=> state.authentication.user.balance);
-//   const [friends, setFriends] = useState(null)
-//   const [newBalance, setNewBalance] = useState(balance)
+const DevList = () => {
 
-//   useEffect(() => {
-//       const awaitFriends = async () => {
-//           const list = await dispatch(getFriends(userId))
-//           setFriends(list);
-//       };
-//       awaitFriends()
-//   }, [dispatch, userId]);
-
-//   if (!friends) {
-//     return null;
-//   }
-
-//   return (
-//       <>
-//         <DashHeader />
-//         <div className="friendslist__container">
-//             <div className="friendslist">
-//                 <h1>Developers</h1>
-//                 <div className="friendslist__border friend">
-//                     <div className="transaction__icon" style={{ backgroundImage: `url('${friend.picUrl}')` }} />
-//                     <p>
-//                         {friend.first_name} {friend.last_name} <span style={{color: "rgb(175, 175, 175)"}}>@{friend.username}</span>
-//                     </p>
-//                     <TransactionForm userId={userId} friendId={friend.id} balance={newBalance} newBalance={newBalance => setNewBalance(newBalance)}/>
-//                 </div>
-//             </div>
-//         </div>
-//       </>
-//   );
+  return (
+      <>
+        {/* <DashHeader /> */}
+        <LandingHeader />
+        <div className="friendslist__container">
+            <div className="friendslist">
+                <h1>Developers</h1>
+                <div className="friendslist__border friend">
+                    <div className="transaction__icon" >
+                        <img className='smooth-image' src='jc.jpg' />
+                    </div>
+                    <p>
+                        John Chen
+                    </p>
+                    <div>
+                        <a href="https://www.linkedin.com/in/john-chen-92714817/" className="footer_links">LinkedIn </a>
+                        <a href="https://github.com/jc328" className="footer_links">GitHub</a>
+                    </div>
+                </div>
+                <div className="friendslist__border friend">
+                    <div className="transaction__icon" >
+                        <img className='smooth-image' src='re.jpg' />
+                    </div>
+                    <p>
+                        Robert Estrada
+                    </p>
+                    <div>
+                        <a href="https://www.linkedin.com/in/robertmestrada/" className="footer_links">LinkedIn </a>
+                        <a href="https://github.com/robertestrada" className="footer_links">GitHub</a>
+                    </div>
+                </div>
+                <div className="friendslist__border friend">
+                    <div className="transaction__icon" >
+                        <img className='smooth-image' src='gl.jpg' />
+                    </div>
+                    <p>
+                        Greg Lloyd
+                    </p>
+                    <div>
+                        <a href="https://www.linkedin.com/in/greglloyd1/" className="footer_links">LinkedIn </a>
+                        <a href="https://github.com/Greg001100" className="footer_links">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </>
+  );
 }
 
-export default FriendsList;
+export default DevList;

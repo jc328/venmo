@@ -36,7 +36,7 @@ function App() {
             <Route path="/signin" exact component={SignIn} />
             <Route path="/" exact component={LandingPage} />
             <Route path="/about/product" exact component={HowZenmoWorks} />
-            {/* <Route path="/about" exact component={DevList} /> */}
+            <Route path="/about" exact component={DevList} />
             <PrivateRoute path="/friends" needSignIn={needSignIn} exact component={FriendsList} />
             <PrivateRoute path="/dashboard" needSignIn={needSignIn} exact component={DashBoard} />
         </Switch>
