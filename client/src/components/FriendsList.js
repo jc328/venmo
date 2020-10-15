@@ -39,7 +39,7 @@ const FriendsList = () => {
                 {friends.data.map((friend) => {
                     return (
                         <div className="friendslist__border friend" key={friend.id}>
-                            <div className="transaction__icon" style={{ backgroundImage: `url('${friend.picUrl}')` }} />
+                            <div className="transaction__icon smooth-image" style={{ backgroundImage: `url('${friend.picUrl}')` }} />
                             <p>
                                 {friend.first_name} {friend.last_name} <span style={{color: "rgb(175, 175, 175)"}}>@{friend.username}</span>
                             </p>

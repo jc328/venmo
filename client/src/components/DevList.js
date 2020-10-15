@@ -22,7 +22,7 @@ const DevList = () => {
                 <h1>Developers</h1>
                 <div className="friendslist__border friend">
                     <div className="transaction__icon" >
-                        <img className='smooth-image' src='jc.jpg' />
+                        <img className='smooth-image' src='https://zenmo-bucket.s3-us-west-1.amazonaws.com/developers/john.jpeg' />
                     </div>
                     <p>
                         John Chen
@@ -34,7 +34,7 @@ const DevList = () => {
                 </div>
                 <div className="friendslist__border friend">
                     <div className="transaction__icon" >
-                        <img className='smooth-image' src='re.jpg' />
+                        <img className='smooth-image' src='https://zenmo-bucket.s3-us-west-1.amazonaws.com/developers/robert.jpg' />
                     </div>
                     <p>
                         Robert Estrada
@@ -46,7 +46,7 @@ const DevList = () => {
                 </div>
                 <div className="friendslist__border friend">
                     <div className="transaction__icon" >
-                        <img className='smooth-image' src='gl.jpg' />
+                        <img className='smooth-image' src='https://zenmo-bucket.s3-us-west-1.amazonaws.com/developers/greg.jpeg' />
                     </div>
                     <p>
                         Greg Lloyd
