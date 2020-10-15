@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage.js'
 import SignIn from './components/SignIn.js'
 import SignUp from './components/SignUp.js'
+import DevList from './components/DevList.js'
 import HowZenmoWorks from './components/HowZenmoWorks.js'
 import SignUpNotice from './components/SignUpNotice.js'
 import DashBoard from './components/DashBoard.js'
@@ -35,6 +36,7 @@ function App() {
             <Route path="/signin" exact component={SignIn} />
             <Route path="/" exact component={LandingPage} />
             <Route path="/about/product" exact component={HowZenmoWorks} />
+            {/* <Route path="/about" exact component={DevList} /> */}
             <PrivateRoute path="/friends" needSignIn={needSignIn} exact component={FriendsList} />
             <PrivateRoute path="/dashboard" needSignIn={needSignIn} exact component={DashBoard} />
         </Switch>

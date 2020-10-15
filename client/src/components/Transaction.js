@@ -64,8 +64,8 @@ const Transaction = ({
 
     const newLiker = { "user_id": currentUserId, "user_full_name": userFullname, "transaction_id": id };
     const newLikers =  [
-                      ...likers_full, 
-                      newLiker
+                      ...likers_full,
+                      newLiker,
                       ];
     const newTransaction = { ...transaction, "likers_full": newLikers };
     const newTransactions = { ...transactionsData, "transactions": [
