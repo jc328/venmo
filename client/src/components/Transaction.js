@@ -151,7 +151,7 @@ const Transaction = ({
                                               transaction={transaction}
                                               comment={comment} />)
       }
-      { isFriend
+      { isFriend || currentUserId === payee_id || currentUserId === payer_id 
         ? <CommentForm
             tdx={tdx}
             transactionId={id}
