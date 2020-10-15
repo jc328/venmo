@@ -49,8 +49,8 @@ function DashHeader(props) {
             <div className="dash_account_buttons">
               <RequestNotification />
               {fullname
-              ? <Button size="small">{fullname}</Button>
-              : <Button size="small">{username}</Button>
+              ? <Button size="small" className="userName" disabled><p className="userName">{fullname}</p></Button>
+              : <Button size="small" className="userName" disabled><p className="userName">{username}</p></Button>
               }
               <Link to="/about"><Button size="small">About</Button></Link>
               <Button size="small" onClick={handleSubmit}>Log Out</Button>
