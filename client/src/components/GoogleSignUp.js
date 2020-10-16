@@ -14,7 +14,7 @@ function GoogleSignUp() {
   useEffect(() => {
     window.gapi.load('client:auth2', () => {
       window.gapi.client.init({
-        clientId: '200012556157-3fntfk0a57vul9q3j8f8jdaro0kbb1ar.apps.googleusercontent.com',
+        clientId: '200012556157-00bgj2c334hdictl0ipmu9ajusqb4bq4.apps.googleusercontent.com',
         scope: 'email',
         apiKey: 'AIzaSyBpuTpg1INY6eeEEeVNhCdrsrUYzj6qzZ8',
       }).then(() => {
