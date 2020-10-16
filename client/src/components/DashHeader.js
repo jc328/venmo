@@ -28,7 +28,6 @@ function DashHeader(props) {
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const username = useSelector((state) => state.authentication.user.username)
   const fullname = useSelector((state) => state.authentication.user.full_name)
 
   const handleSubmit = async (e) => {
@@ -48,10 +47,11 @@ function DashHeader(props) {
 
             <div className="dash_account_buttons">
               <RequestNotification />
-              {fullname
+              {/* {fullname
               ? <Button size="small" className="userName" disabled><p className="userName">{fullname}</p></Button>
               : <Button size="small" className="userName" disabled><p className="userName">{username}</p></Button>
-              }
+              } */}
+              <Button size="small" className="userName" disabled><p className="userName">{fullname}</p></Button>
               <Link to="/about"><Button size="small">About</Button></Link>
               <Button size="small" onClick={handleSubmit}>Log Out</Button>
             </div>

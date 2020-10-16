@@ -14,7 +14,7 @@ function GoogleSign() {
   useEffect(() => {
     window.gapi.load('client:auth2', () => {
       window.gapi.client.init({
-        clientId: '1072199093070-t1qbjbvbtmmnaf76sp92nv80ga1puu0o.apps.googleusercontent.com',
+        clientId: '200012556157-3fntfk0a57vul9q3j8f8jdaro0kbb1ar.apps.googleusercontent.com',
         scope: 'email'
       }).then(() => {
         let authorized = window.gapi.auth2.getAuthInstance();
@@ -27,7 +27,7 @@ function GoogleSign() {
     e.preventDefault();
     await dispatch(AuthActions.removeAuth());
     try {
-      const storeReady = await dispatch(AuthActions.signIn(auth.currentUser.le.rt.$t, auth.currentUser.le.rt.NT));
+      const storeReady = await dispatch(AuthActions.signIn(auth.currentUser.le.nt.Wt, auth.currentUser.le.nt.yT));
       if (storeReady) {
         history.push('/dashboard')
       }

@@ -44,6 +44,9 @@ class User(db.Model):
   
   def has_friends(self):
     return len(self.friends) > 0
+  
+  def full_name(self):
+    return self.first_name + " " + self.last_name
 
   def to_dict(self):
     return {
@@ -54,7 +57,8 @@ class User(db.Model):
       "email": self.email,
       "picUrl": self.picUrl,
       "balance": float(self.balance),
-      "has_friends": self.has_friends()
+      "has_friends": self.has_friends(),
+      "full_name": self.full_name(),
     }
 
   def befriend(self, friend):
