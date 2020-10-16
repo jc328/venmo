@@ -21,7 +21,7 @@ function LandingPage() {
                 <div className="landing_combined_iphone">
                 <img className="landing_iphone" src={"https://zenmo-bucket.s3-us-west-1.amazonaws.com/assets/iphone6crop.png"} alt="" />
                 <div className="landing__iphone-border" />
-                <ReactPlayer className="landing_iphone_video" height="380px" loop={true} playing={true} muted={true} url={"https://zenmo-bucket.s3-us-west-1.amazonaws.com/assets/landing-video.mp4"} />
+                <ReactPlayer className="landing_iphone_video" height="380px" loop={true} autoPlay playing={true} muted={true} url={"https://zenmo-bucket.s3-us-west-1.amazonaws.com/assets/landing-video.mp4"} />
                 </div>
             </div>
 

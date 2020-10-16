@@ -26,7 +26,6 @@ const Transaction = ({
   const userFullname = `${first_name} ${last_name}`;
 
   const isFriend = friend_ids.filter(friend_id => friend_id === currentUserId).length > 0;
-  console.log(isFriend, "isFriend")
   const findLike = likers_full.filter(liker => liker.user_id === currentUserId).length === 1;
   const [liked, setLiked] = useState(findLike);
 

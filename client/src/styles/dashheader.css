@@ -14,6 +14,11 @@ body {
   justify-content: space-evenly;
 }
 
+.dash_account_buttons {
+  display: flex;
+  align-items: center;
+}
+
 .dash_logo_search {
   display: flex;
   align-items: center;
@@ -31,4 +36,5 @@ body {
 
 .userName {
   color: white;
+  line-height: 1.75;
 }

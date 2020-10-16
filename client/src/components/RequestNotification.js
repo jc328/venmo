@@ -69,11 +69,10 @@ function RequestNotification(props) {
                         {({ TransitionProps }) => (
                         <Fade {...TransitionProps} timeout={350}>
                             <div className={classes.paper}>
-
                                 {requests.length>=1?
                                 requests.map((request) => {
                                     return (
-                                        <p key={request.id} className="requestlist__holder">{request.payee_name} requests $ {request.amount.toFixed(2)} <span className="payButton"><Button variant="contained" onClick={() => handleConfirm(request.id, request.amount)} size="small" style={{backgroundColor:"#3D95CE", color:"white"}}>Pay</Button></span></p>
+                                        <p key={request.id} className="requestlist__holder">{request.payee_full_name} requests $ {request.amount.toFixed(2)} <span className="payButton"><Button variant="contained" onClick={() => handleConfirm(request.id, request.amount)} size="small" style={{backgroundColor:"#3D95CE", color:"white"}}>Pay</Button></span></p>
                                     )
                                 })
                             : <p>You're all caught up!</p>}
