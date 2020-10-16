@@ -15,7 +15,8 @@ function GoogleSignUp() {
     window.gapi.load('client:auth2', () => {
       window.gapi.client.init({
         clientId: '200012556157-3fntfk0a57vul9q3j8f8jdaro0kbb1ar.apps.googleusercontent.com',
-        scope: 'email'
+        scope: 'email',
+        apiKey: 'AIzaSyBpuTpg1INY6eeEEeVNhCdrsrUYzj6qzZ8',
       }).then(() => {
         let authorized = window.gapi.auth2.getAuthInstance();
         setAuth(authorized);
