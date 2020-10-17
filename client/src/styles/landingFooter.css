@@ -1,12 +1,15 @@
 .landing_footer_outer{
   margin-top: 25px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
+  flex-direction: column;
 }
 
 .footer_container {
   display: flex;
   justify-content: space-around;
+  flex-direction: column;
+  width: 100vw;
 }
 
 .landing_footer_container {
@@ -16,7 +19,8 @@
 
 .footer_disclaimer {
   width: 90%;
-  margin-left: 60px;
+  align-self: center;
+  text-align: center;
   font-size: 11px;
   color: #7F7F7F;
   margin-top: 25px;
@@ -45,6 +49,8 @@
   display:flex;
   flex-direction: column;
   justify-items: center;
+  margin-left: 40px;
+  margin-right: 40px;
 }
 
 .footer_links {
@@ -56,4 +62,12 @@
 .dev {
   align-self: center;
   justify-self: center;
+}
+
+.devflex {
+  display: flex;
+  align-self: center;
+  text-align: center;
+  justify-content: space-around;
+
 }
