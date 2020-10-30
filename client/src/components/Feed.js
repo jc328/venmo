@@ -10,7 +10,7 @@ const Feed = () => {
   const currentUserId = useSelector(state => state.authentication.user.id)
   const currentUserFriends = useSelector(state => state.authentication.user.has_friends)
   const { promiseInProgress } = usePromiseTracker();
-  const feedDefault = currentUserFriends ? "friends" : "mine";
+  const feedDefault = currentUserFriends ? "friends" : "public";
   const initialPageData = { "page": 1, "loadMore": false, "tab": feedDefault};
   const [pageData, setPageData] = useState(initialPageData);
   const [allowScroll, setAllowScroll] = useState(false);
