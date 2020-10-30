@@ -16,7 +16,6 @@ from app.api.friendship_routes import friendship_routes
 from app.config import Config
 
 app = Flask(__name__, static_url_path='')
-# app = Flask(__name__, static_url_path='', static_folder="./static/dist", template_folder="./static")
 
 app.config.from_object(Config)
 app.register_blueprint(user_routes)

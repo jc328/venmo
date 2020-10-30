@@ -76,11 +76,58 @@ export const signUp = (firstName, lastName, email, password, picture = "") => as
   }
 }
 
+export const signUpGoogle = (firstName, lastName, email, picture = "") => async dispatch => {
+  try {
+    const response = await fetch(`${baseUrl}/signup-google`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ firstName, lastName, email, picture }),
+    });
+    if (!response.ok) {
+      const valErrors = await response.json();
+      await dispatch(setValErrors(valErrors))
+      return false;
+    }
+    else {
+      const { token, user } = await response.json();
+      window.localStorage.setItem(TOKEN_KEY, token);
+      window.localStorage.setItem(CURRENT_USER, JSON.stringify(user));
+      dispatch(setToken(token));
+      dispatch(setUser(user))
+      return true
+    }
+
+  }
+  catch (err) {
+    console.error(err);
+  }
+}
+
 export const signIn = (email, password) => async dispatch => {
   const response = await fetch(`${baseUrl}/signin`, {
     method: 'post',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, password }),
+  });
+  if (response.ok) {
+    const { token, user } = await response.json();
+    window.localStorage.setItem(TOKEN_KEY, token);
+    window.localStorage.setItem(CURRENT_USER, JSON.stringify(user));
+    dispatch(setToken(token));
+    dispatch(setUser(user));
+    return true;
+  } else {
+    const valErrors = await response.json();
+    dispatch(setValErrors(valErrors));
+    return false;
+  }
+};
+
+export const signInGoogle = email => async dispatch => {
+  const response = await fetch(`${baseUrl}/signin-google`, {
+    method: 'post',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email }),
   });
   if (response.ok) {
     const { token, user } = await response.json();

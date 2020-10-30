@@ -8,4 +8,6 @@ class Config:
   JWT_SECRET_KEY= os.environ.get('JWT_SECRET_KEY')
   JWT_BLACKLIST_TOKEN_CHECKS=['access', 'refresh']
   JWT_BLACKLIST_ENABLED=True
+  GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
+  GOOGLE_API_KEY = os.environ.get('GOOGLE_API_KEY')
 

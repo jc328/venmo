@@ -1,43 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import {useHistory} from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import React from 'react';
+import {useHistory} from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { baseUrl } from '../config';
 import * as AuthActions from '../actions/authentication';
-import { Button } from '@material-ui/core'
+import { Button } from '@material-ui/core';
 
-function GoogleSign() {
-
-  const [auth, setAuth] = useState('');
-
+const GoogleSign = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-
-  useEffect(() => {
-    window.gapi.load('client:auth2', () => {
-      window.gapi.client.init({
-        clientId: '200012556157-00bgj2c334hdictl0ipmu9ajusqb4bq4.apps.googleusercontent.com',
-        scope: 'email',
-        apiKey: 'AIzaSyBpuTpg1INY6eeEEeVNhCdrsrUYzj6qzZ8',
-      }).then(() => {
-        let authorized = window.gapi.auth2.getAuthInstance();
-        setAuth(authorized)
-      })
-    });
-  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     await dispatch(AuthActions.removeAuth());
-    try {
-      const storeReady = await dispatch(AuthActions.signIn(auth.currentUser.le.nt.Wt, auth.currentUser.le.nt.yT));
-      if (storeReady) {
-        history.push('/dashboard')
-      }
-    } catch {
-      const storeReady = await dispatch(AuthActions.signIn('causeError', 'C4useError' ));
-      if (storeReady) {
-        history.push('/dashboard')
-      }
-    }
+    const googleCredsFetch = await fetch(`${baseUrl}/google-credentials`);
+    const googleCreds = await googleCredsFetch.json();
+
+    window.gapi.load('client:auth2', () => {
+      window.gapi.client.init({
+        clientId: `${googleCreds.client_id}`,
+        scope: 'email',
+        apiKey: `${googleCreds.api_key}`,
+      }).then(() => {
+        const authorized = window.gapi.auth2.getAuthInstance();
+        try {
+          const profile = authorized.currentUser.get().getBasicProfile();
+          const storeReady = dispatch(AuthActions.signInGoogle(profile.getEmail()));
+          if (storeReady) {
+            history.push('/dashboard')
+          }
+        } catch {
+          const storeReady = dispatch(AuthActions.signIn('causeError', 'C4useError' ));
+          if (storeReady) {
+            history.push('/dashboard')
+          }
+        }
+      })
+    });
   }
 
   return (
