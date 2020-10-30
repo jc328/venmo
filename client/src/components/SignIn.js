@@ -1,5 +1,5 @@
-import React, { useState }from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useHistory, Redirect } from 'react-router-dom';
 import LandingHeader from './LandingHeader';
 import LandingFooter from './LandingFooter';
 import '../styles/signIn.css';
@@ -9,17 +9,31 @@ import theme from '../styles/theme.js'
 import { ThemeProvider } from '@material-ui/core/styles';
 import GoogleSign from './GoogleSign.js'
 import { useDispatch, useSelector } from 'react-redux'
-// import { signIn } from '../store/authentication.js';
 import * as AuthActions from '../actions/authentication';
 import DemoButton from './DemoButton'
 
-function SignIn() {
+const SignIn = ({needSignin}) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const history = useHistory();
-  const valErrors = useSelector(state=> state.authentication.valErrors)
+  const valErrors = useSelector(state=> state.authentication.valErrors);
+  const userExists = useSelector(state => state.authentication.user);
+
+  useEffect(() => {
+    const getToken = async () => {
+      await dispatch(AuthActions.loadToken());
+      await dispatch(AuthActions.loadUser());
+    }
+    getToken();
+  }, [dispatch]);
+
+  const renderRedirect = () => {
+    if (!needSignin) {
+      return <Redirect to='/dashboard' />
+    }
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,9 +46,9 @@ function SignIn() {
 
     return (
         <>
+          {userExists ? renderRedirect() : null}
           <ThemeProvider theme={theme}>
           <LandingHeader />
-
           {valErrors? <Alert severity="error">{valErrors.msg}</Alert> : null}
           <form onSubmit={handleSubmit}>
           <div className="signin_outer_container">

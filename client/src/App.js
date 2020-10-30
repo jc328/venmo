@@ -13,33 +13,21 @@ import FriendsList from './components/FriendsList.js';
 import { PrivateRoute } from './utilities/authUtils'
 
 
-function App() {
+const App = () => {
   const needSignIn = useSelector(state => !state.authentication.token);
-
-  // const [loaded, setLoaded] = useState(false);
-  // const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   setLoaded(true);
-  //   dispatch(loadToken());
-  // }, [dispatch]);
-
-  // if (!loaded) {
-  //   return null;
-  // }
 
   return (
     <BrowserRouter>
-        <Switch>
-            <Route path="/signup" exact component={SignUpNotice} />
-            <Route path="/signup/email" exact component={SignUp} />
-            <Route path="/signin" exact component={SignIn} />
-            <Route path="/" exact component={LandingPage} />
-            <Route path="/about/product" exact component={HowZenmoWorks} />
-            <Route path="/about" exact component={DevList} />
-            <PrivateRoute path="/friends" needSignIn={needSignIn} exact component={FriendsList} />
-            <PrivateRoute path="/dashboard" needSignIn={needSignIn} exact component={DashBoard} />
-        </Switch>
+      <Switch>
+        <Route path="/signup" exact component={SignUpNotice} />
+        <Route path="/signup/email" exact component={SignUp} />
+        <Route path="/signin" needSignIn={needSignIn} exact component={SignIn} />
+        <Route path="/" needSignIn={needSignIn} exact component={LandingPage} />
+        <Route path="/about/product" exact component={HowZenmoWorks} />
+        <Route path="/about" exact component={DevList} />
+        <PrivateRoute path="/friends" needSignIn={needSignIn} exact component={FriendsList} />
+        <PrivateRoute path="/dashboard" needSignIn={needSignIn} exact component={DashBoard} />
+      </Switch>
     </BrowserRouter>
   );
 }
