@@ -21,6 +21,8 @@ RUN ["cp", "-r", "client/build/", "app/static"]
 ENV FLASK_APP=app
 ENV FLASK_ENV=production
 ENV SQLALCHEMY_ECHO=True
+ENV SECRET_KEY=notsecret
+ENV JWT_SECRET_KEY=notsecret
 ENV GOOGLE_CLIENT_ID=notsecret
 ENV GOOGLE_API_KEY=notsecret
 
