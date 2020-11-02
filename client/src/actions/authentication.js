@@ -153,6 +153,10 @@ export const logout = () => async (dispatch, getState) => {
   if (response.ok) {
     window.localStorage.removeItem(TOKEN_KEY);
     window.localStorage.removeItem(CURRENT_USER);
-    dispatch(removeAuth())
+    dispatch(removeAuth());
+  } else {
+    window.localStorage.removeItem(TOKEN_KEY);
+    window.localStorage.removeItem(CURRENT_USER);
+    dispatch(removeAuth());
   }
 };
